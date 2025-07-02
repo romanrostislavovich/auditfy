@@ -1,0 +1,38 @@
+{
+  "name": "auditfy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "./node_modules/.bin/tsc",
+    "tslint": "./node_modules/.bin/tslint",
+    "build": "tsc -p . && gulp -f ./config/gulp.js",
+    "test": "npm run build && node dist/bin.js test/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romanrostislavovich/auditfy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/romanrostislavovich/auditfy/issues"
+  },
+  "homepage": "https://github.com/romanrostislavovich/auditfy#readme",
+  "dependencies": {
+    "@axe-core/puppeteer": "^4.10.2",
+    "chalk": "^5.4.1",
+    "cheerio": "^1.1.0",
+    "commander": "^14.0.0",
+    "lighthouse": "^12.7.0",
+    "ora": "^8.2.0",
+    "puppeteer": "^24.11.1",
+    "serve-handler": "^6.1.6"
+  },
+  "devDependencies": {
+    "@types/serve-handler": "^6.1.4",
+    "gulp": "^5.0.1",
+    "gulp-copy": "^5.0.0",
+    "typescript": "^5.8.3"
+  }
+}
