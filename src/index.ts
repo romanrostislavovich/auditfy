@@ -1,11 +1,12 @@
 import { Command } from 'commander';
 import ora from 'ora';
 import chalk from 'chalk';
-import { seoAudit } from './modules/seo';
+import { seoAudit } from './modules/seo/seo';
 import { a11yAudit } from './modules/a11y';
-import { performanceAudit } from './modules/performance';
+import { performanceAudit } from './modules/perfomance/performance';
 import { structuredDataAudit } from './modules/structured';
 import { statSync } from 'node:fs';
+import path from "node:path";
 const program = new Command();
 
 program
@@ -23,9 +24,11 @@ program
             }
             const filePath: string = `file://${process.cwd()}/${file}`;
             const filePath2: string = `${process.cwd()}/${file}`;
+            const dir: string = path.dirname(file);
+            const filename: string = path.basename(file);
             const results = {
-                seo: await seoAudit(file),
-                a11y: await a11yAudit(filePath2),
+                seo: await seoAudit(file, dir),
+                a11y: await a11yAudit(filePath),
                 performance: await performanceAudit(filePath2),
                 structured: await structuredDataAudit(file),
             };

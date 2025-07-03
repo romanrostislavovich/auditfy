@@ -4,13 +4,14 @@ import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import * as path from "node:path";
 import * as http from "node:http";
 import handler from 'serve-handler';
-import {Message} from "../models/message.model";
-import {MessageType} from "../enum/message.enum";
+import {Message} from "../../models/message.model";
+import {MessageType} from "../../enum/message.enum";
 
 const PORT = 9900;
+
 export async function performanceAudit(file: string) {
-    const dir = path.dirname(file);
-    const filename = path.basename(file);
+    const dir: string = path.dirname(file);
+    const filename: string = path.basename(file);
 
     const server = http.createServer((req, res) => {
         return handler(req, res, { public: dir });
@@ -26,27 +27,29 @@ export async function performanceAudit(file: string) {
         logLevel: 'error',
         onlyCategories: ['performance']
     });
-    console.log( result?.lhr.audits);
     killAll();
     server.close();
 
     const audits: Record<string, AuditResult> | undefined = result?.lhr.audits;
 
 
-
     if(audits) {
+        const TBTScore = audits['total-blocking-time'].score || 0;
+        const CLSScore = audits['cumulative-layout-shift'].score || 0;
+        const LCPScore = audits['largest-contentful-paint'].score || 0;
+
         return [
             {
-                message: `LCP score: ${audits['largest-contentful-paint'].score}`,
-                passed: (audits['largest-contentful-paint'].score || 0) >= 0.9
+                message: `LCP score:  ${LCPScore}`,
+                passed: LCPScore >= 0.9
             },
             {
-                message: `TBT score: ${audits['total-blocking-time'].score}`,
-                passed: (audits['total-blocking-time'].score || 0) >= 0.9
+                message: `TBT score: ${TBTScore}`,
+                passed: TBTScore >= 0.9
             },
             {
-                message: `CLS score: ${audits['cumulative-layout-shift'].score}`,
-                passed: (audits['cumulative-layout-shift'].score || 0) >= 0.9
+                message: `CLS score: ${CLSScore}`,
+                passed: CLSScore >= 0.9
             }
         ];
     }

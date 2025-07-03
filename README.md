@@ -1,1 +1,4 @@
 # auditfy
+
+## Required
+- Google Chrome 

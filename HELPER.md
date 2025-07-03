@@ -4,14 +4,15 @@
 
 🔷 1. SEO-проверки
 
-- ✅	`<title>` и его длина (до 60 симв.)	`cheerio, кастомный парсер`
-- ✅	<meta name="description">	`cheerio`
-- ✅	robots.txt и sitemap.xml	`axios + парсинг`
-- ✅	canonical и hreflang	`cheerio`
-- ✅	Alt у всех <img>	`axe-core, cheerio`
+- ✅ [x] `<title>` и его длина (до 60 симв.)	`cheerio, кастомный парсер`
+- ✅ [x] <meta name="description">	`cheerio`
+- ✅ [ ] robots.txt и sitemap.xml	`axios + парсинг`
+- ✅ [x] canonical 	`cheerio`
+- ✅ [ ] hreflang	`cheerio`
+- ✅ [x] Alt у всех <img>	`axe-core, cheerio`
 - ✅	Структурированные данные (JSON-LD)	`cheerio + jsonld-checker`
 - ✅	Проверка meta og:*, twitter:*	`cheerio`
-- ✅	Кол-во заголовков H1-H6, их вложенность	cheerio
+- ✅	Кол-во заголовков H1-H6, их вложенность	`cheerio`
 - ✅	Индексация страницы (robots, noindex)	`axios + анализ DOM`
 
 🔷 2. Акссесибилити (a11y)
