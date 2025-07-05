@@ -4,8 +4,6 @@ import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import * as path from "node:path";
 import * as http from "node:http";
 import handler from 'serve-handler';
-import {Message} from "../../models/message.model";
-import {MessageType} from "../../enum/message.enum";
 
 const PORT = 9900;
 

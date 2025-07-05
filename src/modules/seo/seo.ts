@@ -5,6 +5,7 @@ import {DescriptionRule} from "./description.rule";
 import {CanonicalRule} from "./canonical.rule";
 import {Message} from "../../models/message.model";
 import {Cheerio, CheerioAPI} from "cheerio";
+import {Header1Rule} from "./header1.rule";
 const SeoAnalyzer = require('seo-analyzer');
 
 export async function seoAudit(filepath: string, dir: string) {
@@ -12,14 +13,6 @@ export async function seoAudit(filepath: string, dir: string) {
     const $ = cheerio.load(html);
     console.log(checkSEO($));
 
-    debugger;
-    new SeoAnalyzer()
-        .inputFolders([dir])
-        .outputObject((obj: any) => {
-            debugger;
-            console.log(obj)
-        })
-        .run();
 
     return [
         { message: `Title tag is ${$('title').text() ? 'present' : 'missing'}`, passed: !!$('title').text() },
@@ -30,18 +23,21 @@ export async function seoAudit(filepath: string, dir: string) {
    // return checkSEO($);
 }
 
-function checkSEO(api: CheerioAPI) {
+function checkSEO(dom: CheerioAPI) {
     // Values
-    const title = api('title').text();
-    const canonical = api('link[rel="canonical"]').attr('href');
-    const metaDescription = api('meta[name="description"]').attr('content');
+    const h1 = dom('h1').get().length;
+    const title = dom('title').text();
+    const canonical = dom('link[rel="canonical"]').attr('href');
+    const metaDescription = dom('meta[name="description"]').attr('content');
 
     // Rules
+    const h1Rule: Header1Rule = new Header1Rule(h1);
     const titleRule: TitleRule = new TitleRule(title);
     const canonicalRule: CanonicalRule = new CanonicalRule(canonical);
     const descriptionRule: DescriptionRule = new DescriptionRule(metaDescription);
 
     const result: Message[] = [
+        ...h1Rule.check(),
         ...titleRule.check(),
         ...canonicalRule.check(),
         ...descriptionRule.check(),
