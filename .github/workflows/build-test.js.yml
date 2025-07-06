@@ -39,7 +39,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - name: Install Puppeteer Chromium dependencies
     - run: |
           sudo apt-get update
           sudo apt-get install -y \
