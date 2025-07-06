@@ -1,6 +1,6 @@
 {
   "author": "Raman Lauryniuk <romanrostislavovich@gmail.com>",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "name": "website-auditfy",
   "description": "",
   "main": "dist/src/index.js",
@@ -44,13 +44,13 @@
     "ora": "^8.2.0",
     "puppeteer": "^24.11.1",
     "seo-analyzer": "^3.2.0",
-    "serve-handler": "^6.1.6",
-    "website-auditfy": "^0.0.1"
+    "serve-handler": "^6.1.6"
   },
   "devDependencies": {
     "@types/serve-handler": "^6.1.4",
     "gulp": "^5.0.1",
     "gulp-copy": "^5.0.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "website-auditfy": "^0.0.2"
   }
 }
