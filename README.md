@@ -1,5 +1,7 @@
 # website-auditfy
 [![semantic](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![NPM](https://img.shields.io/npm/v/website-auditfy)](https://www.npmjs.com/package/website-auditfy)
+[![Node.js Package](https://github.com/romanrostislavovich/auditfy/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/romanrostislavovich/auditfy/actions/workflows/npm-publish.yml)
 > 
 
 ## Table of Contents
@@ -32,7 +34,7 @@ Future:
 Required: 
 ```angular2html
 - Node v20+
-- Google Chrome for `puppeteer`
+- `Google Chrome` or `chrome-launcher' for `puppeteer`
 ```
 
 ## Usage
