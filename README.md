@@ -31,6 +31,7 @@ Future:
 
 Required: 
 ```angular2html
+- Node v20+
 - Google Chrome for `puppeteer`
 ```
 
