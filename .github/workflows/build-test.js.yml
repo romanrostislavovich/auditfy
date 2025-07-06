@@ -49,7 +49,7 @@ jobs:
             libxcomposite1 \
             libxrandr2 \
             libgbm-dev \
-            libasound2 \
+            libasound2t64  \
             libpangocairo-1.0-0 \
             libxshmfence1 \
             libxdamage1 \
