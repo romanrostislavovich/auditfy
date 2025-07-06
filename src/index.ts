@@ -29,7 +29,7 @@ program
             const results = {
                 seo: await seoAudit(file, dir),
              //   a11y: await a11yAudit(filePath),
-              //  performance: await performanceAudit(filePath2),
+                performance: await performanceAudit(filePath2),
                 structured: await structuredDataAudit(file),
             };
 
