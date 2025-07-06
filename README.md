@@ -12,9 +12,27 @@
 
 ## Background 
 
+Current each developer using a lot of tools for checking accessibility, SEO, performance and html validation. (like lighthouse, page speed, wave and e.t.c)
+This application try to merge all of them to one tool with simplify using. 
+
+This tool included following modules: 
+- SEO
+- Performance
+- Accessibility check 
+
+Future: 
+- HTML Validation
+- CSS Validation
+- JS Validation 
+- Security audit 
+- and e.t.c
+
 ## Installation
 
-- Google Chrome 
+Required: 
+```angular2html
+- Google Chrome for `puppeteer`
+```
 
 ## Usage
 

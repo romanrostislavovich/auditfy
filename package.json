@@ -1,8 +1,12 @@
 {
-  "name": "auditfy",
-  "version": "1.0.0",
+  "author": "Raman Lauryniuk <romanrostislavovich@gmail.com>",
+  "name": "website-auditfy",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/src/index.js",
+  "bin": {
+    "website-auditfy": "dist/bin.js"
+  },
   "scripts": {
     "tsc": "./node_modules/.bin/tsc",
     "tslint": "./node_modules/.bin/tslint",
@@ -13,8 +17,20 @@
     "type": "git",
     "url": "git+https://github.com/romanrostislavovich/auditfy.git"
   },
-  "author": "",
-  "license": "ISC",
+
+  "files": [
+    "dist/",
+    "README.md"
+  ],
+  "keywords": [
+    "website-audit",
+    "validator",
+    "linting",
+    "cli",
+    "SEO",
+    "Perfomance",
+    "Accessibility"
+  ],
   "bugs": {
     "url": "https://github.com/romanrostislavovich/auditfy/issues"
   },

@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import ora from 'ora';
 import chalk from 'chalk';
 import { seoAudit } from './modules/seo/seo';
-import { a11yAudit } from './modules/a11y';
+import { a11yAudit } from './modules/a11y/a11y';
 import { performanceAudit } from './modules/perfomance/performance';
 import { structuredDataAudit } from './modules/structured';
 import { statSync } from 'node:fs';

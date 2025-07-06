@@ -8,6 +8,5 @@ export async function a11yAudit(fileUrl: string) {
     const results = await new AxePuppeteer(page).analyze();
     await browser.close();
 
-    debugger;
     return results.violations.map(v => ({ message: v.help, passed: false }));
 }

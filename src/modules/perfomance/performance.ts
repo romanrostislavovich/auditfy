@@ -4,6 +4,10 @@ import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import * as path from "node:path";
 import * as http from "node:http";
 import handler from 'serve-handler';
+import LargestContentfulPaintRule from "./rules/largest-contentful-paint.rule";
+import {Message} from "../../models/message.model";
+import TotalBlockingTimeRule from "./rules/total-blocking-time.rule";
+import CumulativeLayoutShiftRule from "./rules/cumulative-layout-shift.rule";
 
 const PORT = 9900;
 
@@ -53,5 +57,17 @@ export async function performanceAudit(file: string) {
     }
 
     return [];
+}
 
+function checkPerformance(audit: Record<string, AuditResult>): Message[] {
+    // rules
+    const LCPRule = new LargestContentfulPaintRule(audit);
+    const TBTRule = new TotalBlockingTimeRule(audit);
+    const CLSRule = new CumulativeLayoutShiftRule(audit);
+
+    return [
+        ...LCPRule.check(),
+        ...TBTRule.check(),
+        ...CLSRule.check()
+    ]
 }

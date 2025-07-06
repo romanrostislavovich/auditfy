@@ -1,12 +1,11 @@
 import { readFile } from 'fs/promises';
 import * as cheerio from 'cheerio';
-import {TitleRule} from "./title.rule";
-import {DescriptionRule} from "./description.rule";
-import {CanonicalRule} from "./canonical.rule";
+import {TitleRule} from "./rules/title.rule";
+import {DescriptionRule} from "./rules/description.rule";
+import {CanonicalRule} from "./rules/canonical.rule";
 import {Message} from "../../models/message.model";
 import {Cheerio, CheerioAPI} from "cheerio";
-import {Header1Rule} from "./header1.rule";
-const SeoAnalyzer = require('seo-analyzer');
+import {Header1Rule} from "./rules/header1.rule";
 
 export async function seoAudit(filepath: string, dir: string) {
     const html = await readFile(filepath, 'utf-8');
