@@ -1,6 +1,6 @@
 {
   "author": "Raman Lauryniuk <romanrostislavovich@gmail.com>",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/src/index.js",
   "bin": {
@@ -10,15 +10,15 @@
     "tsc": "./node_modules/.bin/tsc",
     "tslint": "./node_modules/.bin/tslint",
     "build": "tsc -p . && gulp -f ./config/gulp.js",
-    "test": "npm run build && node dist/bin.js test/index.html"
+    "test": "npm run build && node dist/bin.js test/index.html",
+    "check-last": "npx website-auditfy test/index.html"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/romanrostislavovich/auditfy.git"
   },
-
   "files": [
-    "dist/",
+    "dist",
     "README.md"
   ],
   "keywords": [
@@ -49,6 +49,7 @@
     "@types/serve-handler": "^6.1.4",
     "gulp": "^5.0.1",
     "gulp-copy": "^5.0.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "website-auditfy": "^0.0.1"
   }
 }
