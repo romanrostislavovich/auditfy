@@ -28,7 +28,7 @@ program
             const filename: string = path.basename(file);
             const results = {
                 seo: await seoAudit(file, dir),
-             //   a11y: await a11yAudit(filePath),
+                a11y: await a11yAudit(filePath),
                 performance: await performanceAudit(filePath2),
                 structured: await structuredDataAudit(file),
             };

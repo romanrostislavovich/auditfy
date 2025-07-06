@@ -10,18 +10,21 @@ on:
     branches: [ "main" ]
 
 jobs:
-  lighthouseci:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 20.x, 22.x ]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
+
         with:
           node-version: 20
       - run: npm install && npm install -g @lhci/cli@0.15.x
       - run: npm run build
-      - run: npm test
 
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -35,6 +38,31 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
+
+    - name: Install Puppeteer Chromium dependencies
+    - run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libcups2 \
+            libxcomposite1 \
+            libxrandr2 \
+            libgbm-dev \
+            libasound2 \
+            libpangocairo-1.0-0 \
+            libxshmfence1 \
+            libxdamage1 \
+            libx11-xcb1 \
+            fonts-liberation \
+            libappindicator3-1 \
+            libnspr4 \
+            libxss1 \
+            xdg-utils \
+            wget \
+            ca-certificates
+
+    - run: npm install && npm install -g @lhci/cli@0.15.x
     - run: npm run build --if-present
     - run: npm test
