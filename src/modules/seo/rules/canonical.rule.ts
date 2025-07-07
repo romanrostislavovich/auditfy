@@ -14,9 +14,11 @@ export class CanonicalRule extends Rule<string>{
 
     check(): Message[] {
         const present = !!this.value;
-        return [Message.create(
-            `${this.description} is ${present ? 'present' : 'missing'}`,
-            present ? MessageType.passed : MessageType.error
-        )]
+        return [
+            Message.create(
+                `${this.description} is ${present ? 'present' : 'missing'}`,
+                present ? MessageType.passed : MessageType.error
+            )
+        ]
     }
 }

@@ -5,7 +5,7 @@ import {Rule} from "../../../models/rule.model";
 export class DescriptionRule extends Rule<string> {
     value: string;
     ruleFlow: MessageType = MessageType.error;
-    description: string = 'Meta description tag';
+    description: string = 'Meta description';
 
     constructor(value: string = '') {
         super()
@@ -15,7 +15,7 @@ export class DescriptionRule extends Rule<string> {
     check(): Message[] {
         const present = !!this.value;
         return [Message.create(
-            `${this.description} is ${present ? 'present' : 'missing'}`,
+            `${this.description} tag is ${present ? 'present' : 'missing'}`,
             present ? MessageType.passed : MessageType.error
         )]
     }

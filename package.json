@@ -40,6 +40,7 @@
     "chalk": "^5.4.1",
     "cheerio": "^1.1.0",
     "commander": "^14.0.0",
+    "conventional-cli": "^1.2.0",
     "lighthouse": "^12.7.0",
     "ora": "^8.2.0",
     "puppeteer": "^24.11.1",
@@ -51,6 +52,6 @@
     "gulp": "^5.0.1",
     "gulp-copy": "^5.0.0",
     "typescript": "^5.8.3",
-    "website-auditfy": "^0.0.2"
+    "website-auditfy": "^0.0.4"
   }
 }

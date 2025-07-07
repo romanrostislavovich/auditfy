@@ -39,6 +39,12 @@ Required:
 
 ## Usage
 
+The CLI process may exit with the following codes:
+
+0: Audit succeeded without errors (warnings may have occurred)
+1: Audit failed with one or more rule violations with severity error
+2: An invalid command line argument or combination thereof was used
+
 ## Contribute
 
 ## License

@@ -1,17 +1,20 @@
-import { Command } from 'commander';
+import {Command} from 'commander';
 import ora from 'ora';
 import chalk from 'chalk';
-import { seoAudit } from './modules/seo/seo';
-import { a11yAudit } from './modules/a11y/a11y';
-import { performanceAudit } from './modules/perfomance/performance';
-import { structuredDataAudit } from './modules/structured';
-import { statSync } from 'node:fs';
+import {seoAudit} from './modules/seo/seo';
+import {a11yAudit} from './modules/a11y/a11y';
+import {performanceAudit} from './modules/perfomance/performance';
+import {structuredDataAudit} from './modules/strucutred/structured';
+import {statSync} from 'node:fs';
 import path from "node:path";
+import {Message} from "./models/message.model";
+import {MessageType} from "./enum/message.enum";
+
 const program = new Command();
 
 program
-    .name('landing-audit')
-    .description('Audit local index.html file for SEO, a11y, performance and structured data')
+    .name('website-auditfy')
+    .description('Audit local html files for SEO, a11y, performance and structured data')
     .argument('<file>', 'Path to the local HTML file to audit')
     .option('-o, --output <file>', 'Export results to JSON file')
     .action(async (file, options) => {
@@ -39,8 +42,9 @@ program
             console.log(chalk.green.bold('\nAudit Report'));
             for (const [section, result] of Object.entries(results)) {
                 console.log(`\n${chalk.cyan(section.toUpperCase())}`);
-                result.forEach(r => {
-                        console.log(`- ${r.passed ? chalk.green('✔') : chalk.red('✘')} ${r.message}`)
+                result.forEach((r: Message) => {
+                        console.log(
+                            `- ${r.type === MessageType.passed ? chalk.green('✔') : chalk.red('✘')} ${r.message}`)
                 });
             }
 
@@ -48,6 +52,10 @@ program
                 const fs = await import('fs/promises');
                 await fs.writeFile(options.output, JSON.stringify(results, null, 2));
                 console.log(`\nResults saved to ${options.output}`);
+            }
+
+            if (Object.values(results).length > 0) {
+                process.exit(1);
             }
         } catch (error) {
             spinner.fail('Audit failed.');

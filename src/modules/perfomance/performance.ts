@@ -8,10 +8,12 @@ import LargestContentfulPaintRule from "./rules/largest-contentful-paint.rule";
 import {Message} from "../../models/message.model";
 import TotalBlockingTimeRule from "./rules/total-blocking-time.rule";
 import CumulativeLayoutShiftRule from "./rules/cumulative-layout-shift.rule";
+import _default from "lighthouse/core/audits/oopif-iframe-test-audit";
+import audit = _default.audit;
 
 const PORT = 9900;
 
-export async function performanceAudit(file: string) {
+export async function performanceAudit(file: string): Promise<Message[]> {
     const dir: string = path.dirname(file);
     const filename: string = path.basename(file);
 
@@ -36,6 +38,8 @@ export async function performanceAudit(file: string) {
 
 
     if(audits) {
+        return checkPerformance(audits);
+        /*
         const TBTScore = audits['total-blocking-time'].score || 0;
         const CLSScore = audits['cumulative-layout-shift'].score || 0;
         const LCPScore = audits['largest-contentful-paint'].score || 0;
@@ -53,7 +57,7 @@ export async function performanceAudit(file: string) {
                 message: `CLS score: ${CLSScore}`,
                 passed: CLSScore >= 0.9
             }
-        ];
+        ];*/
     }
 
     return [];
