@@ -37,14 +37,34 @@ Required:
 - Node v20+
 - `Google Chrome` or `chrome-launcher' for `puppeteer`
 ```
+```bash
+npm install website-auditfy 
+```
+
+```bash
+yarn add website-auditfy
+```
+
+```bash
+pnpm add website-auditfy
+```
 
 ## Usage
 
+```bash
+website-auditfy path/to/index.html
+```
+
+#### Example output
+
+![img.png](docs/img.png)
+
 The CLI process may exit with the following codes:
 
-0: Audit succeeded without errors (warnings may have occurred)
-1: Audit failed with one or more rule violations with severity error
-2: An invalid command line argument or combination thereof was used
+
+- 0: Audit succeeded without errors (warnings may have occurred)
+- 1: Audit failed with one or more rule violations with severity error
+- 2: An invalid command line argument or combination thereof was used
 
 ## Contribute
 
