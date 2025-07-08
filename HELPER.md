@@ -11,7 +11,7 @@
 - ✅ [ ] hreflang	`cheerio`
 - ✅ [x] Alt у всех <img>	`axe-core, cheerio`
 - ✅	Структурированные данные (JSON-LD)	`cheerio + jsonld-checker`
-- ✅	Проверка meta og:*, twitter:*	`cheerio`
+- ✅ [x] Проверка meta og:*, twitter:*	`cheerio`
 - ✅	Кол-во заголовков H1-H6, их вложенность	`cheerio`
 - ✅	Индексация страницы (robots, noindex)	`axios + анализ DOM`
 

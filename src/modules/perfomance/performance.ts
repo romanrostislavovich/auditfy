@@ -39,25 +39,6 @@ export async function performanceAudit(file: string): Promise<Message[]> {
 
     if(audits) {
         return checkPerformance(audits);
-        /*
-        const TBTScore = audits['total-blocking-time'].score || 0;
-        const CLSScore = audits['cumulative-layout-shift'].score || 0;
-        const LCPScore = audits['largest-contentful-paint'].score || 0;
-
-        return [
-            {
-                message: `LCP score:  ${LCPScore}`,
-                passed: LCPScore >= 0.9
-            },
-            {
-                message: `TBT score: ${TBTScore}`,
-                passed: TBTScore >= 0.9
-            },
-            {
-                message: `CLS score: ${CLSScore}`,
-                passed: CLSScore >= 0.9
-            }
-        ];*/
     }
 
     return [];
@@ -65,12 +46,12 @@ export async function performanceAudit(file: string): Promise<Message[]> {
 
 function checkPerformance(audit: Record<string, AuditResult>): Message[] {
     // rules
-    const LCPRule = new LargestContentfulPaintRule(audit);
+  //  const LCPRule = new LargestContentfulPaintRule(audit);
     const TBTRule = new TotalBlockingTimeRule(audit);
     const CLSRule = new CumulativeLayoutShiftRule(audit);
 
     return [
-        ...LCPRule.check(),
+     //   ...LCPRule.check(),
         ...TBTRule.check(),
         ...CLSRule.check()
     ]

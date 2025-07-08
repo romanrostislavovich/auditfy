@@ -42,6 +42,11 @@ program
             console.log(chalk.green.bold('\nAudit Report'));
             for (const [section, result] of Object.entries(results)) {
                 console.log(`\n${chalk.cyan(section.toUpperCase())}`);
+                if(result.length === 0) {
+                    console.log(
+                        `- ${chalk.green('✔') } all tests are  passed`
+                    )
+                }
                 result.forEach((r: Message) => {
                         console.log(
                             `- ${r.type === MessageType.passed ? chalk.green('✔') : chalk.red('✘')} ${r.message}`)
@@ -54,12 +59,19 @@ program
                 console.log(`\nResults saved to ${options.output}`);
             }
 
-            if (Object.values(results).length > 0) {
+            const auditPassed = Object.values(results)
+                .reduce((list, item) => {
+                    list.push(...item)
+                    return list;
+                })
+                .every(x => x.type === MessageType.passed)
+            if (!auditPassed) {
                 process.exit(1);
             }
         } catch (error) {
             spinner.fail('Audit failed.');
             console.error(error);
+            process.exit(2);
         }
     });
 
