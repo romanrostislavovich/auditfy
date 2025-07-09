@@ -9,6 +9,7 @@ import {statSync} from 'node:fs';
 import path from "node:path";
 import {Message} from "./models/message.model";
 import {MessageType} from "./enum/message.enum";
+import { htmlAudit} from "./modules/html/html";
 
 const program = new Command();
 
@@ -29,13 +30,14 @@ program
             const filePath2: string = `${process.cwd()}/${file}`;
             const dir: string = path.dirname(file);
             const filename: string = path.basename(file);
+
             const results = {
                 seo: await seoAudit(file, dir),
                 a11y: await a11yAudit(filePath),
+                html: await htmlAudit(file),
                 performance: await performanceAudit(filePath2),
                 structured: await structuredDataAudit(file),
             };
-
 
             spinner.succeed('Audit completed!');
 

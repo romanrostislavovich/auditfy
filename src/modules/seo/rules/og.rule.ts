@@ -13,8 +13,6 @@ export class OgRule extends Rule<CheerioAPI>{
         'og:description',
         'og:image',
         'og:url',
- /*       'og:type',
-        'og:site_name'*/
     ];
     constructor(value: CheerioAPI) {
         super()
@@ -22,7 +20,11 @@ export class OgRule extends Rule<CheerioAPI>{
     }
 
     private checkMetaTags() {
-        return this.ogTags.reduce<Message[]>((messages, tag) => {
+
+    }
+
+    check(): Message[] {
+        const results =  this.ogTags.reduce<Message[]>((messages, tag) => {
             const meta = this.value(`meta[property="${tag}"], meta[name="${tag}"]`);
             if (meta.length > 0) {
                 messages.push(
@@ -35,11 +37,8 @@ export class OgRule extends Rule<CheerioAPI>{
             }
             return messages;
         }, []);
-    }
-
-    check(): Message[] {
         return [
-            ...this.checkMetaTags()
+            ...results
         ]
     }
 }

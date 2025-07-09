@@ -4,12 +4,9 @@ import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import * as path from "node:path";
 import * as http from "node:http";
 import handler from 'serve-handler';
-import LargestContentfulPaintRule from "./rules/largest-contentful-paint.rule";
 import {Message} from "../../models/message.model";
 import TotalBlockingTimeRule from "./rules/total-blocking-time.rule";
 import CumulativeLayoutShiftRule from "./rules/cumulative-layout-shift.rule";
-import _default from "lighthouse/core/audits/oopif-iframe-test-audit";
-import audit = _default.audit;
 
 const PORT = 9900;
 

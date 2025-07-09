@@ -11,8 +11,8 @@ import {TwitterRule} from "./rules/twitter.rule";
 
 export async function seoAudit(filepath: string, dir: string): Promise<Message[]> {
     const html = await readFile(filepath, 'utf-8');
-    const $ = cheerio.load(html);
-    return checkSEO($);
+    const dom = cheerio.load(html);
+    return checkSEO(dom);
 }
 
 function checkSEO(dom: CheerioAPI) {

@@ -10,9 +10,6 @@ export class TwitterRule extends Rule<CheerioAPI>{
 
     private twitterTags = [
         'twitter:card',
-/*        'twitter:title',
-        'twitter:description',
-        'twitter:image',*/
         'twitter:site',
         'twitter:creator'
     ];
