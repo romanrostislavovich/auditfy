@@ -44,7 +44,7 @@ program
             console.log(chalk.green.bold('\nAudit Report'));
             for (const [section, result] of Object.entries(results)) {
                 console.log(`\n${chalk.cyan(section.toUpperCase())}`);
-                if(result.length === 0) {
+                if(result.length === 0 || result.every(x => x.type === MessageType.passed)) {
                     console.log(
                         `- ${chalk.green('✔') } all tests are  passed`
                     )
