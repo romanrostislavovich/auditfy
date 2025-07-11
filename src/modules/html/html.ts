@@ -2,7 +2,7 @@ import {CLI, Message as MessageHtml} from "html-validate";
 import {Message} from "../../models/message.model";
 import {MessageType} from "../../enum/message.enum";
 
-export async function htmlAudit(filePath: string) {
+export async function htmlAudit(filePath: string): Promise<Message[]> {
     const cli = new CLI({})
     const validator = await cli.getValidator();
     const validation = await validator.validateFile(filePath);

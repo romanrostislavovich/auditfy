@@ -10,6 +10,7 @@ import path from "node:path";
 import {Message} from "./models/message.model";
 import {MessageType} from "./enum/message.enum";
 import { htmlAudit} from "./modules/html/html";
+import {cssAudit} from "./modules/css/css";
 
 const program = new Command();
 
@@ -35,6 +36,7 @@ program
                 seo: await seoAudit(file, dir),
                 a11y: await a11yAudit(filePath),
                 html: await htmlAudit(file),
+                css: await  cssAudit(file),
                 performance: await performanceAudit(filePath2),
                 structured: await structuredDataAudit(file),
             };
@@ -48,11 +50,12 @@ program
                     console.log(
                         `- ${chalk.green('✔') } all tests are  passed`
                     )
+                } else {
+                    result.forEach((r: Message) => {
+                        console.log(`- ${r.type === MessageType.passed ? chalk.green('✔') :  r.type === MessageType.warning ? chalk.yellow('⚠') : chalk.red('✘')} ${r.message}`)
+                    });
                 }
-                result.forEach((r: Message) => {
-                        console.log(
-                            `- ${r.type === MessageType.passed ? chalk.green('✔') : chalk.red('✘')} ${r.message}`)
-                });
+
             }
 
             if (options.output) {
@@ -61,13 +64,13 @@ program
                 console.log(`\nResults saved to ${options.output}`);
             }
 
-            const auditPassed = Object.values(results)
+            const auditHasError = Object.values(results)
                 .reduce((list, item) => {
                     list.push(...item)
                     return list;
                 })
-                .every(x => x.type === MessageType.passed)
-            if (!auditPassed) {
+                .some(x => x.type === MessageType.error)
+            if (auditHasError) {
                 process.exit(1);
             }
         } catch (error) {

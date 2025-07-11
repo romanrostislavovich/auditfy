@@ -13,7 +13,9 @@ export async function a11yAudit(fileUrl: string): Promise<Message[]> {
     const results = await new AxePuppeteer(page).analyze();
     await browser.close();
 
-    return results.violations.map(v => {
+    const messages = []
+    messages.push(...results.violations.map(v => {
         return Message.create(v.help, MessageType.error )
-    });
+    }))
+    return messages;
 }

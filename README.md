@@ -18,15 +18,17 @@ Current each developer using a lot of tools for checking accessibility, SEO, per
 This application try to merge all of them to one tool with simplify using. 
 
 This tool included following modules: 
-- SEO
-- Performance
-- Accessibility check 
+- SEO (custom)
+- Performance (lighthouse)
+- Accessibility check (puppeteer)
+- HTML (html-validator)
+- CSS (stylelint, with stylelint-config-standard)
+- structured (custom)
 
-Future: 
-- HTML Validation
-- CSS Validation
+Future:
 - JS Validation 
 - Security audit 
+- Configuration modules
 - and e.t.c
 
 ## Installation
