@@ -19,10 +19,6 @@ export class OgRule extends Rule<CheerioAPI>{
         this.value = value;
     }
 
-    private checkMetaTags() {
-
-    }
-
     check(): Message[] {
         const results =  this.ogTags.reduce<Message[]>((messages, tag) => {
             const meta = this.value(`meta[property="${tag}"], meta[name="${tag}"]`);

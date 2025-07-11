@@ -8,10 +8,9 @@ import {Cheerio, CheerioAPI} from "cheerio";
 import {Header1Rule} from "./rules/header1.rule";
 import {OgRule} from "./rules/og.rule";
 import {TwitterRule} from "./rules/twitter.rule";
+import { File } from '../../models/file.model'
 
-export async function seoAudit(filepath: string, dir: string): Promise<Message[]> {
-    const html = await readFile(filepath, 'utf-8');
-    const dom = cheerio.load(html);
+export async function seoAudit(file: File, dom: CheerioAPI): Promise<Message[]> {
     return checkSEO(dom);
 }
 

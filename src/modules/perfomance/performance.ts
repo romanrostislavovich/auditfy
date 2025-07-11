@@ -7,22 +7,19 @@ import handler from 'serve-handler';
 import {Message} from "../../models/message.model";
 import TotalBlockingTimeRule from "./rules/total-blocking-time.rule";
 import CumulativeLayoutShiftRule from "./rules/cumulative-layout-shift.rule";
-
+import { File } from '../../models/file.model'
 const PORT = 9900;
 
-export async function performanceAudit(file: string): Promise<Message[]> {
-    const dir: string = path.dirname(file);
-    const filename: string = path.basename(file);
-
+export async function performanceAudit(file: File): Promise<Message[]> {
     const server = http.createServer((req, res) => {
-        return handler(req, res, { public: dir });
+        return handler(req, res, { public: file.dir });
     });
 
     // @ts-ignore
     await new Promise(resolve => server.listen(PORT, resolve));
 
     const chrome = await launch({ chromeFlags: ['--headless'] });
-    const result = await lighthouse(`http://localhost:${PORT}/${filename}`, {
+    const result = await lighthouse(`http://localhost:${PORT}/${file.filename}`, {
         port: chrome.port,
         output: 'json',
         logLevel: 'error',

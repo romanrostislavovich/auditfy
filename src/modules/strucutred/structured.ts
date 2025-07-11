@@ -3,10 +3,9 @@ import * as cheerio from 'cheerio';
 import {Message} from "../../models/message.model";
 import {JsonLdRule} from "./rules/json-ld.rule";
 import {CheerioAPI} from "cheerio";
+import { File } from '../../models/file.model'
 
-export async function structuredDataAudit(filepath: string): Promise<Message[]> {
-    const html = await readFile(filepath, 'utf-8');
-    const dom = cheerio.load(html);
+export async function structuredDataAudit(file: File, dom: CheerioAPI): Promise<Message[]> {
     return checkStructured(dom)
 }
 

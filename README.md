@@ -29,6 +29,7 @@ Future:
 - JS Validation 
 - Security audit 
 - Configuration modules
+- Custom rule or module
 - and e.t.c
 
 ## Installation

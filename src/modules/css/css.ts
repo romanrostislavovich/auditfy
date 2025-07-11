@@ -1,12 +1,21 @@
 import * as stylelint from 'stylelint';
 import {Message} from "../../models/message.model";
 import {MessageType} from "../../enum/message.enum";
+import {readFile} from "fs/promises";
+import * as cheerio from "cheerio";
+import { File } from '../../models/file.model';
+import {CheerioAPI} from "cheerio";
 
-export async function cssAudit(file: string): Promise<Message[]> {
+export async function cssAudit(file: File, dom: CheerioAPI): Promise<Message[]> {
+    const cssFiles: string[] = [];
+    dom('link[rel="stylesheet"]').each((i, elem) => {
+        const href = dom(elem).attr('href');
+        if (href) {
+            cssFiles.push(`${file.dir}/${href}`);
+        }
+    });
     const options: stylelint.LinterOptions = {
-        files: [
-            'test/css/app.css',
-        ],
+        files: cssFiles,
         config: {
             extends: "stylelint-config-standard",
         },
@@ -19,7 +28,4 @@ export async function cssAudit(file: string): Promise<Message[]> {
         return m;
     },[])
     return messages;
-}
-function checkCss() {
-
 }
