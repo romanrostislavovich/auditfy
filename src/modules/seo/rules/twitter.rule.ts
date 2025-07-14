@@ -1,33 +1,36 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {Rule} from "../../../models/rule.model";
+import {LightHouseAuditType, RuleInterface} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
+import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 
-export class TwitterRule extends Rule<CheerioAPI>{
-    value: CheerioAPI;
+export class TwitterRule implements RuleInterface{
+    dom: CheerioAPI;
     ruleFlow: MessageType = MessageType.error;
-    description: string = 'Twitter tag';
+    lightHouse: LightHouseAuditType;
+    description: string = 'Twitter';
+    ruleUrl: string = 'https://developer.x.com/en/docs/x-for-websites/cards/guides/getting-started';
 
     private twitterTags = [
         'twitter:card',
         'twitter:site',
         'twitter:creator'
     ];
-    constructor(value: CheerioAPI) {
-        super()
-        this.value = value;
+    constructor(value: CheerioAPI, lightHouse: Record<string, AuditResult>) {
+        this.dom = value;
+        this.lightHouse = lightHouse;
     }
 
     private checkMetaTags() {
         return this.twitterTags.reduce<Message[]>((messages, tag) => {
-            const meta = this.value(`meta[property="${tag}"], meta[name="${tag}"]`);
+            const meta = this.dom(`meta[property="${tag}"], meta[name="${tag}"]`);
             if (meta.length > 0) {
                 messages.push(
-                    Message.create(`${tag} found`,MessageType.passed)
+                    Message.create(`${this.description} ${tag} found`,MessageType.passed)
                 )
             } else {
                 messages.push(
-                    Message.create(`${tag} missing`,MessageType.error)
+                    Message.create(`${this.description} ${tag} missing`,MessageType.error)
                 )
             }
             return messages;

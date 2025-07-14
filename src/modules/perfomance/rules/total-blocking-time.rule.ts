@@ -1,20 +1,22 @@
-import {Rule} from "../../../models/rule.model";
+import {LightHouseAuditType, RuleInterface} from "../../../models/rule.model";
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
 import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
+import {CheerioAPI} from "cheerio";
 
-export default class TotalBlockingTimeRule extends Rule<Record<string, AuditResult>> {
-    value:  Record<string, AuditResult>;
+export class TotalBlockingTimeRule  implements RuleInterface {
+    dom: CheerioAPI;
+    lightHouse:  LightHouseAuditType;
     ruleFlow: MessageType = MessageType.error;
     description: string = 'Total blocking time';
 
-    constructor(value:  Record<string, AuditResult>) {
-        super();
-        this.value = value;
+    constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType) {
+        this.dom = dom;
+        this.lightHouse = lightHouse;
     }
 
     check(): Message[] {
-        const score = this.value['total-blocking-time'].score || 0;
+        const score = this.lightHouse['total-blocking-time'].score || 0;
         return [
             Message.create(
                 `${this.description} score is ${score}`,

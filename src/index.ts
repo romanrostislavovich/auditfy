@@ -1,20 +1,26 @@
 import {Command} from 'commander';
 import ora from 'ora';
 import chalk from 'chalk';
-import {seoAudit} from './modules/seo/seo';
-import {A11yAudit, a11yAudit} from './modules/a11y/a11y';
-import {performanceAudit} from './modules/perfomance/performance';
-import {structuredDataAudit} from './modules/strucutred/structured';
+import {SeoAudit} from './modules/seo/seo';
+import {A11yAudit} from './modules/a11y/a11y';
+import {PerformanceAudit} from './modules/perfomance/performance';
 import {statSync} from 'node:fs';
 import path from "node:path";
 import {Message} from "./models/message.model";
 import {MessageType} from "./enum/message.enum";
-import { htmlAudit} from "./modules/html/html";
-import {cssAudit} from "./modules/css/css";
+import {HtmlAudit} from "./modules/html/html";
+import {CssAudit} from "./modules/css/css";
 import { File } from "./models/file.model";
 import {CheerioAPI} from "cheerio";
 import {readFile} from "fs/promises";
 import * as cheerio from "cheerio";
+import http from "node:http";
+import handler from "serve-handler";
+import {killAll, launch} from "chrome-launcher";
+import lighthouse, { RunnerResult} from "lighthouse";
+import LHResult from "lighthouse/types/lhr/lhr";
+import {Artifacts} from "lighthouse/types/artifacts";
+
 
 const program = new Command();
 
@@ -33,15 +39,23 @@ program
             }
             const file = File.create(path);
             const dom = await getCheerioDOM(file);
+            const lighthouse = await getLightHouseResult(file);
 
-            const results = {
-                seo: await seoAudit(file, dom),
-                css: await  cssAudit(file, dom),
-                a11y: await a11yAudit(file),
-                html: await htmlAudit(file),
-                performance: await performanceAudit(file),
-                structured: await structuredDataAudit(file, dom),
-            };
+            debugger;
+            const modules = [
+                SeoAudit,
+                CssAudit,
+                A11yAudit,
+                HtmlAudit,
+                PerformanceAudit
+            ]
+
+            const results = await modules.reduce<Promise<{ [k: string]: Message[] }>>(async (result, module) => {
+                const res = await result;
+                const instance = new module(file, dom, lighthouse);
+                res[instance.name] = await instance.check();
+                return result;
+            }, Promise.resolve({}))
 
             spinner.succeed('Audit completed!');
 
@@ -70,7 +84,7 @@ program
                 .reduce((list, item) => {
                     list.push(...item)
                     return list;
-                })
+                }, [])
                 .some(x => x.type === MessageType.error)
             if (auditHasError) {
                 process.exit(1);
@@ -88,4 +102,26 @@ async function getCheerioDOM(file: File): Promise<CheerioAPI> {
     const html = await readFile(file.relativePath, 'utf-8');
     const dom = cheerio.load(html);
     return dom;
+}
+
+async function getLightHouseResult(file: File): Promise<RunnerResult> {
+    const PORT = 9900;
+    const server = http.createServer((req, res) => {
+        return handler(req, res, { public: file.dir });
+    });
+
+    // @ts-ignore
+    await new Promise(resolve => server.listen(PORT, resolve));
+
+    const chrome = await launch({ chromeFlags: ['--headless'] });
+    const result = await lighthouse(`http://localhost:${PORT}/${file.filename}`, {
+        port: chrome.port,
+        output: 'json',
+        logLevel: 'error',
+    });
+    killAll();
+    server.close();
+
+
+    return result || {} as RunnerResult;
 }

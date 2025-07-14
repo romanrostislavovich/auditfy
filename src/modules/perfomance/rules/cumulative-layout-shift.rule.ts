@@ -1,20 +1,22 @@
-import {Rule} from "../../../models/rule.model";
+import {LightHouseAuditType, RuleInterface} from "../../../models/rule.model";
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
 import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
+import {CheerioAPI} from "cheerio";
 
-export default class CumulativeLayoutShiftRule extends Rule<Record<string, AuditResult>> {
-    value:  Record<string, AuditResult>;
+export class CumulativeLayoutShiftRule  implements RuleInterface {
+    dom: CheerioAPI;
     ruleFlow: MessageType = MessageType.error;
+    lightHouse: LightHouseAuditType;
     description: string = 'LCP';
 
-    constructor(value:  Record<string, AuditResult>) {
-        super();
-        this.value = value;
+    constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType) {
+        this.dom = dom;
+        this.lightHouse = lightHouse;
     }
 
     check(): Message[] {
-        const score = this.value['cumulative-layout-shift'].score || 0;
+        const score = this.lightHouse['cumulative-layout-shift'].score || 0;
         return [
             Message.create(
                 `${this.description} score is ${score}`,

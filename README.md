@@ -1,8 +1,10 @@
 # website-auditfy
+
+> Tool for validate your website on SEO, Performance, Accessibility, HTML, CSS and JS
+
 [![semantic](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![NPM](https://img.shields.io/npm/v/website-auditfy)](https://www.npmjs.com/package/website-auditfy)
 [![download npm](https://img.shields.io/npm/dm/website-auditfy.svg)](https://www.npmjs.com/package/website-auditfy)
-> 
 
 ## Table of Contents
 
@@ -18,18 +20,18 @@ Current each developer using a lot of tools for checking accessibility, SEO, per
 This application try to merge all of them to one tool with simplify using. 
 
 This tool included following modules: 
-- SEO (custom)
-- Performance (lighthouse)
-- Accessibility check (puppeteer)
-- HTML (html-validator)
-- CSS (stylelint, with stylelint-config-standard)
-- structured (custom)
+- SEO included 16 Rules from lighthouse and some custom - `status: 16 Rules` 
+- Performance (lighthouse) - `status: to be continue`
+- Accessibility check (puppeteer and lighthouse) -  `status: to be continue`
+- HTML (html-validator) -  `status: to be continue`
+- CSS (stylelint, with stylelint-config-standard) -  `status: to be continue`
 
 Future:
 - JS Validation 
 - Security audit 
 - Configuration modules
 - Custom rule or module
+- Work with url and file
 - and e.t.c
 
 ## Installation

@@ -1,6 +1,6 @@
 {
   "author": "Raman Lauryniuk <romanrostislavovich@gmail.com>",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "name": "website-auditfy",
   "description": "",
   "main": "dist/src/index.js",
@@ -29,7 +29,9 @@
     "cli",
     "SEO",
     "Perfomance",
-    "Accessibility"
+    "Accessibility",
+    "html",
+    "css"
   ],
   "bugs": {
     "url": "https://github.com/romanrostislavovich/auditfy/issues"
@@ -41,12 +43,10 @@
     "cheerio": "^1.1.0",
     "commander": "^14.0.0",
     "conventional-cli": "^1.2.0",
-    "dropcss": "^1.0.16",
     "html-validate": "^9.7.1",
     "lighthouse": "^12.7.0",
     "ora": "^8.2.0",
     "puppeteer": "^24.11.1",
-    "seo-analyzer": "^3.2.0",
     "serve-handler": "^6.1.6",
     "stylelint": "^16.21.1",
     "stylelint-config-standard": "^38.0.0"

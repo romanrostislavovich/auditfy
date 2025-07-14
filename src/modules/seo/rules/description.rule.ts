@@ -1,24 +1,25 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {Rule} from "../../../models/rule.model";
+import {RuleInterface, LightHouseAuditType} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
 
-export class DescriptionRule extends Rule<CheerioAPI> {
-    value: CheerioAPI;
+export class DescriptionRule implements RuleInterface{
+    dom: CheerioAPI;
+    lightHouse: LightHouseAuditType;
     ruleFlow: MessageType = MessageType.error;
     description: string = 'Meta description';
+    ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/seo/meta-description/';
 
-    constructor(value: CheerioAPI) {
-        super()
-        this.value = value;
+    constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType) {
+        this.dom = dom;
+        this.lightHouse = lightHouse;
     }
 
     check(): Message[] {
-        const metaDescription = this.value('meta[name="description"]').attr('content');
-        const present = !!metaDescription;
+        const metaDescriptionRule = this.lightHouse['meta-description'].score || 0>= 0.9;
         return [Message.create(
-            `${this.description} tag is ${present ? 'present' : 'missing'}`,
-            present ? MessageType.passed : MessageType.error
+            `${this.description} tag is ${metaDescriptionRule ? 'present' : 'missing'}`,
+            metaDescriptionRule ? MessageType.passed : MessageType.error
         )]
     }
 }

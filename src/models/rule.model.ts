@@ -1,10 +1,17 @@
 import {Message} from "./message.model";
 import {MessageType} from "../enum/message.enum";
+import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
+import {CheerioAPI} from "cheerio";
 
-export abstract class Rule<T> {
-    abstract value: T;
-    abstract ruleFlow: MessageType;
-    abstract description: string;
+export type LightHouseAuditType =  Record<string, AuditResult>;
 
-    abstract check(): Message[];
+export interface RuleInterface {
+    dom: CheerioAPI;
+    ruleFlow: MessageType;
+    ruleUrl?: string;
+    lightHouse: LightHouseAuditType;
+    description: string;
+
+    check(): Message[];
 }
+
