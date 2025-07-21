@@ -8,36 +8,6 @@
     ],
     "auditRefs": [
       {
-        "id": "first-contentful-paint",
-        "weight": 10,
-        "group": "metrics",
-        "acronym": "FCP"
-      },
-      {
-        "id": "largest-contentful-paint",
-        "weight": 25,
-        "group": "metrics",
-        "acronym": "LCP"
-      },
-      {
-        "id": "total-blocking-time",
-        "weight": 30,
-        "group": "metrics",
-        "acronym": "TBT"
-      },
-      {
-        "id": "cumulative-layout-shift",
-        "weight": 25,
-        "group": "metrics",
-        "acronym": "CLS"
-      },
-      {
-        "id": "speed-index",
-        "weight": 10,
-        "group": "metrics",
-        "acronym": "SI"
-      },
-      {
         "id": "cache-insight",
         "weight": 0,
         "group": "hidden"

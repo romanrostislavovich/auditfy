@@ -17,9 +17,11 @@ import * as cheerio from "cheerio";
 import http from "node:http";
 import handler from "serve-handler";
 import {killAll, launch} from "chrome-launcher";
-import lighthouse, { RunnerResult} from "lighthouse";
+import lighthouse, {RunnerResult} from "lighthouse";
 import LHResult from "lighthouse/types/lhr/lhr";
 import {Artifacts} from "lighthouse/types/artifacts";
+import {SecurityModule} from "./modules/security/security.module";
+import {HtmlValidate, Result} from "html-validate";
 
 
 const program = new Command();
@@ -33,6 +35,8 @@ program
         const spinner = ora('Running audits...').start();
 
         try {
+            const currentData = Date.now();
+
             const result = statSync(path)
             if(!result.isFile()) {
                 throw new Error("Exeption of file")
@@ -40,6 +44,7 @@ program
             const file = File.create(path);
             const dom = await getCheerioDOM(file);
             const lighthouse = await getLightHouseResult(file);
+            const htmlValidator = await getHtmlValidatorResult(file);
 
             debugger;
             const modules = [
@@ -47,12 +52,13 @@ program
                 CssAudit,
                 A11yAudit,
                 HtmlAudit,
+                SecurityModule,
                 PerformanceAudit
             ]
 
             const results = await modules.reduce<Promise<{ [k: string]: Message[] }>>(async (result, module) => {
                 const res = await result;
-                const instance = new module(file, dom, lighthouse);
+                const instance = new module(file, dom, lighthouse, htmlValidator);
                 res[instance.name] = await instance.check();
                 return result;
             }, Promise.resolve({}))
@@ -80,6 +86,7 @@ program
                 console.log(`\nResults saved to ${options.output}`);
             }
 
+            console.log(Date.now() - currentData);
             const auditHasError = Object.values(results)
                 .reduce((list, item) => {
                     list.push(...item)
@@ -104,8 +111,129 @@ async function getCheerioDOM(file: File): Promise<CheerioAPI> {
     return dom;
 }
 
+async function getHtmlValidatorResult(file: File): Promise<Result[]> {
+    const htmlValidate = new HtmlValidate({
+        rules: {
+            // Security
+            'require-csp-nonce': "warn",
+            'require-sri': "warn",
+            // End Security
+
+            // Style Block
+            'attr-case': "warn",
+            'attr-pattern': "warn",
+            'attr-quotes': "warn",
+            'attribute-boolean-style': "warn",
+            'attribute-empty-style': "warn",
+            'class-pattern': "warn",
+            'doctype-style': "warn",
+            'element-case': "warn",
+            'id-pattern': "warn",
+            'name-pattern': "warn",
+            'no-implicit-close': "warn",
+            'no-implicit-input-type': "warn",
+            'no-inline-style': "warn",
+            'no-self-closing': "warn",
+            'no-style-tag': "warn",
+            'no-trailing-whitespace': "warn",
+            'prefer-button': "warn",
+            'prefer-tbody': "warn",
+            'void-style': "warn",
+            // End Style Block
+
+            // Accessibility
+            'area-alt': "warn",
+            'aria-hidden-body': "warn",
+            'aria-label-misuse': "warn",
+            'empty-heading': "warn",
+            'empty-title': "warn",
+            'hidden-focusable': "warn",
+            'input-missing-label': "warn",
+            'meta-refresh': "warn",
+            'multiple-labeled-controls': "warn",
+            'no-abstract-role': "warn",
+            'no-autoplay': "warn",
+            'no-implicit-button-type': "warn",
+            'no-redundant-aria-label': "warn",
+            'no-redundant-role': "warn",
+            'prefer-native-element': "warn",
+            'svg-focusable': "warn",
+            'tel-non-breaking': "warn",
+            'text-content': "warn",
+            'unique-landmark': "warn",
+            'wcag/h30': "warn",
+            'wcag/h36': "warn",
+            'wcag/h37': "warn",
+            'wcag/h63': "warn",
+            'wcag/h67': "warn",
+            'wcag/h71': "warn",
+            // End Accessibility
+
+            // Deprecated
+            'deprecated': "warn",
+            'deprecated-rule': "warn",
+            'no-conditional-comment': "warn",
+            'no-deprecated-attr': "warn",
+            // End Deprecated
+
+            // Document
+            'allowed-links': "warn",
+            'doctype-html': "warn",
+            'heading-level': "warn", // - ??
+            'missing-doctype': "warn",
+            'no-dup-id': "warn",
+            'no-missing-references': "warn",
+            'no-utf8-bom': "warn",
+            // End Document
+
+            // Uncategorized
+            'no-unknown-elements': "warn",
+            'no-unused-disable': "warn",
+            // End Uncategorized
+
+
+            // Content model
+            'attribute-allowed-values': "warn",
+            'attribute-misuse': "warn",
+            'element-permitted-content': "warn",
+            'element-permitted-occurrences': "warn",
+            'element-permitted-order': "warn",
+            'element-permitted-parent': "warn",
+            'element-required-ancestor': "warn",
+            'element-required-attributes': "warn",
+            'element-required-content': "warn",
+            'input-attributes': "warn",
+            'no-multiple-main': "warn",
+            'script-element': "warn",
+            'void-content': "warn",
+            // End Content model
+
+            // HTML Syntax and concepts
+            'attr-delimiter': "warn",
+            'attr-spacing': "warn",
+            'close-attr': "warn",
+            'close-order': "warn",
+            'element-name': "warn",
+            'form-dup-name': "warn",
+            'map-dup-name': "warn",
+            'map-id-name': "warn",
+            'no-dup-attr': "warn",
+            'no-dup-class': "warn",
+            'no-raw-characters': "warn",
+            'no-redundant-for': "warn",
+            'script-type': "warn",
+            'unrecognized-char-ref': "warn",
+            'valid-autocomplete': "warn",
+            'valid-id': "warn",
+            // End HTML Syntax and concepts
+        },
+    });
+    const result = await htmlValidate.validateFile(file.relativePath);
+    return result.results;
+}
+
 async function getLightHouseResult(file: File): Promise<RunnerResult> {
-    const PORT = 9900;
+    const PORT: number = 9900;
     const server = http.createServer((req, res) => {
         return handler(req, res, { public: file.dir });
     });

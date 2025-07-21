@@ -1,10 +1,13 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {LightHouseAuditType, RuleInterface} from "../../../models/rule.model";
+import { RuleInterface} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
+import {LightHouseAuditType} from "../../../types/modules.type";
 
 export class HeaderOnlyOneRule implements RuleInterface{
     dom: CheerioAPI;
+    id: string = 'header-only-one';
+    tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
     description: string = 'H1 tag';
@@ -22,7 +25,7 @@ export class HeaderOnlyOneRule implements RuleInterface{
         return [
             Message.create(
                 `${this.description} is only one per page`,
-                tagIsOnlyOne ? MessageType.passed:  MessageType.error
+                tagIsOnlyOne ? MessageType.passed:  MessageType.warning
             ),
         ]
     }

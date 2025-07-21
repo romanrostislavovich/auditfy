@@ -1,11 +1,14 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {LightHouseAuditType, RuleInterface} from "../../../models/rule.model";
+import {RuleInterface} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
 import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
+import {LightHouseAuditType} from "../../../types/modules.type";
 
 export class StructuredDataPresentRule implements RuleInterface {
     dom: CheerioAPI;
+    id: string = 'structured-data-present';
+    tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
     description: string = 'Structured data is present';
@@ -22,7 +25,7 @@ export class StructuredDataPresentRule implements RuleInterface {
         return [
             Message.create(
                 `${present} structured data block(s) found`,
-                present > 0 ? MessageType.passed : MessageType.error
+                present > 0 ? MessageType.passed : MessageType.warning
             )
         ]
     }

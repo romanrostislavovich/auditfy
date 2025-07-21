@@ -1,10 +1,13 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {LightHouseAuditType, RuleInterface} from "../../../models/rule.model";
+import { RuleInterface} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
+import {LightHouseAuditType} from "../../../types/modules.type";
 
 export class HeaderNotEmptyRule implements RuleInterface{
     dom: CheerioAPI;
+    id: string = 'header-not-empty';
+    tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
     description: string = 'H1 tag';
@@ -24,7 +27,7 @@ export class HeaderNotEmptyRule implements RuleInterface{
         return [
             Message.create(
                 `${this.description} is not empty`,
-                tagIsNotEmpty ? MessageType.passed : MessageType.error
+                tagIsNotEmpty ? MessageType.passed : MessageType.warning
             )
         ]
     }

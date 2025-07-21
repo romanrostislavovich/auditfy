@@ -19,20 +19,27 @@
 Current each developer using a lot of tools for checking accessibility, SEO, performance and html validation. (like lighthouse, page speed, wave and e.t.c)
 This application try to merge all of them to one tool with simplify using. 
 
-This tool included following modules: 
-- SEO included 16 Rules from lighthouse and some custom - `status: 16 Rules` 
-- Performance (lighthouse) - `status: to be continue`
-- Accessibility check (puppeteer and lighthouse) -  `status: to be continue`
-- HTML (html-validator) -  `status: to be continue`
-- CSS (stylelint, with stylelint-config-standard) -  `status: to be continue`
+### Included
 
-Future:
-- JS Validation 
-- Security audit 
+This tool included following modules: 
+- SEO (lighthouse and some custom) - `status: 17 Rules` 
+- Performance (lighthouse) - `status: 5 rules and to be continue`
+- Accessibility check (puppeteer and lighthouse) -  `status: 83 Rules to be continue`
+- HTML (html-validator) -  `status: 16 rules to be continue`
+- CSS (stylelint, with stylelint-config-standard) -  `status: to be continue`
+- Security (html-validator) - `status: 2 Rules and to be continue`
+
+### Future:
+- JS Validation
 - Configuration modules
 - Custom rule or module
 - Work with url and file
+- mode `production` or `develop`
+- AI integration
 - and e.t.c
+
+### Note 
+> Because this tool have a lot of rules. All rules on `warning` by default
 
 ## Installation
 
@@ -42,7 +49,7 @@ Required:
 - `Google Chrome` or `chrome-launcher' for `puppeteer`
 ```
 
-How to setup `chrome-launher` for your CI/CD see example [here](./docs/chrome-launcher.md)
+How to set up `chrome-launher` for your CI/CD see example [here](./docs/chrome-launcher.md)
 ```bash
 npm install website-auditfy 
 ```

@@ -1,10 +1,13 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {RuleInterface, LightHouseAuditType} from "../../../models/rule.model";
+import {RuleInterface} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
+import {LightHouseAuditType} from "../../../types/modules.type";
 
 export class CanonicalNotLocalhostRule implements RuleInterface{
     dom: CheerioAPI;
+    id: string = 'canonical-not-localhost';
+    tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
     description: string = 'Canonical tag';
@@ -22,7 +25,7 @@ export class CanonicalNotLocalhostRule implements RuleInterface{
         return [
             Message.create(
                 `${this.description} is not localhost`,
-                notLocalhost ? MessageType.passed : MessageType.error
+                notLocalhost ? MessageType.passed : MessageType.warning
             ),
         ]
     }

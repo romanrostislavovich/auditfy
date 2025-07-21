@@ -1,10 +1,13 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {LightHouseAuditType, RuleInterface} from "../../../models/rule.model";
+import {RuleInterface} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
+import {LightHouseAuditType} from "../../../types/modules.type";
 
 export class HeaderPresentRule implements RuleInterface{
     dom: CheerioAPI;
+    id: string = 'header-present';
+    tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
     description: string = 'H1 tag';
@@ -23,7 +26,7 @@ export class HeaderPresentRule implements RuleInterface{
         return [
             Message.create(
             `${this.description} is ${tagIsPresent ? 'present' : 'missing'}`,
-                tagIsPresent ? MessageType.passed : MessageType.error
+                tagIsPresent ? MessageType.passed : MessageType.warning
             ),
         ]
     }

@@ -222,5 +222,47 @@
     document.getElementById("def").click();
   }
   </script>
+
+<script>
+  function setMetaDescription(title,description) {
+    document.title = title;
+
+   /* const metaDescription = document.head.querySelector("meta[description]");
+    metaDescription.content = description;*/
+
+    const data =   {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://technicalseo.com/tools/schema-markup-generator/"
+      },
+      "headline": title,
+      "description": description,
+      "image": "",
+      "author": {
+        "@type": "",
+        "name": "asdf",
+        "url": "https://example.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "asdf",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://example.com"
+        }
+      },
+      "datePublished": "2025-07-08",
+      "dateModified": "2025-07-15"
+    }
+    const struredData = document.createElement('script');
+    struredData.type = "application/ld+json";
+    struredData.textContent = `${JSON.stringify(data)}`;
+    document.head.appendChild(struredData);
+  }
+
+  setMetaDescription('title', 'description')
+</script>
 </body>
 </html>

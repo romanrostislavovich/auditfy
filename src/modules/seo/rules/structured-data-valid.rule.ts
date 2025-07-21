@@ -1,11 +1,15 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {LightHouseAuditType, RuleInterface} from "../../../models/rule.model";
+import {RuleInterface} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
 import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
+import {LightHouseAuditType} from "../../../types/modules.type";
 
+// TODO: This rule mb doesn't work
 export class StructuredDataValidRule implements RuleInterface {
     dom: CheerioAPI;
+    id: string = 'structured-data-valid';
+    tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.warning;
     lightHouse: LightHouseAuditType;
     description: string = 'Structured data is valid';

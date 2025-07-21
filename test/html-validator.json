@@ -1,0 +1,71 @@
+{
+
+  // Accessibility
+  'area-alt': "warn",
+  'aria-hidden-body': "warn",
+  'aria-label-misuse': "warn",
+  'empty-heading': "warn",
+  'empty-title': "warn",
+  'hidden-focusable': "warn",
+  'input-missing-label': "warn",
+  'meta-refresh': "warn",
+  'multiple-labeled-controls': "warn",
+  'no-abstract-role': "warn",
+  'no-autoplay': "warn",
+  'no-implicit-button-type': "warn",
+  'no-redundant-aria-label': "warn",
+  'no-redundant-role': "warn",
+  'prefer-native-element': "warn",
+  'svg-focusable': "warn",
+  'tel-non-breaking': "warn",
+  'text-content': "warn",
+  'unique-landmark': "warn",
+  'wcag/h30': "warn",
+  'wcag/h36': "warn",
+  'wcag/h37': "warn",
+  'wcag/h63': "warn",
+  'wcag/h67': "warn",
+  'wcag/h71': "warn",
+  // End Accessibility
+
+  // Deprecated
+  'no-conditional-comment': "warn",
+  'no-deprecated-attr': "warn",
+  // End Deprecated
+
+
+  // Content model
+  'attribute-allowed-values': "warn",
+  'attribute-misuse': "warn",
+  'element-permitted-content': "warn",
+  'element-permitted-occurrences': "warn",
+  'element-permitted-order': "warn",
+  'element-permitted-parent': "warn",
+  'element-required-ancestor': "warn",
+  'element-required-attributes': "warn",
+  'element-required-content': "warn",
+  'input-attributes': "warn",
+  'no-multiple-main': "warn",
+  'script-element': "warn",
+  'void-content': "warn",
+  // End Content model
+
+  // HTML Syntax and concepts
+  'attr-delimiter': "warn",
+  'attr-spacing': "warn",
+  'close-attr': "warn",
+  'close-order': "warn",
+  'element-name': "warn",
+  'form-dup-name': "warn",
+  'map-dup-name': "warn",
+  'map-id-name': "warn",
+  'no-dup-attr': "warn",
+  'no-dup-class': "warn",
+  'no-raw-characters': "warn",
+  'no-redundant-for': "warn",
+  'script-type': "warn",
+  'unrecognized-char-ref': "warn",
+  'valid-autocomplete': "warn",
+  'valid-id': "warn",
+  // End HTML Syntax and concepts
+}

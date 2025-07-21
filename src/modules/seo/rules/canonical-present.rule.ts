@@ -1,10 +1,13 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {RuleInterface, LightHouseAuditType} from "../../../models/rule.model";
+import {RuleInterface,} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
+import {LightHouseAuditType} from "../../../types/modules.type";
 
 export class CanonicalPresentRule implements RuleInterface{
     dom: CheerioAPI;
+    id: string = 'canonical';
+    tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
     description: string = 'Canonical tag';
@@ -16,11 +19,11 @@ export class CanonicalPresentRule implements RuleInterface{
     }
 
     check(): Message[] {
-        const canonicalPresentRule = this.lightHouse['canonical'].score || 0 >= 0.9;
+        const canonicalPresentRule = this.lightHouse[this.id].score || 0 >= 0.9;
         return [
             Message.create(
                 `${this.description} is ${canonicalPresentRule ? 'present' : 'missing'}`,
-                canonicalPresentRule ? MessageType.passed : MessageType.error
+                canonicalPresentRule ? MessageType.passed : MessageType.warning
             )
         ]
     }

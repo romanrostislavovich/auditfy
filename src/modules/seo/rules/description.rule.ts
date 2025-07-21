@@ -1,10 +1,13 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {RuleInterface, LightHouseAuditType} from "../../../models/rule.model";
+import {RuleInterface} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
+import {LightHouseAuditType} from "../../../types/modules.type";
 
 export class DescriptionRule implements RuleInterface{
     dom: CheerioAPI;
+    id: string = 'meta-description';
+    tags: string[] = ['html', 'seo'];
     lightHouse: LightHouseAuditType;
     ruleFlow: MessageType = MessageType.error;
     description: string = 'Meta description';
@@ -16,10 +19,10 @@ export class DescriptionRule implements RuleInterface{
     }
 
     check(): Message[] {
-        const metaDescriptionRule = this.lightHouse['meta-description'].score || 0>= 0.9;
+        const metaDescriptionRule = this.lightHouse[this.id].score || 0 >= 0.9;
         return [Message.create(
             `${this.description} tag is ${metaDescriptionRule ? 'present' : 'missing'}`,
-            metaDescriptionRule ? MessageType.passed : MessageType.error
+            metaDescriptionRule ? MessageType.passed : MessageType.warning
         )]
     }
 }

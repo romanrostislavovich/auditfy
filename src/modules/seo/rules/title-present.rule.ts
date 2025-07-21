@@ -1,12 +1,15 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {LightHouseAuditType, RuleInterface} from "../../../models/rule.model";
+import {RuleInterface} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
 import {RunnerResult} from "lighthouse";
 import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
+import {LightHouseAuditType} from "../../../types/modules.type";
 
 export class TitlePresentRule implements RuleInterface {
     dom: CheerioAPI;
+    id: string = 'document-title';
+    tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
     description: string = 'Title tag';
@@ -18,11 +21,11 @@ export class TitlePresentRule implements RuleInterface {
     }
 
     check(): Message[] {
-        const titleScoreRule = this.lightHouse['document-title'].score || 0 >= 0.9;
+        const titleScoreRule = this.lightHouse[this.id].score || 0 >= 0.9;
         return [
             Message.create(
             `${this.description} is ${titleScoreRule ? 'present' : 'missing'}`,
-                titleScoreRule ? MessageType.passed : MessageType.error
+                titleScoreRule ? MessageType.passed : MessageType.warning
             ),
         ]
     }

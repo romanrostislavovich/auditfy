@@ -79,7 +79,9 @@
 🧩 Интеграция в проект
 Ты можешь сделать модульную архитектуру, где каждый набор проверок — это плагин (например, seoCheck(), cssAudit(), performanceAudit()), и использовать их в CLI или Web-интерфейсе.
 
-
+> https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md
+> https://docs.deque.com/devtools-for-web/4/en/node-pu-ref-overview#rule-configuration
+> Pupper Axe
 
 ✅ Что точно можно выполнить локально (без внешних API):
 
@@ -110,3 +112,22 @@
 | Google PageSpeed API  | Только если хочешь сравнивать с Lighthouse API от Google (медленно, требует ключ) |
 | Schema.org Validation | Официальный валидатор Google не имеет открытого API                               |
 | Live-карта сайта      | Нужно запрашивать sitemap.xml у внешнего сервера                                  |
+
+
+
+Axe-pupper vs html-validator
+
+| Область               | axe-core                                           | html‑validate                                 |
+| --------------------- | -------------------------------------------------- | --------------------------------------------- |
+| Атрибут `lang`        | `html-has-lang`, `html-lang-valid`                 | проверка `html.lang`                          |
+| `<title>`             | `document-title`                                   | `require-title`                               |
+| Alt-текст/ARIA имена  | `image-alt`, `button-name`, `link-name`...         | `img-alt-require`, `label-required`           |
+| ARIA                  | `aria-valid-attr`, `aria-roles`, `aria-required-*` | `aria-allowed-attr`, `aria-required-children` |
+| Таблицы               | `td-headers-attr`, `th-has-data-cells`             | `table-req-header`, `td-req-headers`          |
+| Депрекейт/неизвестные | `blink`, др.                                       | `no-deprecated-element`, `no-unknown-element` |
+| `meta`                | `meta-refresh`, `meta-viewport`                    | `no-auto-refresh`, `viewport-content`         |
+
+TODO: 
+~~в сравнительной таблице axe-html - в axe не все правила~~
+сравнить есть ли все правила в сранивтельной таблице html
+есть правила которые я уже реализовал в custom или lighthouse (header empty)

@@ -1,0 +1,740 @@
+{
+  "matched_rules": [
+    {
+      "lighthouse": "hreflang",
+      "axe_core_rule": "html-lang-valid",
+      "description": "Проверяет, что значение lang у <html> является допустимым языковым кодом"
+    },
+    {
+      "html_validate_rule": "long-title",
+      "custom": "long-title",
+      "description": "Проверяет, чтобы текст в <title> не был слишком длинным (больше рекомендуемых ~60–70 символов)."
+    },
+    {
+      "axe_core_rule": "blink",
+      "html_validate_rule": "deprecated",
+      "description": "Выдает предупреждение при использовании устаревших элементов HTML (напр. <font>, <center>).,"
+    },
+    {
+      "html_validate_rule": "wcag/h37",
+      "axe_core_rule": "image-alt",
+      "description": "Проверяет использование атрибута alt у <img> (WCAG H37)."
+    },
+    {
+      "html_validate_rule": "wcag/h30",
+      "axe_core_rule": "link-name",
+      "description": "Проверяет предоставление текста для ссылок (WCAG H30) – то же, что axe link-name."
+    },
+    {
+      "html_validate_rule": "heading-order",
+      "axe_core_rule": "heading-level",
+      "description": "Убеждается, что заголовки на странице идут в логическом порядке (h1 → h2 → h3 и т.д.)"
+    },
+    {
+      "axe_core_rule": "area-alt",
+      "html_validate_rule": "area-alt",
+      "description": "Оба правила требуют наличия альтернативного текста у элемента <area>: axe-core – «Ensure <area> elements have alternate text»   dequeuniversity.com, html-validate – «Require alternative text on <area> elements»html-validate.org"
+    },
+    {
+      "axe_core_rule": "aria-hidden-body",
+      "html_validate_rule": "aria-hidden-body",
+      "description": "Оба правила запрещают установку aria-hidden на элементе <body>: axe-core – «Ensure aria-hidden='true' is not present on the document body» dequeuniversity.com, html-validate – «Disallow aria-hidden from being set on <body>»html-validate.org"
+    },
+    {
+      "axe_core_rule": "empty-heading",
+      "html_validate_rule": "empty-heading",
+      "description": "Оба правила проверяют, что заголовки (h1, h2 и т.д.) не пусты: axe-core – «Ensure headings have discernible text» dequeuniversity.com, html-validate – «Require headings to have textual content»html-validate.org"
+    },
+    {
+      "axe_core_rule": "label",
+      "html_validate_rule": "input-missing-label",
+      "description": "Правило axe-core «label» и html-validate «input-missing-label» проверяют наличие ассоциированной метки у полей ввода: axe-core – «Ensure every form element has a label» dequeuniversity.com, html-validate – «Require input elements to have a label» html-validate.org"
+    },
+    {
+      "axe_core_rule": "form-field-multiple-labels",
+      "html_validate_rule": "multiple-labeled-controls",
+      "description": "Правила «form-field-multiple-labels» (axe-core) и «multiple-labeled-controls» (html-validate) запрещают ассоциацию одной метки <label> сразу с несколькими полями: axe-core – «Ensure form field does not have multiple label elements»dequeuniversity.com, html-validate – «Disallow labels associated with multiple controls» html-validate.org"
+    },
+    {
+      "axe_core_rule": "no-autoplay-audio",
+      "html_validate_rule": "no-autoplay",
+      "description": "Правила «no-autoplay-audio» (axe-core) и «no-autoplay» (html-validate) препятствуют автовоспроизведению медиа: axe-core – «Ensure <video> or <audio> elements do not autoplay audio...'dequeuniversity.com, html-validate – «Disallow autoplaying media elements» html-validate.org"
+    },
+    {
+      "axe_core_rule": "duplicate-id",
+      "html_validate_rule": "no-dup-id",
+      "description": "Правила «duplicate-id» (axe-core) и «no-dup-id» (html-validate) проверяют уникальность атрибутов id: axe-core – «Ensure every id attribute value is unique dequeuniversity.co , html-validate – «Disallows elements with duplicated ID»html-validate.org"
+    },
+    {
+      "axe_core_rule": "document-title",
+      "html_validate_rule": "empty-title",
+      "description": "Правила «document-title» (axe-core) и «empty-title» (html-validate) проверяют, что элемент <title> не пуст: axe-core – «Ensure each HTML document contains a non-empty <title> element» dequeuniversity.com, html-validate – «Require title to have textual content html-validate.org"
+    },
+    {
+      "axe_core_rule": "autocomplete-valid",
+      "html_validate_rule": "valid-autocomplete",
+      "description": "Правила «autocomplete-valid» (axe-core) и «valid-autocomplete» (html-validate) проверяют корректность атрибута autocomplete: axe-core – «Ensure the autocomplete attribute is correct and suitable» dequeuniversity.com, html-validate – «Require autocomplete attribute to be valid»html-validate.org"
+    },
+    {
+      "axe_core_rule": "meta-refresh",
+      "html_validate_rule": "meta-refresh",
+      "description": "Оба правила проверяют использование мета-тега обновления страницы: axe-core – «Ensure <meta http-equiv='refresh'> is not used for delayed refresh» dequeuniversity.com, html-validate – «Require meta refresh to have 0 second delay» html-validate.org"
+    },
+    {
+      "axe_core_rule": "page-has-heading-one",
+      "custom": "header-only-one",
+      "description": "Ensure that the page, or at least one of its frames contains a level-one heading"
+    }
+  ],
+  "only_in_axe_core": [
+    {
+      "rule": "td-has-header",
+      "description": "Ensure that each non-empty data cell in a <table> larger than 3 by 3 has one or more table headers"
+    },
+    {
+      "rule": "table-fake-caption",
+      "description": "Ensure that tables with a caption use the <caption> element."
+    },
+    {
+      "rule": "p-as-heading",
+      "description": "Ensure bold, italic text and font-size is not used to style <p> elements as a heading"
+    },
+    {
+      "rule": "label-content-name-mismatch",
+      "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name"
+    },
+    {
+      "rule": "hidden-content",
+      "description": "Informs users about hidden content."
+    },
+    {
+      "rule": "focus-order-semantics",
+      "description": "Ensure elements in the focus order have a role appropriate for interactive content"
+    },
+    {
+      "rule": "meta-refresh-no-exceptions",
+      "description": "Ensure <meta http-equiv=\"refresh\"> is not used for delayed refresh"
+    },
+    {
+      "rule": "identical-links-same-purpose",
+      "description": "Ensure that links with the same accessible name serve a similar purpose"
+    },
+    {
+      "rule": "table-duplicate-name",
+      "description": "Ensure the <caption> element does not contain the same text as the summary attribute"
+    },
+    {
+      "rule": "skip-link",
+      "description": "\tEnsure all skip links have a focusable target"
+    },
+    {
+      "rule": "tabindex",
+      "description": "Ensure tabindex attribute values are not greater than 0"
+    },
+    {
+      "rule": "scope-attr-valid",
+      "description": "Ensure the scope attribute is used correctly on tables"
+    },
+    {
+      "rule": "region",
+      "description": "Ensure all page content is contained by landmarks"
+    },
+    {
+      "rule": "presentation-role-conflict",
+      "description": "Elements marked as presentational should not have global ARIA or tabindex to ensure all screen readers ignore them"
+    },
+    {
+      "rule": "meta-viewport-large",
+      "description": "Ensure <meta name=\"viewport\"> can scale a significant amount"
+    },
+    {
+      "rule": "landmark-unique",
+      "description": "Ensure landmarks are unique"
+    },
+    {
+      "rule": "landmark-one-main",
+      "description": "Ensure the document has a main landmark"
+    },
+    {
+      "rule": "landmark-no-duplicate-main",
+      "description": "Ensure the document has at most one main landmark"
+    },
+    {
+      "rule": "landmark-no-duplicate-contentinfo",
+      "description": "Ensure the document has at most one contentinfo landmark"
+    },
+    {
+      "rule": "landmark-no-duplicate-banner",
+      "description": "Ensure the document has at most one banner landmark"
+    },
+    {
+      "rule": "landmark-main-is-top-level",
+      "description": "Ensure the main landmark is at top level"
+    },
+    {
+      "rule": "landmark-contentinfo-is-top-level",
+      "description": "Ensure the contentinfo landmark is at top level"
+    },
+    {
+      "rule": "landmark-complementary-is-top-level",
+      "description": "Ensure the complementary landmark or aside is at top level"
+    },
+    {
+      "rule": "landmark-banner-is-top-level",
+      "description": "Ensure the banner landmark is at top level"
+    },
+    {
+      "rule": "target-size",
+      "description": "Ensure touch targets have sufficient size and space"
+    },
+    {
+      "rule": "link-in-text-block",
+      "description": "Ensure links are distinguished from surrounding text in a way that does not rely on color"
+    },
+    {
+      "rule": "duplicate-id-aria",
+      "description": "Ensure every id attribute value used in ARIA and in labels is unique"
+    },
+    {
+      "rule": "aria-allowed-attr",
+      "description": "Проверяет, что ARIA-атрибуты допустимы для заданной роли элемента"
+    },
+    {
+      "rule": "aria-braille-equivalent",
+      "description": "Требует наличия небрайлевского эквивалента для aria-braillelabel/aria-brailleroledescription"
+    },
+    {
+      "rule": "aria-command-name",
+      "description": "Убеждается, что ARIA-кнопки, ссылки и элементы меню имеют доступное имя"
+    },
+    {
+      "rule": "aria-conditional-attr",
+      "description": "Проверяет корректное использование ARIA-атрибутов в соответствии со спецификацией роли элемента"
+    },
+    {
+      "rule": "aria-deprecated-role",
+      "description": "Запрещает применение устаревших ARIA-ролей"
+    },
+    {
+      "rule": "aria-hidden-focus",
+      "description": "Запрещает делать скрытыми aria-hidden элементы, которые могут получать фокус"
+    },
+    {
+      "rule": "aria-input-field-name",
+      "description": "Проверяет, что каждый элемент ARIA input field имеет доступное имя"
+    },
+    {
+      "rule": "aria-meter-name",
+      "description": "Требует, чтобы каждый ARIA meter имел доступное имя"
+    },
+    {
+      "rule": "aria-progressbar-name",
+      "description": "Требует, чтобы каждый ARIA progressbar имел доступное имя"
+    },
+    {
+      "rule": "aria-prohibited-attr",
+      "description": "Запрещает использование ARIA-атрибутов, которые не разрешены для данной роли элемента"
+    },
+    {
+      "rule": "aria-required-attr",
+      "description": "Убеждается, что все элементы с ARIA-ролями содержат необходимые ARIA-атрибуты"
+    },
+    {
+      "rule": "aria-required-children",
+      "description": "Проверяет, что элементы с ARIA-ролью, требующей наличия дочерних ролей, действительно содержат их"
+    },
+    {
+      "rule": "aria-required-parent",
+      "description": "Проверяет, что элементы с ARIA-ролью, требующей родительской роли, вложены в соответствующий родительский элемент"
+    },
+    {
+      "rule": "aria-roles",
+      "description": "Требует использования корректного значения атрибута role для всех элементов"
+    },
+    {
+      "rule": "aria-toggle-field-name",
+      "description": "Требует, чтобы каждый ARIA toggle имел доступное имя"
+    },
+    {
+      "rule": "aria-tooltip-name",
+      "description": "Требует, чтобы каждый ARIA tooltip имел доступное имя"
+    },
+    {
+      "rule": "aria-valid-attr-value",
+      "description": "Проверяет, что все ARIA-атрибуты имеют допустимые значения"
+    },
+    {
+      "rule": "aria-valid-attr",
+      "description": "Проверяет, что все атрибуты, начинающиеся с aria-, являются действительными ARIA-атрибутами"
+    },
+
+    {
+      "rule": "button-name",
+      "description": "Проверяет наличие различимого текста у кнопок <button>"
+    },
+    {
+      "rule": "bypass",
+      "description": "Гарантирует наличие на странице механизма перехода сразу к основному контенту (т. е. ссылок Skip to Content)"
+    },
+    {
+      "rule": "color-contrast",
+      "description": "Убедиться, что контраст текста соответствует минимальным требованиям WCAG 2.0 (AA)"
+    },
+    {
+      "rule": "color-contrast-enhanced",
+      "description": "Требует увеличенного контрастного соотношения по стандартам WCAG 2.0 (AAA)"
+    },
+    {
+      "rule": "definition-list",
+      "description": "Требует правильную структуру списка определений <dl>"
+    },
+    {
+      "rule": "dlitem",
+      "description": "Требует, чтобы элементы <dt>/<dd> находились внутри <dl>"
+    },
+    {
+      "rule": "frame-focusable-content",
+      "description": "Запрещает устанавливать tabindex=-1 на <frame>/<iframe> с фокусируемым содержимым"
+    },
+    {
+      "rule": "frame-title-unique",
+      "description": "Требует уникальный атрибут title у каждого <frame>/<iframe>"
+    },
+    {
+      "rule": "frame-title",
+      "description": "Требует, чтобы <frame>/<iframe> имели доступное имя (title)"
+    },
+    {
+      "rule": "html-has-lang",
+      "description": "Требует наличия атрибута lang у <html> в каждом документе"
+    },
+
+    {
+      "rule": "html-xml-lang-mismatch",
+      "description": "Проверяет согласованность атрибутов lang и xml:lang на элементе <html>"
+    },
+
+    {
+      "rule": "input-button-name",
+      "description": "Требует, чтобы у кнопок <input type='button'> был видимый текст (атрибут value)"
+    },
+    {
+      "rule": "input-image-alt",
+      "description": "Требует альтернативный текст для <input type='image'>"
+    },
+    {
+      "rule": "list",
+      "description": "Требует корректную структуру списков <ol>/<ul> (каждый <li> внутри списка)"
+    },
+    {
+      "rule": "listitem",
+      "description": "Требует, чтобы <li> использовался только внутри <ol> или <ul>"
+    },
+    {
+      "rule": "marquee",
+      "description": "Запрещает использование устаревшего элемента <marquee>"
+    },
+    {
+      "rule": "meta-viewport",
+      "description": "Проверяет, чтобы <meta name=\"viewport\"> не отключал масштабирование текста dequeuniversity.com"
+    },
+    {
+      "rule": "nested-interactive",
+      "description": "Запрещает вкладывать интерактивные элементы друг в друга (чтобы избежать проблем с фокусом)"
+    },
+    {
+      "rule": "object-alt",
+      "description": "Требует альтернативный текст для элементов <object>"
+    },
+    {
+      "rule": "role-img-alt",
+      "description": "Требует альтернативный текст для элементов с role='img'"
+    },
+    {
+      "rule": "scrollable-region-focusable",
+      "description": "Обеспечивает доступность элементов с прокручиваемым содержимым для клавиатуры"
+    },
+    {
+      "rule": "select-name",
+      "description": "Требует у <select> наличие доступного имени (label)"
+    },
+    {
+      "rule": "server-side-image-map",
+      "description": "Запрещает использование серверных image map (недоступно для вспомогательных технологий)"
+    },
+    {
+      "rule": "summary-name",
+      "description": "Требует, чтобы элемент <summary> имел различимый текст"
+    },
+    {
+      "rule": "svg-img-alt",
+      "description": "Требует альтернативный текст для <svg> с ролью img или graphics-document/graphics-symbol"
+    },
+    {
+      "rule": "td-headers-attr",
+      "description": "Требует, чтобы значение атрибута headers у ячеек таблицы ссылалось только на заголовки этой таблицы"
+    },
+    {
+      "rule": "th-has-data-cells",
+      "description": "Требует, чтобы у каждой <th> или columnheader/rowheader были соответствующие ячейки данных"
+    },
+    {
+      "rule": "valid-lang",
+      "description": "Проверяет корректность значений атрибутов lang по стандартам языковых кодов"
+    },
+    {
+      "rule": "video-caption",
+      "description": "Требует наличие субтитров у элементов <video>"
+    },
+    {
+      "rule": "avoid-inline-spacing",
+      "description": "Проверяет возможность масштабирования расстояния между словами, заданного через стиль"
+    },
+    {
+      "rule": "accesskeys",
+      "description": "Убеждается, что значения атрибута accesskey уникальны на странице"
+    },
+    {
+      "rule": "aria-allowed-role",
+      "description": "Проверяет, что заданное значение role допустимо для данного HTML-элемента"
+    },
+    {
+      "rule": "aria-dialog-name",
+      "description": "Требует, чтобы у каждого ARIA dialog или alertdialog был доступный заголовок (имя)"
+    },
+    {
+      "rule": "aria-text",
+      "description": "Гарантирует, что role=\"text\" используется только там, где у элемента нет фокусируемых потомков"
+    },
+    {
+      "rule": "aria-treeitem-name",
+      "description": "Требует, чтобы у каждого ARIA treeitem был доступный заголовок (имя)"
+    },
+    {
+      "rule": "empty-table-header",
+      "description": "Требует, чтобы у элементов <th> был различимый текст (не пустой)"
+    },
+    {
+      "rule": "frame-tested",
+      "description": "Требует наличия скрипта axe-core внутри <iframe> или <frame> (для корректного тестирования)"
+    },
+
+    {
+      "rule": "image-redundant-alt",
+      "description": "Проверяет, чтобы альтернативный текст для изображений не был просто повторением видимого текста рядом"
+    },
+    {
+      "rule": "label-title-only",
+      "description": "Требует, чтобы у каждого элемента формы была видимая метка или текст рядом, а не только атрибут title"
+    },
+    {
+      "rule": "css-orientation-lock",
+      "description": "Проверяет, что стиль сайта не блокирует ориентацию экрана (WCAG 1.3.4)"
+    }
+  ],
+  "only_in_html_validate": [
+    {
+      "rule": "attr-delimiter",
+      "description": "Требует отсутствия пробела между именем и значением атрибута (например, <img src=foo> вместо <img src = foo>)."
+    },
+    {
+      "rule": "attr-spacing",
+      "description": "Проверяет количество пробелов внутри списка атрибутов тега (например, <div class> vs <div class>)."
+    },
+    {
+      "rule": "close-attr",
+      "description": "Требует, чтобы теги записывались корректно (например, <div> вместо <div)."
+    },
+    {
+      "rule": "close-order",
+      "description": "Требует закрывающие теги в правильном порядке (последовательность вложенных тегов должна быть корректной)."
+    },
+    {
+      "rule": "element-name",
+      "description": "Требует написания имени элемента в допустимом формате (например, <div> вместо <Div> при включенном строгом режиме регистра)."
+    },
+    {
+      "rule": "form-dup-name",
+      "description": "Запрещает дублирование атрибута name в элементах формы."
+    },
+    {
+      "rule": "map-dup-name",
+      "description": "Запрещает наличие двух элементов <map> с одинаковым атрибутом name."
+    },
+    {
+      "rule": "map-id-name",
+      "description": "Требует совпадения id и name у элемента <map> (при наличии id)"
+    },
+    {
+      "rule": "no-dup-attr",
+      "description": "Запрещает дублирование атрибутов внутри одного тега."
+    },
+    {
+      "rule": "no-dup-class",
+      "description": "Запрещает повторное использование одного и того же класса в списке class."
+    },
+    {
+      "rule": "no-raw-characters",
+      "description": "Требует замены специальных символов (<, & и т.д.) на HTML-сущности вне контекста HTML."
+    },
+    {
+      "rule": "no-redundant-for",
+      "description": "Запрещает явное указание for=\"id\" при том, что <input> вложен в <label> (необязательно)."
+    },
+    {
+      "rule": "script-type",
+      "description": "Требует отсутствия атрибута type='text/javascript' у тега <script> (в HTML5 он по умолчанию)."
+    },
+    {
+      "rule": "unrecognized-char-ref",
+      "description": "Сообщает об ошибке при использовании неопознанных ссылок на символы (напр. &foobar;)."
+    },
+    {
+      "rule": "attribute-allowed-values",
+      "description": "Проверяет допустимые значения стандартных атрибутов (например, type у <input> не должен быть произвольным)."
+    },
+    {
+      "rule": "attribute-misuse",
+      "description": "Сообщает об ошибке при использовании атрибута не для того тега (например, align для <span> в стандартах HTML5)."
+    },
+    {
+      "rule": "element-permitted-content",
+      "description": "Требует, чтобы содержимое элементов соответствовало модели контента (например, <ul> содержал только <li> или текст)."
+    },
+    {
+      "rule": "element-permitted-occurrences",
+      "description": "Проверяет, что теги встречаются в допустимом количестве (например, один <head> и один <body> в документе)."
+    },
+    {
+      "rule": "element-permitted-order",
+      "description": "Требует соблюдения правильного порядка вложенности элементов (например, <head> перед <body>)."
+    },
+    {
+      "rule": "element-permitted-parent",
+      "description": "Проверяет, что элемент вложен в допустимый родительский элемент (например, <title> только внутри <head>)."
+    },
+    {
+      "rule": "element-required-ancestor",
+      "description": "Требует наличия обязательного родительского элемента (например, <li> должен быть внутри <ul>/<ol>)."
+    },
+    {
+      "rule": "element-required-attributes",
+      "description": "Проверяет наличие обязательных атрибутов у элементов (например, у <img> должен быть атрибут alt)."
+    },
+    {
+      "rule": "element-required-content",
+      "description": "Требует, чтобы элементы содержали обязательный контент (например, <table> должен содержать хотя бы <tr>)."
+    },
+    {
+      "rule": "input-attributes",
+      "description": "Проверяет комбинацию атрибутов у <input> (например, type=text с maxlength допустимы)."
+    },
+    {
+      "rule": "no-multiple-main",
+      "description": "Запрещает наличие более одного тега <main> в документе."
+    },
+    {
+      "rule": "script-element",
+      "description": "Проверяет правильное использование <script> (например, type и src), а также правила пустого элемента."
+    },
+    {
+      "rule": "void-content",
+      "description": "Требует, чтобы пустые теги (<br>, <img> и т.д.) были корректно закрыты в соответствии со стилем (например, не содержали содержимого)."
+    },
+
+    {
+      "rule": "deprecated-rule",
+      "description": "Оповещает об использовании устаревших правил конфигурации html-validate."
+    },
+    {
+      "rule": "no-conditional-comment",
+      "description": "Запрещает условные комментарии MSIE (например, <!--[if IE]>)."
+    },
+    {
+      "rule": "no-deprecated-attr",
+      "description": "Запрещает использование устаревших атрибутов (например, bgcolor, align) в HTML5."
+    },
+    {
+      "rule": "aria-label-misuse",
+      "description": "Запрещает использование aria-label на элементах, которым оно не предназначено (например, на скрытых или неинтерактивных)"
+    },
+    {
+      "rule": "hidden-focusable",
+      "description": "Запрещает скрывать aria-hidden элементы, которые всё ещё могут получать фокус (их видимый текст недоступен)"
+    },
+    {
+      "rule": "multiple-labeled-controls",
+      "description": "Дублирует логику axe: запрещает одной метке <label> ссылаться на несколько контролов (проверено во «matched_rules»)."
+    },
+    {
+      "rule": "no-abstract-role",
+      "description": "Запрещает использовать абстрактные роли WAI-ARIA (они не применяются к элементам)"
+    },
+    {
+      "rule": "no-implicit-button-type",
+      "description": "Требует явно указывать type у элементов <button> (чтобы избежать непреднамеренного поведения)."
+    },
+    {
+      "rule": "no-redundant-aria-label",
+      "description": "Запрещает избыточное указание aria-label, если уже есть другой способ обозначить элемент (напр. текст внутри)."
+    },
+    {
+      "rule": "no-redundant-role",
+      "description": "Запрещает указывать роль, совпадающую со встроенной семантической ролью элемента."
+    },
+    {
+      "rule": "prefer-native-element",
+      "description": "Рекомендует использовать семантические HTML-элементы вместо составных (напр. <button> вместо <div role='button'>)."
+    },
+    {
+      "rule": "svg-focusable",
+      "description": "Запрещает устанавливать tabindex или фокусируемость на <svg> по умолчанию (в IE9+)."
+    },
+    {
+      "rule": "tel-non-breaking",
+      "description": "Требует разрыва между цифрами в телефоне (разные предпосылки требуемости, специфическая проверка)."
+    },
+    {
+      "rule": "text-content",
+      "description": "Требует содержимого внутри текстового элемента быть допустимым (напр. не содержать недопустимого HTML)."
+    },
+    {
+      "rule": "unique-landmark",
+      "description": "Проверяет уникальность областей-разметки (landmark) по их заголовкам или ролям."
+    },
+
+    {
+      "rule": "wcag/h32",
+      "description": "Проверяет обеспечение у кнопок типа submit (WCAG H32: Providing submit buttons)."
+    },
+    {
+      "rule": "wcag/h36",
+      "description": "Проверяет, чтобы изображения, используемые как кнопки, имели alt (WCAG H36)."
+    },
+
+    {
+      "rule": "wcag/h63",
+      "description": "Проверяет использование атрибута scope в таблицах (WCAG H63)."
+    },
+    {
+      "rule": "wcag/h67",
+      "description": "Проверяет использование null alt и отсутствие title у <img> (WCAG H67)."
+    },
+    {
+      "rule": "wcag/h71",
+      "description": "Проверяет, чтобы группы контролов имели описание (WCAG H71)."
+    },
+    {
+      "rule": "require-csp-nonce",
+      "description": "Требует наличия nonce в <script> или <style> при включенной CSP, чтобы встраиваемые скрипты были безопасными."
+    },
+    {
+      "rule": "require-sri",
+      "description": "Требует использования Subresource Integrity (SRI) для внешних ресурсов (скриптов/стилей) при загрузке."
+    },
+    {
+      "rule": "attr-case",
+      "description": "Требует определенного регистра для имен атрибутов (верхний/нижний) по настройкам."
+    },
+    {
+      "rule": "attr-pattern",
+      "description": "Требует, чтобы имена атрибутов соответствовали заданному шаблону (регулярному выражению)."
+    },
+    {
+      "rule": "attr-quotes",
+      "description": "Требует использования определенного стиля кавычек у значений атрибутов (например, всегда двойных)."
+    },
+    {
+      "rule": "attribute-boolean-style",
+      "description": "Требует конкретного стиля для логических атрибутов (напр. <option selected> vs <option selected=\"selected\">)."
+    },
+    {
+      "rule": "attribute-empty-style",
+      "description": "Требует заданного стиля для пустых атрибутов (например, <input required=\"\"> vs <input required>)."
+    },
+    {
+      "rule": "class-pattern",
+      "description": "Требует, чтобы названия классов соответствовали определенному шаблону (регулярному выражению)."
+    },
+    {
+      "rule": "doctype-style",
+      "description": "Требует указанного регистра у декларации DOCTYPE (например, <!DOCTYPE html>)."
+    },
+    {
+      "rule": "element-case",
+      "description": "Требует определенного регистра для имен элементов (например, нижний регистр)."
+    },
+    {
+      "rule": "id-pattern",
+      "description": "Требует, чтобы значения id соответствовали определенному шаблону."
+    },
+    {
+      "rule": "name-pattern",
+      "description": "Требует, чтобы атрибут name (у форм, инпутов) соответствовал определенному шаблону."
+    },
+    {
+      "rule": "no-implicit-close",
+      "description": "Требует явного закрытия элементов, у которых закрывающий тег не обязателен по спецификации (например, <li>, <td>)."
+    },
+    {
+      "rule": "no-implicit-input-type",
+      "description": "Запрещает неявный тип у <input> (например, <input> без type), требуя явного type."
+    },
+    {
+      "rule": "no-inline-style",
+      "description": "Запрещает использование атрибута style на элементах."
+    },
+    {
+      "rule": "no-self-closing",
+      "description": "Запрещает самозакрывающиеся теги (например, <div/>), требует явного закрытия по форме <div></div>."
+    },
+    {
+      "rule": "no-style-tag",
+      "description": "Запрещает использование тега <style> в HTML."
+    },
+    {
+      "rule": "no-trailing-whitespace",
+      "description": "Запрещает пробелы или табуляции в конце строки текста."
+    },
+    {
+      "rule": "prefer-button",
+      "description": "Рекомендует использовать тег <button> вместо <input type='button'> для кнопок."
+    },
+    {
+      "rule": "prefer-tbody",
+      "description": "Рекомендует оборачивать <tr> внутри <tbody> (даже если в HTML и так понятно)."
+    },
+    {
+      "rule": "void-style",
+      "description": "Требует указанного стиля записи непарных (void) тегов (например, <br> vs <br/>)."
+    },
+    {
+      "rule": "allowed-links",
+      "description": "Запрещает некоторые схемы ссылок (например, 'file:' или пустые href), ограничивая их список."
+    },
+    {
+      "rule": "doctype-html",
+      "description": "Требует использования именно <!DOCTYPE html> (без лишних элементов)."
+    },
+    {
+      "rule": "missing-doctype",
+      "description": "Требует наличия декларации doctype в начале документа."
+    },
+    {
+      "rule": "no-missing-references",
+      "description": "Требует, чтобы все ссылки и href на id в документе указывали на существующие элементы."
+    },
+    {
+      "rule": "no-utf8-bom",
+      "description": "Запрещает наличие BOM (Byte Order Mark) в начале UTF-8 HTML-документа."
+    },
+    {
+      "rule": "no-unknown-elements",
+      "description": "Запрещает использование неизвестных элементов (например, опечаток в тегах)."
+    },
+    {
+      "rule": "no-unused-disable",
+      "description": "Запрещает наличие неподдерживаемых или неиспользуемых директив отключения правил HTML-validate."
+    }
+  ]
+}

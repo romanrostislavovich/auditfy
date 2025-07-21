@@ -1,11 +1,14 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {LightHouseAuditType, RuleInterface} from "../../../models/rule.model";
+import { RuleInterface} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
 import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
+import {LightHouseAuditType} from "../../../types/modules.type";
 
 export class OgRule implements RuleInterface {
     dom: CheerioAPI;
+    id: string = 'meta-og-present';
+    tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
     description: string = 'OG tag';
@@ -32,7 +35,7 @@ export class OgRule implements RuleInterface {
                 )
             } else {
                 messages.push(
-                    Message.create(`${tag} missing`,MessageType.error)
+                    Message.create(`${tag} missing`,MessageType.warning)
                 )
             }
             return messages;

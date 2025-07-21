@@ -21,13 +21,16 @@ import {StructuredDataPresentRule} from "./rules/structured-data-present.rule";
 import {StructuredDataValidRule} from "./rules/structured-data-valid.rule";
 import {HrefLangRule} from "./rules/href-lang.rule";
 import {ImageAltRule} from "./rules/image-alt.rule";
+import {Result} from "html-validate";
+import {HeadingLevelRule} from "./rules/heading-level.rule";
 
 export class SeoAudit extends Audit {
-    constructor(file: File, dom: CheerioAPI, lightHouse: RunnerResult) {
+    constructor(file: File, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
         super();
         this.dom = dom;
         this.file = file;
         this.lighthouse = lightHouse;
+        this.htmlValidator = htmlValidator;
         this.name = "SEO"
     }
 
@@ -49,13 +52,26 @@ export class SeoAudit extends Audit {
             CanonicalPresentRule,
             CanonicalNotLocalhostRule,
             DescriptionRule,
+            HeadingLevelRule
         ]
 
         return rules.reduce<Message[]>((messages, rule, i) => {
-            const instance = new rule(this.dom, this.lighthouse.lhr.audits);
+            const instance = new rule(this.dom, this.lighthouse.lhr.audits, this.htmlValidator);
             messages.push(...instance.check());
             return messages;
         }, [])
     }
 }
 
+
+const userNames = [
+    'Alla',
+    "Eva",
+    "Adam",
+    "Lilyt"
+]
+
+const charCount = userNames.reduce<number>((count, item) => {
+    count += item.length;
+    return count;
+}, 0)

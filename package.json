@@ -1,6 +1,6 @@
 {
   "author": "Raman Lauryniuk <romanrostislavovich@gmail.com>",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "name": "website-auditfy",
   "description": "",
   "main": "dist/src/index.js",
@@ -44,6 +44,7 @@
     "commander": "^14.0.0",
     "conventional-cli": "^1.2.0",
     "html-validate": "^9.7.1",
+    "injection-js": "^2.5.0",
     "lighthouse": "^12.7.0",
     "ora": "^8.2.0",
     "puppeteer": "^24.11.1",

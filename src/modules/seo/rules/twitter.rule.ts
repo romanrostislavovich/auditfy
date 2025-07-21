@@ -1,11 +1,14 @@
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {LightHouseAuditType, RuleInterface} from "../../../models/rule.model";
+import {RuleInterface} from "../../../models/rule.model";
 import {CheerioAPI} from "cheerio";
 import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
+import {LightHouseAuditType} from "../../../types/modules.type";
 
 export class TwitterRule implements RuleInterface{
     dom: CheerioAPI;
+    id: string = 'meta-twitter-rule';
+    tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
     description: string = 'Twitter';
@@ -30,7 +33,7 @@ export class TwitterRule implements RuleInterface{
                 )
             } else {
                 messages.push(
-                    Message.create(`${this.description} ${tag} missing`,MessageType.error)
+                    Message.create(`${this.description} ${tag} missing`,MessageType.warning)
                 )
             }
             return messages;

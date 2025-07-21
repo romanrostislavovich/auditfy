@@ -1,4 +1,5 @@
 import path from "node:path";
+import {PathUtils} from "../utils/path.utils";
 
 export class File{
     dir!: string;
@@ -7,17 +8,19 @@ export class File{
     absolutePath!: string;
     relativePath!: string;
     pathWithExtension!: string;
+    test!: string;
 
     constructor() {}
 
-    static create(relativeFilePath: string): File {
+    static create(filePath: string): File {
         const file = new File();
-        file.dir = path.dirname(relativeFilePath);
-        file.filename = path.basename(relativeFilePath);
-        file.extension = path.extname(relativeFilePath);
-        file.relativePath = relativeFilePath;
-        file.absolutePath = `${process.cwd()}/${relativeFilePath}`
-        file.pathWithExtension = `file://${process.cwd()}/${relativeFilePath}`
+        const normalizePath = PathUtils.getNormalizePath(filePath);
+        file.dir = path.dirname(normalizePath);
+        file.filename = path.basename(normalizePath);
+        file.extension = path.extname(normalizePath);
+        file.relativePath = `${file.dir}/${file.filename}`;
+        file.absolutePath = normalizePath;
+        file.pathWithExtension = `file://${file.absolutePath}`
         return file;
     }
 }
