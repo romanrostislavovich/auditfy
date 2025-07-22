@@ -1,6 +1,6 @@
 {
   "author": "Raman Lauryniuk <romanrostislavovich@gmail.com>",
-  "version": "0.1.12",
+  "version": "0.1.0",
   "name": "website-auditfy",
   "description": "",
   "main": "dist/src/index.js",
