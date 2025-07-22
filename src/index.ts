@@ -32,13 +32,11 @@ program
         const spinner = ora('Running audits...').start();
         const currentDataLogger = Date.now();
         try {
-            debugger;
             const source = SourceModel.create(path);
             const dom = await getCheerioDOM(source);
             const lighthouse = await getLightHouseResult(source);
             const htmlValidator = await getHtmlValidatorResult(source);
 
-            debugger;
             const modules = [
                 SeoAudit,
                 CssAudit,
