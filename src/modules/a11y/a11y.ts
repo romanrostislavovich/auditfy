@@ -7,12 +7,13 @@ import {Audit} from "../../models/audit.model";
 import {CheerioAPI} from "cheerio";
 import {RunnerResult} from "lighthouse";
 import {Result} from "html-validate";
+import {SourceModel} from "../../models/source.model";
 
 export class A11yAudit extends Audit {
-    constructor(file: File, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
+    constructor(source: SourceModel, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
         super();
         this.dom = dom;
-        this.file = file;
+        this.source = source;
         this.lighthouse = lightHouse;
         this.htmlValidator = htmlValidator;
         this.name = 'A11Y';
@@ -24,7 +25,8 @@ export class A11yAudit extends Audit {
            args: ['--no-sandbox', '--disable-setuid-sandbox']
        });
        const page = await browser.newPage();
-       await page.goto(this.file.pathWithExtension);
+       const path = this.source.isURL ? this.source.url : this.source.file.pathWithExtension;
+       await page.goto(path);
        const results = await new AxePuppeteer(page).withRules([
            'td-has-header',
            'table-fake-caption',
@@ -112,6 +114,7 @@ export class A11yAudit extends Audit {
            'label-title-only',
            'css-orientation-lock'
        ]).analyze();
+       await page.close();
        await browser.close();
 
        const messages: Message[] = [];

@@ -1,5 +1,6 @@
 import path from "node:path";
 import {PathUtils} from "../utils/path.utils";
+import {statSync} from "node:fs";
 
 export class File{
     dir!: string;
@@ -15,6 +16,10 @@ export class File{
     static create(filePath: string): File {
         const file = new File();
         const normalizePath = PathUtils.getNormalizePath(filePath);
+        const result = statSync(normalizePath)
+        if(!result.isFile()) {
+            throw new Error("Exception of file")
+        }
         file.dir = path.dirname(normalizePath);
         file.filename = path.basename(normalizePath);
         file.extension = path.extname(normalizePath);

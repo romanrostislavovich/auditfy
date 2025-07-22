@@ -10,12 +10,13 @@ import {SpeedIndexRule} from "./rules/speed-index.rule";
 import {LargestContentfulPaintRule} from "./rules/largest-contentful-paint.rule";
 import {FirstContentfulPaintRule} from "./rules/first-contentful-paint.rule";
 import {Result} from "html-validate";
+import {SourceModel} from "../../models/source.model";
 
 export class PerformanceAudit extends Audit {
-    constructor(file:File, dom:CheerioAPI, lightHouse: RunnerResult) {
+    constructor(source: SourceModel, dom:CheerioAPI, lightHouse: RunnerResult) {
         super();
         this.dom = dom;
-        this.file = file;
+        this.source = source;
         this.lighthouse = lightHouse;
         this.name = "Performance";
     }

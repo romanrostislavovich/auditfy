@@ -23,12 +23,13 @@ import {HrefLangRule} from "./rules/href-lang.rule";
 import {ImageAltRule} from "./rules/image-alt.rule";
 import {Result} from "html-validate";
 import {HeadingLevelRule} from "./rules/heading-level.rule";
+import {SourceModel} from "../../models/source.model";
 
 export class SeoAudit extends Audit {
-    constructor(file: File, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
+    constructor(source: SourceModel, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
         super();
         this.dom = dom;
-        this.file = file;
+        this.source = source;
         this.lighthouse = lightHouse;
         this.htmlValidator = htmlValidator;
         this.name = "SEO"
@@ -62,16 +63,3 @@ export class SeoAudit extends Audit {
         }, [])
     }
 }
-
-
-const userNames = [
-    'Alla',
-    "Eva",
-    "Adam",
-    "Lilyt"
-]
-
-const charCount = userNames.reduce<number>((count, item) => {
-    count += item.length;
-    return count;
-}, 0)

@@ -29,11 +29,19 @@ This tool included following modules:
 - CSS (stylelint, with stylelint-config-standard) -  `status: to be continue`
 - Security (html-validator) - `status: 2 Rules and to be continue`
 
+| Module\Mode | URL | Static |
+| :-: |:---:|:------:|
+| SEO |  ☑  |   ☑    |
+| Performance |  ☑  |   ☑    |
+| Accessibility |  ☑  |   ☑    |
+| HTML |  ☑  |   ☑    |
+| CSS | ☓ |   ☑    |
+| Security |  ☑  |   ☑    |
+
 ### Future:
 - JS Validation
 - Configuration modules
 - Custom rule or module
-- Work with url and file
 - mode `production` or `develop`
 - AI integration
 - and e.t.c
@@ -50,6 +58,7 @@ Required:
 ```
 
 How to set up `chrome-launher` for your CI/CD see example [here](./docs/chrome-launcher.md)
+
 ```bash
 npm install website-auditfy 
 ```
@@ -65,11 +74,16 @@ pnpm add website-auditfy
 ## Usage
 
 ```bash
-website-auditfy path/to/index.html
+npx website-auditfy path/to/index.html
+
+or
+
+npx website-auditfy https://github.com/
 ```
 
-#### Example output
+## Output
 
+#### Example output 
 ![img.png](docs/img/img.png)
 
 The CLI process may exit with the following codes:

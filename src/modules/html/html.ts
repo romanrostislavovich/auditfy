@@ -29,12 +29,13 @@ import {NoUnknownElementsRule} from "./rules/no-unknown-elements.rule";
 import {NoUnusedDisableRule} from "./rules/no-unused-disable.rule";
 import {DeprecatedRule} from "./rules/deprecated.rule";
 import {ValidIdRule} from "./rules/valid-id.rule";
+import {SourceModel} from "../../models/source.model";
 
 export class HtmlAudit extends Audit {
-    constructor(file: File, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
+    constructor(source: SourceModel, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
         super();
         this.dom = dom;
-        this.file = file;
+        this.source = source;
         this.lighthouse = lightHouse;
         this.htmlValidator = htmlValidator;
         this.name = "HTML"

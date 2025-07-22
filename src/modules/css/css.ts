@@ -12,23 +12,28 @@ import {ClassPatternRule} from "./rules/class-pattern.rule";
 import {IdPatternRule} from "./rules/id-pattern.rule";
 import {NoInlineStyleRule} from "./rules/no-inline-style.rule";
 import {NoStyleTagRule} from "./rules/no-style-tag.rule";
+import {SourceModel} from "../../models/source.model";
 
 export class CssAudit extends Audit {
-    constructor(file:File, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
+    constructor(source: SourceModel, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
         super();
         this.dom = dom;
-        this.file = file;
+        this.source = source;
         this.lighthouse = lightHouse;
         this.htmlValidator = htmlValidator;
         this.name = "CSS"
     }
 
    async check(): Promise<Message[]> {
+        if(this.source.isURL) {
+            return []
+        }
+
        const cssFiles: string[] = [];
        this.dom('link[rel="stylesheet"]').each((i, elem) => {
            const href = this.dom(elem).attr('href');
            if (href) {
-               cssFiles.push(`${this.file.dir}/${href}`);
+               cssFiles.push(`${this.source.file.dir}/${href}`);
            }
        });
        const options: stylelint.LinterOptions = {

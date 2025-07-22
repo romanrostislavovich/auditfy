@@ -4,24 +4,21 @@ import chalk from 'chalk';
 import {SeoAudit} from './modules/seo/seo';
 import {A11yAudit} from './modules/a11y/a11y';
 import {PerformanceAudit} from './modules/perfomance/performance';
-import {statSync} from 'node:fs';
-import path from "node:path";
 import {Message} from "./models/message.model";
 import {MessageType} from "./enum/message.enum";
 import {HtmlAudit} from "./modules/html/html";
 import {CssAudit} from "./modules/css/css";
-import { File } from "./models/file.model";
+import {File} from "./models/file.model";
+import * as cheerio from "cheerio";
 import {CheerioAPI} from "cheerio";
 import {readFile} from "fs/promises";
-import * as cheerio from "cheerio";
 import http from "node:http";
 import handler from "serve-handler";
 import {killAll, launch} from "chrome-launcher";
 import lighthouse, {RunnerResult} from "lighthouse";
-import LHResult from "lighthouse/types/lhr/lhr";
-import {Artifacts} from "lighthouse/types/artifacts";
 import {SecurityModule} from "./modules/security/security.module";
 import {HtmlValidate, Result} from "html-validate";
+import {SourceModel} from "./models/source.model";
 
 
 const program = new Command();
@@ -29,22 +26,17 @@ const program = new Command();
 program
     .name('website-auditfy')
     .description('Audit local html files for SEO, a11y, performance and structured data')
-    .argument('<file>', 'Path to the local HTML file to audit')
+    .argument('<website>', ' URL or Path to the local HTML file to audit')
     .option('-o, --output <file>', 'Export results to JSON file')
     .action(async (path, options) => {
         const spinner = ora('Running audits...').start();
-
+        const currentDataLogger = Date.now();
         try {
-            const currentData = Date.now();
-
-            const result = statSync(path)
-            if(!result.isFile()) {
-                throw new Error("Exeption of file")
-            }
-            const file = File.create(path);
-            const dom = await getCheerioDOM(file);
-            const lighthouse = await getLightHouseResult(file);
-            const htmlValidator = await getHtmlValidatorResult(file);
+            debugger;
+            const source = SourceModel.create(path);
+            const dom = await getCheerioDOM(source);
+            const lighthouse = await getLightHouseResult(source);
+            const htmlValidator = await getHtmlValidatorResult(source);
 
             debugger;
             const modules = [
@@ -58,7 +50,7 @@ program
 
             const results = await modules.reduce<Promise<{ [k: string]: Message[] }>>(async (result, module) => {
                 const res = await result;
-                const instance = new module(file, dom, lighthouse, htmlValidator);
+                const instance = new module(source, dom, lighthouse, htmlValidator);
                 res[instance.name] = await instance.check();
                 return result;
             }, Promise.resolve({}))
@@ -74,7 +66,9 @@ program
                     )
                 } else {
                     result.forEach((r: Message) => {
-                        console.log(`- ${r.type === MessageType.passed ? chalk.green('✔') :  r.type === MessageType.warning ? chalk.yellow('⚠') : chalk.red('✘')} ${r.message}`)
+                        console.log(`- ${r.type === MessageType.passed ? 
+                            chalk.green('✔') :  r.type === MessageType.warning ? 
+                            chalk.yellow('⚠') : chalk.red('✘')} ${r.message}`)
                     });
                 }
 
@@ -86,16 +80,14 @@ program
                 console.log(`\nResults saved to ${options.output}`);
             }
 
-            console.log(Date.now() - currentData);
+            console.log(`\n Total working time: ${(Date.now() - currentDataLogger) / 1000}s`);
             const auditHasError = Object.values(results)
                 .reduce((list, item) => {
                     list.push(...item)
                     return list;
                 }, [])
                 .some(x => x.type === MessageType.error)
-            if (auditHasError) {
-                process.exit(1);
-            }
+            process.exit(auditHasError ? 1 : 0);
         } catch (error) {
             spinner.fail('Audit failed.');
             console.error(error);
@@ -105,13 +97,13 @@ program
 
 program.parse();
 
-async function getCheerioDOM(file: File): Promise<CheerioAPI> {
-    const html = await readFile(file.relativePath, 'utf-8');
-    const dom = cheerio.load(html);
-    return dom;
+async function getCheerioDOM(source: SourceModel): Promise<CheerioAPI> {
+    return  source.isURL ?
+        await cheerio.fromURL(source.url) :
+        cheerio.load(await readFile(source.file.relativePath, 'utf-8'));
 }
 
-async function getHtmlValidatorResult(file: File): Promise<Result[]> {
+async function getHtmlValidatorResult(source: SourceModel): Promise<Result[]> {
     const htmlValidate = new HtmlValidate({
         rules: {
             // Security
@@ -228,21 +220,33 @@ async function getHtmlValidatorResult(file: File): Promise<Result[]> {
             // End HTML Syntax and concepts
         },
     });
-    const result = await htmlValidate.validateFile(file.relativePath);
+
+    let result;
+    if (source.isURL) {
+        const website = await fetch(source.url);
+        const data = await website.text()
+        result = await htmlValidate.validateString(data);
+    } else {
+        result = await htmlValidate.validateFile(source.file.relativePath);
+    }
+
     return result.results;
 }
 
-async function getLightHouseResult(file: File): Promise<RunnerResult> {
+async function getLightHouseResult(source: SourceModel): Promise<RunnerResult> {
     const PORT: number = 9900;
+    const path = source.isURL ? source.url : `http://localhost:${PORT}/${source.file.filename}`;
+    const dir = source.isURL ? process.cwd() : source.file.dir;
     const server = http.createServer((req, res) => {
-        return handler(req, res, { public: file.dir });
+        return handler(req, res, { public: dir });
     });
 
     // @ts-ignore
     await new Promise(resolve => server.listen(PORT, resolve));
 
     const chrome = await launch({ chromeFlags: ['--headless'] });
-    const result = await lighthouse(`http://localhost:${PORT}/${file.filename}`, {
+
+    const result = await lighthouse(path, {
         port: chrome.port,
         output: 'json',
         logLevel: 'error',

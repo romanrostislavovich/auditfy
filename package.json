@@ -11,7 +11,8 @@
     "tsc": "./node_modules/.bin/tsc",
     "tslint": "./node_modules/.bin/tslint",
     "build": "tsc -p . && gulp -f ./config/gulp.js",
-    "test": "npm run build && node dist/bin.js test/index.html",
+    "test:local": "npm run build && node dist/bin.js test/index.html",
+    "test:url": "npm run build && node dist/bin.js https://github.com/",
     "check-last": "npx website-auditfy test/index.html"
   },
   "repository": {

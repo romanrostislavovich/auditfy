@@ -6,12 +6,13 @@ import {Message} from "../../models/message.model";
 import { Result} from "html-validate";
 import {RequireCspNonceRule} from "./rules/require-csp-nonce.rule";
 import {RequireSriRule} from "./rules/require-sri.rule";
+import {SourceModel} from "../../models/source.model";
 
 export class SecurityModule extends Audit {
-    constructor(file: File, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
+    constructor(source: SourceModel, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
         super();
         this.dom = dom;
-        this.file = file;
+        this.source = source;
         this.lighthouse = lightHouse;
         this.htmlValidator = htmlValidator;
         this.name = 'Security';
