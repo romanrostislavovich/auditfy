@@ -1,6 +1,6 @@
 {
   "author": "Raman Lauryniuk <romanrostislavovich@gmail.com>",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "name": "website-auditfy",
   "description": "",
   "main": "dist/src/index.js",
@@ -45,6 +45,8 @@
     "cheerio": "^1.1.0",
     "commander": "^14.0.0",
     "conventional-cli": "^1.2.0",
+    "eslint": "^9.32.0",
+    "eslint-plugin-security": "^3.0.1",
     "html-validate": "^9.7.1",
     "injection-js": "^2.5.0",
     "lighthouse": "^12.7.0",
@@ -52,9 +54,11 @@
     "puppeteer": "^24.11.1",
     "serve-handler": "^6.1.6",
     "stylelint": "^16.21.1",
-    "stylelint-config-standard": "^38.0.0"
+    "stylelint-config-standard": "^38.0.0",
+    "typescript-eslint": "^8.38.0"
   },
   "devDependencies": {
+    "@types/eslint-plugin-security": "^3.0.0",
     "@types/serve-handler": "^6.1.4",
     "gulp": "^5.0.1",
     "gulp-copy": "^5.0.0",

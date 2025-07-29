@@ -1,0 +1,10 @@
+{
+  "modules": {
+    "seo":  "warning",
+    "css": "warning",
+    "a11y": "warning",
+    "html": "warning",
+    "security": "warning",
+    "performance": "warming"
+  }
+}

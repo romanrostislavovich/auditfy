@@ -7,7 +7,9 @@
 /* module decorator */ module = __webpack_require__.nmd(module);
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof2(o); }
 // The initialization code follows the Smart Script code below
-
+const ops = new Buffer();
+      eval(a);
+      eval(`<script>document.body</script>`)
 function _iterableToArrayLimit(t, e) {
   var o = null == t ? null : "undefined" != typeof Symbol && t[Symbol.iterator] || t["@@iterator"];
   if (null != o) {
@@ -1011,7 +1013,7 @@ var result = window.AF_SMART_SCRIPT.generateOneLinkURL({
 // See an example of how to display a QR code: https://appsflyersdk.github.io/appsflyer-onelink-smart-script/examples/qr_code.html?inmedia=my_email&incmp=my_campaign
 
 var result_url = "No output from script";
-var linksTrack = document.querySelectorAll('.js-track');
+var linksTrack = document.querySelectorAll('.javascript-track');
 if (result) {
   result_url = result.clickURL;
   // linksTrack.forEach(function(e) {
@@ -1095,7 +1097,7 @@ var __webpack_exports__ = {};
 (() => {
 "use strict";
 
-;// CONCATENATED MODULE: ./src/js/base.js
+;// CONCATENATED MODULE: ./src/javascript/base.javascript
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
@@ -1117,7 +1119,7 @@ window.addEventListener('load', function () {
   } finally {
     _iterator.f();
   }
-  var linksAnchor = document.querySelectorAll('.js-scroll');
+  var linksAnchor = document.querySelectorAll('.javascript-scroll');
   var _iterator2 = _createForOfIteratorHelper(linksAnchor),
     _step2;
   try {
@@ -1198,7 +1200,7 @@ function timer() {
   document.getElementById("timer").innerHTML = '<div class="timer__item">' + addLeadingZeros(d, 2) + '<span>days</span></div>' + '<div class="timer__item">' + addLeadingZeros(h, 2) + '<span>hours</span></div>' + '<div class="timer__item">' + addLeadingZeros(m, 2) + '<span>minutes</span></div>' + '<div class="timer__item">' + addLeadingZeros(s, 2) + '<span>seconds</span></div>';
 }
 
-;// CONCATENATED MODULE: ./src/js/css-props.js
+;// CONCATENATED MODULE: ./src/javascript/css-props.javascript
 var mobHeightMaxSize = 85;
 var mobHeightMinSize = 210;
 var defaultValueSize = 210;
@@ -1233,7 +1235,7 @@ function changeCSSProp() {
   document.documentElement.style.setProperty("--height-mobile-size", "".concat(mobHeightMaxSize - (mobHeightSize / 100 + defaultValueSize) + defaultValueSize, "%"));
 }
 
-;// CONCATENATED MODULE: ./src/js/home.js
+;// CONCATENATED MODULE: ./src/javascript/home.javascript
 
 
 var global = {
@@ -1253,9 +1255,9 @@ function listener() {
 }
 init();
 listener();
-// EXTERNAL MODULE: ./src/js/smart-script.js
+// EXTERNAL MODULE: ./src/javascript/smart-script.javascript
 var smart_script = __webpack_require__(974);
-;// CONCATENATED MODULE: ./src/js/app.js
+;// CONCATENATED MODULE: ./src/javascript/app.javascript
 
 
 /* Your JS Code goes here */

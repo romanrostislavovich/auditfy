@@ -5,7 +5,7 @@ import path from "node:path";
 const packageJsonPath: string = './package.json';
 
 export class JsonFileUtils {
-    parseFile<T>(filePath: string): any {
+    static parseFile<T>(filePath: string): any {
         if (!fs.existsSync(filePath)) {
             throw new Error(chalk.red(`File doesn't exists by path ${filePath}`));
         }
@@ -14,12 +14,12 @@ export class JsonFileUtils {
         return result;
     }
 
-    getPackageJsonPath(): string {
+    static getPackageJsonPath(): string {
         const result: string = path.resolve(__dirname,  '../../../../', packageJsonPath);
         return result;
     }
 
-    saveJsonFile<T>(data: T, path: string): void {
+    static  saveJsonFile<T>(data: T, path: string): void {
         const jsonSpaces: number = 4;
         fs.writeFileSync(path, JSON.stringify(data,  null, jsonSpaces));
     }

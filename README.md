@@ -22,25 +22,28 @@ This application try to merge all of them to one tool with simplify using.
 ### Included
 
 This tool included following modules: 
-- SEO (lighthouse and some custom) - `status: 17 Rules` 
-- Performance (lighthouse) - `status: 5 rules and to be continue`
-- Accessibility check (puppeteer and lighthouse) -  `status: 83 Rules to be continue`
-- HTML (html-validator) -  `status: 16 rules to be continue`
-- CSS (stylelint, with stylelint-config-standard) -  `status: to be continue`
-- Security (html-validator) - `status: 2 Rules and to be continue`
+- SEO  - `status: 17 Rules` 
+- Performance  - `status: 5 rules and to be continue`
+- Accessibility check  -  `status: 83 Rules to be continue`
+- HTML  -  `status: 16 rules to be continue`
+- CSS  -  `status: to be continue`
+- Security - `status: 16 Rules.` [List of security rules](/docs/rules/security.rules.md)
 
-| Module\Mode | URL | Static |
-| :-: |:---:|:------:|
-| SEO |  ☑  |   ☑    |
-| Performance |  ☑  |   ☑    |
-| Accessibility |  ☑  |   ☑    |
-| HTML |  ☑  |   ☑    |
-| CSS | ☓ |   ☑    |
-| Security |  ☑  |   ☑    |
+| Module\Mode    | URL | Static |
+|:---------------|:----|:-------|
+| SEO            | ☑   | ☑      |
+| Performance    | ☑   | ☑      |
+| Accessibility  | ☑   | ☑      |
+| HTML           | ☑   | ☑      |
+| CSS            | ☓   | ☑      |
+| Security       | ☑   | ☑      |
+| JavaScript     | ☓   | ☑      |
+
 
 ### Future:
-- JS Validation
+- TS Validation
 - Configuration modules
+- Configuration rules
 - Custom rule or module
 - mode `production` or `develop`
 - AI integration

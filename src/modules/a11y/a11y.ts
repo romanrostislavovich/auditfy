@@ -103,6 +103,7 @@ export class A11yAudit extends Audit {
            'valid-lang',
            'video-caption',
            'avoid-inline-spacing',
+           // Best Practices Rules
            'accesskeys',
            'aria-allowed-role',
            'aria-dialog-name',

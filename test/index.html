@@ -171,7 +171,7 @@
 </main>
 <footer>
   <div class="container">
-    <p>  <span>Advertencia</span>: El trading con instrumentos financieros es una actividad de riesgo, ya que no solo puede generar beneficios sino también causar pérdidas. El tamaño de las pérdidas potenciales es limitado por el importe del depósito.</p>
+    <p>  <span class="currentYear">Advertencia</span>: El trading con instrumentos financieros es una actividad de riesgo, ya que no solo puede generar beneficios sino también causar pérdidas. El tamaño de las pérdidas potenciales es limitado por el importe del depósito.</p>
     <p>  Esta información no está dirigida a los residentes del EEA</p>
     <p>  © <span class="currentYear">2023</span>, FCIL</p>
   </div>
@@ -198,6 +198,7 @@
     }
   });
 
+  eval(a);
   function openTab(evt, cityName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -224,45 +225,7 @@
   </script>
 
 <script>
-  function setMetaDescription(title,description) {
-    document.title = title;
 
-   /* const metaDescription = document.head.querySelector("meta[description]");
-    metaDescription.content = description;*/
-
-    const data =   {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://technicalseo.com/tools/schema-markup-generator/"
-      },
-      "headline": title,
-      "description": description,
-      "image": "",
-      "author": {
-        "@type": "",
-        "name": "asdf",
-        "url": "https://example.com"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "asdf",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://example.com"
-        }
-      },
-      "datePublished": "2025-07-08",
-      "dateModified": "2025-07-15"
-    }
-    const struredData = document.createElement('script');
-    struredData.type = "application/ld+json";
-    struredData.textContent = `${JSON.stringify(data)}`;
-    document.head.appendChild(struredData);
-  }
-
-  setMetaDescription('title', 'description')
 </script>
 </body>
 </html>

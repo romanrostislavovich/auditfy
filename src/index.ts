@@ -19,6 +19,11 @@ import lighthouse, {RunnerResult} from "lighthouse";
 import {SecurityModule} from "./modules/security/security.module";
 import {HtmlValidate, Result} from "html-validate";
 import {SourceModel} from "./models/source.model";
+import {JsonFileUtils} from "./utils/json-file.utils";
+import {PathUtils} from "./utils/path.utils";
+import {JsAuditModule} from "./modules/javascript/javascript.module";
+import {TypescriptAuditModule} from "./modules/typescript/typescript.module";
+import * as url from "node:url";
 
 
 const program = new Command();
@@ -26,7 +31,7 @@ const program = new Command();
 program
     .name('website-auditfy')
     .description('Audit local html files for SEO, a11y, performance and structured data')
-    .argument('<website>', ' URL or Path to the local HTML file to audit')
+    .argument('<website>', ' URL or Path to the HTML file to audit')
     .option('-o, --output <file>', 'Export results to JSON file')
     .action(async (path, options) => {
         const spinner = ora('Running audits...').start();
@@ -37,14 +42,26 @@ program
             const lighthouse = await getLightHouseResult(source);
             const htmlValidator = await getHtmlValidatorResult(source);
 
-            const modules = [
+            const staticModules = [
+
                 SeoAudit,
                 CssAudit,
                 A11yAudit,
                 HtmlAudit,
                 SecurityModule,
+                PerformanceAudit,
+                JsAuditModule,
+                    //  TypescriptAuditModule,
+            ]
+
+            const urlModules = [
+                SeoAudit,
+                A11yAudit,
+                HtmlAudit,
+                SecurityModule,
                 PerformanceAudit
             ]
+            const modules = source.isURL ? urlModules : staticModules;
 
             const results = await modules.reduce<Promise<{ [k: string]: Message[] }>>(async (result, module) => {
                 const res = await result;
@@ -71,6 +88,7 @@ program
                 }
 
             }
+
 
             if (options.output) {
                 const fs = await import('fs/promises');
