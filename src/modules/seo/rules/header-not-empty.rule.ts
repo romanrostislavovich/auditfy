@@ -10,7 +10,7 @@ export class HeaderNotEmptyRule implements RuleInterface{
     tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
-    description: string = 'H1 tag';
+    description: string = 'H1 should be not empty';
 
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType) {

@@ -11,7 +11,7 @@ export class OgRule implements RuleInterface {
     tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
-    description: string = 'OG tag';
+    description: string = 'OG tags are present';
     ruleUrl: string = 'https://ogp.me/';
 
     private ogTags = [

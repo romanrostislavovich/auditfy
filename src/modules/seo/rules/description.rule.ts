@@ -10,7 +10,7 @@ export class DescriptionRule implements RuleInterface{
     tags: string[] = ['html', 'seo'];
     lightHouse: LightHouseAuditType;
     ruleFlow: MessageType = MessageType.error;
-    description: string = 'Meta description';
+    description: string = 'Document does not have a meta description';
     ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/seo/meta-description/';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType) {

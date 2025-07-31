@@ -13,7 +13,7 @@ export class ValidIdRule implements RuleInterface {
     lightHouse: LightHouseAuditType;
     ruleFlow: MessageType = MessageType.warning;
     htmlValidator: Result[];
-    description: string = 'Valid ID';
+    description: string = 'Require `id` to be a valid identifier';
     ruleUrl: string = 'https://html-validate.org/rules/valid-id.html';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[]) {

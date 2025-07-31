@@ -13,7 +13,7 @@ export class ElementCaseRule implements RuleInterface {
     lightHouse: LightHouseAuditType;
     ruleFlow: MessageType = MessageType.warning;
     htmlValidator: Result[];
-    description: string = 'Element name case';
+    description: string = 'Require a specific case for element names';
     ruleUrl: string = 'https://html-validate.org/rules/element-case.html';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[]) {

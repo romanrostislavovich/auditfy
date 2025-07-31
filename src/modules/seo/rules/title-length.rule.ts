@@ -13,7 +13,7 @@ export class TitleLengthRule implements RuleInterface {
     tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
-    description: string = 'Title tag';
+    description: string = 'Title tag has correct length';
     ruleUrl: string = 'https://www.w3.org/Provider/Style/TITLE.html'
 
     private titleLength = 64;

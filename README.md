@@ -22,12 +22,14 @@ This application try to merge all of them to one tool with simplify using.
 ### Included
 
 This tool included following modules: 
-- SEO  - `status: 17 Rules` 
+
+- HTML  -  `status: 81 Rules.` [List of html rules](/docs/rules/html.rules.md)
+- CSS  -  `status: to be continue`
+- JavaScript - `status: 100+ Rules from eslint. To be continue`
+- Security - `status: 16 Rules.` [List of security rules](/docs/rules/security.rules.md)
+- SEO  - `status: 17 Rules`[List of SEO rules](/docs/rules/seo.rules.md)
 - Performance  - `status: 5 rules and to be continue`
 - Accessibility check  -  `status: 83 Rules to be continue`
-- HTML  -  `status: 16 rules to be continue`
-- CSS  -  `status: to be continue`
-- Security - `status: 16 Rules.` [List of security rules](/docs/rules/security.rules.md)
 
 | Module\Mode    | URL | Static |
 |:---------------|:----|:-------|
@@ -50,7 +52,7 @@ This tool included following modules:
 - and e.t.c
 
 ### Note 
-> Because this tool have a lot of rules. All rules on `warning` by default
+> Because this tool have a lot of rules. All rules on `warning` by default (temporarily)
 
 ## Installation
 

@@ -10,7 +10,7 @@ export class HeaderOnlyOneRule implements RuleInterface{
     tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
-    description: string = 'H1 tag';
+    description: string = 'Only one H1 tag per page';
 
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType) {

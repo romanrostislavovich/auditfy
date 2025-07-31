@@ -24,6 +24,7 @@ import {ImageAltRule} from "./rules/image-alt.rule";
 import {Result} from "html-validate";
 import {HeadingLevelRule} from "./rules/heading-level.rule";
 import {SourceModel} from "../../models/source.model";
+import {EmptyTitleRule} from "./rules/empty-title.rule";
 
 export class SeoAudit extends Audit {
     constructor(source: SourceModel, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
@@ -53,7 +54,8 @@ export class SeoAudit extends Audit {
             CanonicalPresentRule,
             CanonicalNotLocalhostRule,
             DescriptionRule,
-            HeadingLevelRule
+            HeadingLevelRule,
+            EmptyTitleRule,
         ]
 
         return rules.reduce<Message[]>((messages, rule, i) => {

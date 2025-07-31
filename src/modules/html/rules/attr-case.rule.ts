@@ -13,7 +13,7 @@ export class AttrCaseRule implements RuleInterface {
     lightHouse: LightHouseAuditType;
     ruleFlow: MessageType = MessageType.warning;
     htmlValidator: Result[];
-    description: string = 'Attribute name case';
+    description: string = 'Require a specific case for attribute names  ';
     ruleUrl: string = 'https://html-validate.org/rules/attr-case.html';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[]) {

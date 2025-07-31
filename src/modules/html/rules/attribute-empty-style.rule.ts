@@ -13,7 +13,7 @@ export class AttributeEmptyStyleRule implements RuleInterface {
     lightHouse: LightHouseAuditType;
     ruleFlow: MessageType = MessageType.warning;
     htmlValidator: Result[];
-    description: string = 'Empty attribute style';
+    description: string = 'Require a specific style for empty attributes';
     ruleUrl: string = 'https://html-validate.org/rules/attribute-empty-style.html';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[]) {

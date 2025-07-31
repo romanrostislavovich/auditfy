@@ -12,7 +12,7 @@ export class TitlePresentRule implements RuleInterface {
     tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
-    description: string = 'Title tag';
+    description: string = 'Title tag is present ';
     ruleUrl: string = 'https://www.w3.org/Provider/Style/TITLE.html';
 
     constructor(dom: CheerioAPI, lightHouse: Record<string, AuditResult>) {

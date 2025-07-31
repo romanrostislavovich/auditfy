@@ -13,7 +13,7 @@ export class NoMissingReferencesRule implements RuleInterface {
     lightHouse: LightHouseAuditType;
     ruleFlow: MessageType = MessageType.warning;
     htmlValidator: Result[];
-    description: string = 'No missing references';
+    description: string = 'Require all element references to exist';
     ruleUrl: string = 'https://html-validate.org/rules/no-missing-references.html';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[]) {

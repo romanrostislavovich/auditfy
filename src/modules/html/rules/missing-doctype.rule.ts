@@ -13,7 +13,7 @@ export class MissingDoctypeRule implements RuleInterface {
     lightHouse: LightHouseAuditType;
     ruleFlow: MessageType = MessageType.warning;
     htmlValidator: Result[];
-    description: string = 'Require a doctype for the document';
+    description: string = 'Require document to have a doctype';
     ruleUrl: string = 'https://html-validate.org/rules/missing-doctype.html';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[]) {

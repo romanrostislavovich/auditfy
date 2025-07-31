@@ -11,7 +11,7 @@ export class TwitterRule implements RuleInterface{
     tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
-    description: string = 'Twitter';
+    description: string = 'Twitter tags are present';
     ruleUrl: string = 'https://developer.x.com/en/docs/x-for-websites/cards/guides/getting-started';
 
     private twitterTags = [

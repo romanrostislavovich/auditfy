@@ -13,7 +13,7 @@ export class AttrPatternRule implements RuleInterface {
     lightHouse: LightHouseAuditType;
     ruleFlow: MessageType = MessageType.warning;
     htmlValidator: Result[];
-    description: string = 'Attribute name pattern';
+    description: string = 'Require attributes to match configured patterns';
     ruleUrl: string = 'https://html-validate.org/rules/attr-pattern.html';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[]) {

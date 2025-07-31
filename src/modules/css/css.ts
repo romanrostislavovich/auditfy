@@ -44,7 +44,7 @@ export class CssAudit extends Audit {
        }
 
        const linterResult = await  stylelint.lint(options);
-       const messages = linterResult.results.reduce<Message[]>((m, item) => {
+       const messages = linterResult.results.reduce<Message[]>((m, item, index) => {
            m.push(...item.parseErrors.map(x => Message.create(`${x.text} at line ${x.line}`, MessageType.warning)))
            m.push(...item.warnings.map(x => Message.create(`${x.text} at line ${x.line}. Rule ${x.rule}`, MessageType.warning)))
            return m;

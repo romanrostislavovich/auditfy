@@ -10,7 +10,7 @@ export class HeaderPresentRule implements RuleInterface{
     tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
-    description: string = 'H1 tag';
+    description: string = 'H1 tag is present';
 
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType) {

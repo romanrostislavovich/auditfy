@@ -13,7 +13,7 @@ export class NoDupIdRule implements RuleInterface {
     lightHouse: LightHouseAuditType;
     ruleFlow: MessageType = MessageType.warning;
     htmlValidator: Result[];
-    description: string = 'Disallows elements with duplicated ID';
+    description: string = 'Disallow duplicated IDs';
     ruleUrl: string = 'https://html-validate.org/rules/no-dup-id.html';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[]) {

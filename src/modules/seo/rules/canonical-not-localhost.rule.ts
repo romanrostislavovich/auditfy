@@ -10,7 +10,7 @@ export class CanonicalNotLocalhostRule implements RuleInterface{
     tags: string[] = ['html', 'seo'];
     ruleFlow: MessageType = MessageType.error;
     lightHouse: LightHouseAuditType;
-    description: string = 'Canonical tag';
+    description: string = 'Canonical must be not localhost';
     ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/seo/canonical'
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType) {
