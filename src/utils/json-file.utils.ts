@@ -15,7 +15,7 @@ export class JsonFileUtils {
     }
 
     static getPackageJsonPath(): string {
-        const result: string = path.resolve(__dirname,  '../../../../', packageJsonPath);
+        const result: string = path.resolve(__dirname,  '../../../', packageJsonPath);
         return result;
     }
 

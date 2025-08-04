@@ -8,9 +8,9 @@ import {Message} from "./models/message.model";
 import {MessageType} from "./enum/message.enum";
 import {HtmlAudit} from "./modules/html/html";
 import {CssAudit} from "./modules/css/css";
-import {File} from "./models/file.model";
 import * as cheerio from "cheerio";
 import {CheerioAPI} from "cheerio";
+import {ArgumentTypes} from 'conventional-cli';
 import {readFile} from "fs/promises";
 import http from "node:http";
 import handler from "serve-handler";
@@ -19,100 +19,164 @@ import lighthouse, {RunnerResult} from "lighthouse";
 import {SecurityModule} from "./modules/security/security.module";
 import {HtmlValidate, Result} from "html-validate";
 import {SourceModel} from "./models/source.model";
-import {JsonFileUtils} from "./utils/json-file.utils";
-import {PathUtils} from "./utils/path.utils";
 import {JsAuditModule} from "./modules/javascript/javascript.module";
-import {TypescriptAuditModule} from "./modules/typescript/typescript.module";
-import * as url from "node:url";
+import {OptionModel} from "./models/option.model";
+import {JsonFileUtils} from "./utils/json-file.utils";
+
+const toolName: string = 'website-auditfy';
+const packageJson: any = JsonFileUtils.parseFile(JsonFileUtils.getPackageJsonPath());
+
+const versionOption = new OptionModel({
+    required: false,
+    longName: 'version',
+    shortName: 'v',
+    beta: false,
+    type: ArgumentTypes.undefined,
+    description: "Print current version"
+})
+const sourceOption = new OptionModel({
+    required: true,
+    longName: 'source',
+    shortName: 's',
+    beta: false,
+    type: ArgumentTypes.path,
+    values: [
+        'relative path',
+        'absolute path',
+        'URL'
+    ],
+    description: 'URL or Path to the HTML file to audit',
+    additionalDescription: ''
+})
+const helpOption = new OptionModel({
+    required: false,
+    longName: 'help',
+    shortName: 'h',
+    beta: false,
+    type: ArgumentTypes.undefined,
+    description: `Print help`
+})
+const configOption = new OptionModel({
+    required: false,
+    longName: 'config',
+    shortName: 'c',
+    beta: false,
+    type: ArgumentTypes.path,
+    values: [
+        'relative path',
+        'absolute path',
+    ],
+    description: 'Path to the JSON config file',
+    additionalDescription: ''
+})
+
+const docs: any = {
+    name: toolName,
+    usage: '[options]',
+    description: 'Simple CLI tools for check SEO, HTML, CSS, JS, TS, Performance, Security and A11Y',
+    examples: `
+
+Current version: ${packageJson.version}
+
+Examples:
+    
+    $ ${toolName} path/to/index.html
+    $ ${toolName} https://github.com
+`
+};
 
 
 const program = new Command();
 
 program
-    .name('website-auditfy')
-    .description('Audit local html files for SEO, a11y, performance and structured data')
-    .argument('<website>', ' URL or Path to the HTML file to audit')
-    .option('-o, --output <file>', 'Export results to JSON file')
-    .action(async (path, options) => {
-        const spinner = ora('Running audits...').start();
-        const currentDataLogger = Date.now();
-        try {
-            const source = SourceModel.create(path);
-            const dom = await getCheerioDOM(source);
-            const lighthouse = await getLightHouseResult(source);
-            const htmlValidator = await getHtmlValidatorResult(source);
+    .name(docs.name)
+    .description(docs.description)
+    .argument(sourceOption.getFlag(), sourceOption.getDescription())
+    .option(configOption.getFlag(), configOption.getDescription(), configOption.default)
+    .helpOption(helpOption.getFlag(), helpOption.getDescription())
+    .version(packageJson.version, versionOption.getFlag(), versionOption.getDescription())
+    .addHelpText(`afterAll`, docs.examples)
+    .action(run);
 
-            const staticModules = [
+program.parse(process.argv);
 
-                SeoAudit,
-                CssAudit,
-                A11yAudit,
-                HtmlAudit,
-                SecurityModule,
-                PerformanceAudit,
-                JsAuditModule,
-                    //  TypescriptAuditModule,
-            ]
+async function run(path: any, options: any) {
+    const spinner = ora('Running audits...').start();
+    const currentDataLogger = Date.now();
+    try {
+        const source = SourceModel.create(path);
+        const dom = await getCheerioDOM(source);
+        const lighthouse = await getLightHouseResult(source);
+        const htmlValidator = await getHtmlValidatorResult(source);
 
-            const urlModules = [
-                SeoAudit,
-                A11yAudit,
-                HtmlAudit,
-                SecurityModule,
-                PerformanceAudit
-            ]
-            const modules = source.isURL ? urlModules : staticModules;
+        const staticModules = [
 
-            const results = await modules.reduce<Promise<{ [k: string]: Message[] }>>(async (result, module) => {
-                const res = await result;
-                const instance = new module(source, dom, lighthouse, htmlValidator);
-                res[instance.name] = await instance.check();
-                return result;
-            }, Promise.resolve({}))
+            SeoAudit,
+            CssAudit,
+            A11yAudit,
+            HtmlAudit,
+            SecurityModule,
+            PerformanceAudit,
+            JsAuditModule,
+            //  TypescriptAuditModule,
+        ]
 
-            spinner.succeed('Audit completed!');
+        const urlModules = [
+            SeoAudit,
+            A11yAudit,
+            HtmlAudit,
+            SecurityModule,
+            PerformanceAudit
+        ]
+        const modules = source.isURL ? urlModules : staticModules;
 
-            console.log(chalk.green.bold('\nAudit Report'));
-            for (const [section, result] of Object.entries(results)) {
-                console.log(`\n${chalk.cyan(section.toUpperCase())}`);
-                if(result.length === 0 || result.every(x => x.type === MessageType.passed)) {
-                    console.log(
-                        `- ${chalk.green('✔') } all tests are  passed`
-                    )
-                } else {
-                    result.forEach((r: Message) => {
-                        console.log(`- ${r.type === MessageType.passed ? 
-                            chalk.green('✔') :  r.type === MessageType.warning ? 
+        const results = await modules.reduce<Promise<{ [k: string]: Message[] }>>(async (result, module) => {
+            const res = await result;
+            const instance = new module(source, dom, lighthouse, htmlValidator);
+            res[instance.name] = await instance.check();
+            return result;
+        }, Promise.resolve({}))
+
+        spinner.succeed('Audit completed!');
+
+        console.log(chalk.green.bold('\nAudit Report'));
+        for (const [section, result] of Object.entries(results)) {
+            console.log(`\n${chalk.cyan(section.toUpperCase())}`);
+            if(result.length === 0 || result.every(x => x.type === MessageType.passed)) {
+                console.log(
+                    `- ${chalk.green('✔') } all tests are  passed`
+                )
+            } else {
+                result.forEach((r: Message) => {
+                    console.log(`- ${r.type === MessageType.passed ?
+                        chalk.green('✔') :  r.type === MessageType.warning ?
                             chalk.yellow('⚠') : chalk.red('✘')} ${r.message}`)
-                    });
-                }
-
+                });
             }
 
-
-            if (options.output) {
-                const fs = await import('fs/promises');
-                await fs.writeFile(options.output, JSON.stringify(results, null, 2));
-                console.log(`\nResults saved to ${options.output}`);
-            }
-
-            console.log(`\n Total working time: ${(Date.now() - currentDataLogger) / 1000}s`);
-            const auditHasError = Object.values(results)
-                .reduce((list, item) => {
-                    list.push(...item)
-                    return list;
-                }, [])
-                .some(x => x.type === MessageType.error)
-            process.exit(auditHasError ? 1 : 0);
-        } catch (error) {
-            spinner.fail('Audit failed.');
-            console.error(error);
-            process.exit(2);
         }
-    });
 
-program.parse();
 
+        if (options.output) {
+            const fs = await import('fs/promises');
+            await fs.writeFile(options.output, JSON.stringify(results, null, 2));
+            console.log(`\nResults saved to ${options.output}`);
+        }
+
+        console.log(`\n Total working time: ${(Date.now() - currentDataLogger) / 1000}s`);
+        const auditHasError = Object.values(results)
+            .reduce((list, item) => {
+                list.push(...item)
+                return list;
+            }, [])
+            .some(x => x.type === MessageType.error)
+        process.exit(auditHasError ? 1 : 0);
+    } catch (error) {
+        spinner.fail('Audit failed.');
+        console.error(error);
+        process.exit(2);
+    }
+}
 async function getCheerioDOM(source: SourceModel): Promise<CheerioAPI> {
     return  source.isURL ?
         await cheerio.fromURL(source.url) :
