@@ -27,7 +27,7 @@ export class HeaderNotEmptyRule implements RuleInterface{
         return [
             Message.create(
                 `${this.description} is not empty`,
-                tagIsNotEmpty ? MessageType.passed : MessageType.warning
+                tagIsNotEmpty ? MessageType.passed : this.ruleFlow
             )
         ]
     }

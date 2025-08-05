@@ -9,7 +9,7 @@ export class HrefLangRule implements RuleInterface {
     dom: CheerioAPI;
     id: string = 'hreflang';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'Document has a valid `hreflang`';
     ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/seo/hreflang/';
@@ -24,7 +24,7 @@ export class HrefLangRule implements RuleInterface {
         return [
             Message.create(
                 `${this.description}. Score is ${hrefLangRuleScore}`,
-                hrefLangRuleScore || 0 >= 0.9 ? MessageType.passed : MessageType.warning
+                hrefLangRuleScore || 0 >= 0.9 ? MessageType.passed : this.ruleFlow
             ),
         ]
     }

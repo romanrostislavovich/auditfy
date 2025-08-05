@@ -25,18 +25,30 @@ import {Result} from "html-validate";
 import {HeadingLevelRule} from "./rules/heading-level.rule";
 import {SourceModel} from "../../models/source.model";
 import {EmptyTitleRule} from "./rules/empty-title.rule";
+import {IConfig} from "../../config/default";
+import {RuleInterface} from "../../models/rule.model";
 
 export class SeoAudit extends Audit {
-    constructor(source: SourceModel, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
+    constructor(
+        source: SourceModel,
+        dom: CheerioAPI,
+        lightHouse: RunnerResult,
+        htmlValidator: Result[],
+        config: IConfig
+    ) {
         super();
         this.dom = dom;
         this.source = source;
         this.lighthouse = lightHouse;
         this.htmlValidator = htmlValidator;
-        this.name = "SEO"
+        this.name = "SEO";
+        this.config = config;
     }
 
     async check(): Promise<Message[]> {
+        const seoConfigModule = Object.entries(this.config.modules).find((item) => item[0].toUpperCase() === this.name.toUpperCase());
+        const seoConfigRules = !!seoConfigModule ? seoConfigModule[1] : {}
+
         const rules = [
             OgRule,
             TwitterRule,
@@ -58,10 +70,18 @@ export class SeoAudit extends Audit {
             EmptyTitleRule,
         ]
 
-        return rules.reduce<Message[]>((messages, rule, i) => {
+        const ruleInstanceList = rules.reduce<{[key: string]: RuleInterface }>((list, rule) => {
             const instance = new rule(this.dom, this.lighthouse.lhr.audits, this.htmlValidator);
-            messages.push(...instance.check());
-            return messages;
-        }, [])
+            list[instance.id] = instance;
+            return list;
+        }, {})
+        let result: Message[] = []
+        for(const [rule, flow] of Object.entries(seoConfigRules)) {
+            console.log(rule);
+            const instance = ruleInstanceList[rule];
+            instance.ruleFlow = flow;
+            result.push(...instance.check())
+        }
+        return result;
     }
 }

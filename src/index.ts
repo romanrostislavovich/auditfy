@@ -22,6 +22,8 @@ import {SourceModel} from "./models/source.model";
 import {JsAuditModule} from "./modules/javascript/javascript.module";
 import {OptionModel} from "./models/option.model";
 import {JsonFileUtils} from "./utils/json-file.utils";
+import {config as defaultConfig, IConfig} from './config/default'
+import {ModuleFlowEnum} from "./enum/module.enum";
 
 const toolName: string = 'website-auditfy';
 const packageJson: any = JsonFileUtils.parseFile(JsonFileUtils.getPackageJsonPath());
@@ -110,7 +112,6 @@ async function run(path: any, options: any) {
         const htmlValidator = await getHtmlValidatorResult(source);
 
         const staticModules = [
-
             SeoAudit,
             CssAudit,
             A11yAudit,
@@ -129,10 +130,11 @@ async function run(path: any, options: any) {
             PerformanceAudit
         ]
         const modules = source.isURL ? urlModules : staticModules;
+        const config: IConfig = options.config ? JsonFileUtils.parseFile<IConfig>(options.config) : defaultConfig;
 
         const results = await modules.reduce<Promise<{ [k: string]: Message[] }>>(async (result, module) => {
             const res = await result;
-            const instance = new module(source, dom, lighthouse, htmlValidator);
+            const instance = new module(source, dom, lighthouse, htmlValidator, config);
             res[instance.name] = await instance.check();
             return result;
         }, Promise.resolve({}))

@@ -8,7 +8,7 @@ export class CanonicalPresentRule implements RuleInterface{
     dom: CheerioAPI;
     id: string = 'canonical';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'Canonical should be present';
     ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/seo/canonical'
@@ -23,7 +23,7 @@ export class CanonicalPresentRule implements RuleInterface{
         return [
             Message.create(
                 `${this.description} is ${canonicalPresentRule ? 'present' : 'missing'}`,
-                canonicalPresentRule ? MessageType.passed : MessageType.warning
+                canonicalPresentRule ? MessageType.passed : this.ruleFlow
             )
         ]
     }

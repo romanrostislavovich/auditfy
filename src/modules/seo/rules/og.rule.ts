@@ -9,7 +9,7 @@ export class OgRule implements RuleInterface {
     dom: CheerioAPI;
     id: string = 'meta-og-present';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'OG tags are present';
     ruleUrl: string = 'https://ogp.me/';
@@ -35,7 +35,7 @@ export class OgRule implements RuleInterface {
                 )
             } else {
                 messages.push(
-                    Message.create(`${tag} missing`,MessageType.warning)
+                    Message.create(`${tag} missing`,this.ruleFlow)
                 )
             }
             return messages;

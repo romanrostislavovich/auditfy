@@ -1,7 +1,6 @@
 enum ModuleFlowEnum {
-    error = 'error',
     disable = 'disable',
-    warning = 'warning',
+    enable = 'enable',
 }
 
 export { ModuleFlowEnum };

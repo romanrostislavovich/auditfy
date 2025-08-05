@@ -10,7 +10,7 @@ export class StructuredDataValidRule implements RuleInterface {
     dom: CheerioAPI;
     id: string = 'structured-data-valid';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.warning;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'Structured data is valid';
     ruleUrl: string = 'https://developers.google.com/search/docs/appearance/structured-data'
@@ -25,7 +25,7 @@ export class StructuredDataValidRule implements RuleInterface {
         return [
             Message.create(
                 `${this.description}. Score is ${structuredDataValidRule}`,
-                structuredDataValidRule || 0 >= 0.9 ? MessageType.passed : MessageType.warning
+                structuredDataValidRule || 0 >= 0.9 ? MessageType.passed : this.ruleFlow
             )
         ]
     }

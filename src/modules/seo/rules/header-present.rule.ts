@@ -8,7 +8,7 @@ export class HeaderPresentRule implements RuleInterface{
     dom: CheerioAPI;
     id: string = 'header-present';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'H1 tag is present';
 
@@ -26,7 +26,7 @@ export class HeaderPresentRule implements RuleInterface{
         return [
             Message.create(
             `${this.description} is ${tagIsPresent ? 'present' : 'missing'}`,
-                tagIsPresent ? MessageType.passed : MessageType.warning
+                tagIsPresent ? MessageType.passed : this.ruleFlow
             ),
         ]
     }

@@ -8,7 +8,7 @@ export class HeaderOnlyOneRule implements RuleInterface{
     dom: CheerioAPI;
     id: string = 'header-only-one';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'Only one H1 tag per page';
 
@@ -25,7 +25,7 @@ export class HeaderOnlyOneRule implements RuleInterface{
         return [
             Message.create(
                 `${this.description} is only one per page`,
-                tagIsOnlyOne ? MessageType.passed:  MessageType.warning
+                tagIsOnlyOne ? MessageType.passed:  this.ruleFlow
             ),
         ]
     }
