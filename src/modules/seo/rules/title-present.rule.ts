@@ -10,7 +10,7 @@ export class TitlePresentRule implements RuleInterface {
     dom: CheerioAPI;
     id: string = 'document-title';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'Title tag is present ';
     ruleUrl: string = 'https://www.w3.org/Provider/Style/TITLE.html';
@@ -25,7 +25,7 @@ export class TitlePresentRule implements RuleInterface {
         return [
             Message.create(
             `${this.description} is ${titleScoreRule ? 'present' : 'missing'}`,
-                titleScoreRule ? MessageType.passed : MessageType.warning
+                titleScoreRule ? MessageType.passed : this.ruleFlow
             ),
         ]
     }

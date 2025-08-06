@@ -9,7 +9,7 @@ export class LinkTextRule implements RuleInterface {
     dom: CheerioAPI;
     id: string = 'link-text';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'Links have descriptive text';
     ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/seo/link-text/'
@@ -24,7 +24,7 @@ export class LinkTextRule implements RuleInterface {
         return [
             Message.create(
                 `${this.description}. Score is ${linkTextRuleScore}`,
-                linkTextRuleScore || 0 >= 0.9 ? MessageType.passed : MessageType.warning
+                linkTextRuleScore || 0 >= 0.9 ? MessageType.passed : this.ruleFlow
             ),
         ]
     }

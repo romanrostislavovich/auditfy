@@ -6,13 +6,14 @@ import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import {CheerioAPI} from "cheerio";
 import {Result} from "html-validate";
 import {LightHouseAuditType} from "../../../types/modules.type";
+import {HtmlValidatorUtils} from "../../../linters/html-validator";
 
 export class TelNonBreakingRule implements RuleInterface {
     id: string = 'tel-non-breaking';
     dom: CheerioAPI;
     tags: string[] = ['html'];
     lightHouse: LightHouseAuditType;
-    ruleFlow: MessageType = MessageType.warning;
+    ruleFlow!: MessageType;
     htmlValidator: Result[];
     description: string = 'Require non-breaking characters in telephone numbers';
     ruleUrl: string = 'https://html-validate.org//rules/tel-non-breaking.html';
@@ -24,13 +25,6 @@ export class TelNonBreakingRule implements RuleInterface {
     }
 
     check(): Message[] {
-        const results = this.htmlValidator.reduce<Message[]>((messages, item) => {
-            const existingMiss: Message[] = item.messages
-                .filter(x => x.ruleId === this.id)
-                .map((x) => Message.create(`${x.message} at line ${x.line}`, MessageType.warning))
-            messages.push(...existingMiss)
-            return messages;
-        }, [])
-        return results;
+        return HtmlValidatorUtils.identifyRule(this.id, this.ruleFlow, this.htmlValidator);
     }
 }

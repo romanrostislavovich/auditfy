@@ -9,7 +9,7 @@ export class ImageAltRule implements RuleInterface {
     dom: CheerioAPI;
     id: string = 'image-alt';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'Image elements have `[alt]` attributes';
     ruleUrl: string = 'https://dequeuniversity.com/rules/axe/4.10/image-alt';
@@ -24,7 +24,7 @@ export class ImageAltRule implements RuleInterface {
         return [
             Message.create(
                 `${this.description}. Score is ${imageAltRule}`,
-                imageAltRule || 0 >= 0.9 ? MessageType.passed : MessageType.warning
+                imageAltRule || 0 >= 0.9 ? MessageType.passed : this.ruleFlow
             ),
         ]
     }

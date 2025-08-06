@@ -9,7 +9,7 @@ export class StructuredDataPresentRule implements RuleInterface {
     dom: CheerioAPI;
     id: string = 'structured-data-present';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'Structured data is present';
     ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/seo/structured-data/'
@@ -25,7 +25,7 @@ export class StructuredDataPresentRule implements RuleInterface {
         return [
             Message.create(
                 `${present} structured data block(s) found`,
-                present > 0 ? MessageType.passed : MessageType.warning
+                present > 0 ? MessageType.passed : this.ruleFlow
             )
         ]
     }

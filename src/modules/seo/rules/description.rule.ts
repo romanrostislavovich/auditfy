@@ -9,7 +9,7 @@ export class DescriptionRule implements RuleInterface{
     id: string = 'meta-description';
     tags: string[] = ['html', 'seo'];
     lightHouse: LightHouseAuditType;
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     description: string = 'Document does not have a meta description';
     ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/seo/meta-description/';
 
@@ -22,7 +22,7 @@ export class DescriptionRule implements RuleInterface{
         const metaDescriptionRule = this.lightHouse[this.id].score || 0 >= 0.9;
         return [Message.create(
             `${this.description} tag is ${metaDescriptionRule ? 'present' : 'missing'}`,
-            metaDescriptionRule ? MessageType.passed : MessageType.warning
+            metaDescriptionRule ? MessageType.passed : this.ruleFlow
         )]
     }
 }

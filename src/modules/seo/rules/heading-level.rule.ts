@@ -11,7 +11,7 @@ export class HeadingLevelRule implements RuleInterface {
     tags: string[] = ['seo', 'html'];
     dom: CheerioAPI;
     lightHouse: LightHouseAuditType;
-    ruleFlow: MessageType = MessageType.warning;
+    ruleFlow!: MessageType;
     htmlValidator: Result[];
     description: string = 'Require headings to start at h1 and increment by one';
     ruleUrl: string = 'https://html-validate.org/rules/heading-level.html';
@@ -26,7 +26,7 @@ export class HeadingLevelRule implements RuleInterface {
         const results = this.htmlValidator.reduce<Message[]>((messages, item) => {
             const existingMiss: Message[] = item.messages
                 .filter(x => x.ruleId === this.id)
-                .map((x) => Message.create(`${x.message} at line ${x.line}`, MessageType.warning))
+                .map((x) => Message.create(`${x.message} at line ${x.line}`, this.ruleFlow))
             messages.push(...existingMiss)
             return messages;
         }, [])

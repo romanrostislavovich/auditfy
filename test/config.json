@@ -1,0 +1,12 @@
+{
+  "modules": {
+    "seo": {
+      "canonical-not-localhost": "error",
+      "canonical": "error"
+    },
+    "html": {
+      "attr-delimiter": "warning",
+      "attr-spacing": "error"
+    }
+  }
+}

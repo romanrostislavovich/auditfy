@@ -5,13 +5,14 @@ import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import {CheerioAPI} from "cheerio";
 import {Result} from "html-validate";
 import {LightHouseAuditType} from "../../../types/modules.type";
+import {HtmlValidatorUtils} from "../../../linters/html-validator";
 
 export class NoUnusedDisableRule implements RuleInterface {
     id: string = 'no-unused-disable';
     dom: CheerioAPI;
     tags: string[] = [ 'html'];
     lightHouse: LightHouseAuditType;
-    ruleFlow: MessageType = MessageType.warning;
+    ruleFlow!: MessageType;
     htmlValidator: Result[];
     description: string = 'Disallow unused disable directives';
     ruleUrl: string = 'https://html-validate.org/rules/no-unused-disable.html';
@@ -23,13 +24,6 @@ export class NoUnusedDisableRule implements RuleInterface {
     }
 
     check(): Message[] {
-        const results = this.htmlValidator.reduce<Message[]>((messages, item) => {
-            const existingMiss: Message[] = item.messages
-                .filter(x => x.ruleId === this.id)
-                .map((x) => Message.create(`${x.message} at line ${x.line}`, MessageType.warning))
-            messages.push(...existingMiss)
-            return messages;
-        }, [])
-        return results;
+        return HtmlValidatorUtils.identifyRule(this.id, this.ruleFlow, this.htmlValidator);
     }
 }

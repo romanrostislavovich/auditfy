@@ -9,7 +9,7 @@ export class TwitterRule implements RuleInterface{
     dom: CheerioAPI;
     id: string = 'meta-twitter-rule';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'Twitter tags are present';
     ruleUrl: string = 'https://developer.x.com/en/docs/x-for-websites/cards/guides/getting-started';
@@ -33,7 +33,7 @@ export class TwitterRule implements RuleInterface{
                 )
             } else {
                 messages.push(
-                    Message.create(`${this.description} ${tag} missing`,MessageType.warning)
+                    Message.create(`${this.description} ${tag} missing`,this.ruleFlow)
                 )
             }
             return messages;

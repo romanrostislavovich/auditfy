@@ -9,7 +9,7 @@ export class IsCrawlableRule implements RuleInterface {
     dom: CheerioAPI;
     id: string = 'is-crawlable';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'Page isn’t blocked from indexing';
     ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/seo/is-crawlable/';
@@ -24,7 +24,7 @@ export class IsCrawlableRule implements RuleInterface {
         return [
             Message.create(
                 `${this.description}. Score is ${isCrawlableRule}`,
-                isCrawlableRule ? MessageType.passed : MessageType.warning
+                isCrawlableRule ? MessageType.passed : this.ruleFlow
             ),
         ]
     }

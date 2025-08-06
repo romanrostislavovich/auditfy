@@ -11,7 +11,7 @@ export class TitleLengthRule implements RuleInterface {
     dom: CheerioAPI;
     id: string = 'document-title-length';
     tags: string[] = ['html', 'seo'];
-    ruleFlow: MessageType = MessageType.error;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'Title tag has correct length';
     ruleUrl: string = 'https://www.w3.org/Provider/Style/TITLE.html'
@@ -28,7 +28,7 @@ export class TitleLengthRule implements RuleInterface {
         return [
             Message.create(
                 `${this.description} length less ${this.titleLength} characters long`,
-                titleLengthRule ? MessageType.passed : MessageType.warning
+                titleLengthRule ? MessageType.passed : this.ruleFlow
             )
         ]
     }
