@@ -6,13 +6,14 @@ import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import {CheerioAPI} from "cheerio";
 import {Result} from "html-validate";
 import {LightHouseAuditType} from "../../../types/modules.type";
+import {HtmlValidatorUtils} from "../../../linters/html-validator";
 
 export class AttrDelimiterRule implements RuleInterface {
     id: string = 'attr-delimiter';
     dom: CheerioAPI;
     tags: string[] = ['html'];
     lightHouse: LightHouseAuditType;
-    ruleFlow: MessageType = MessageType.warning;
+    ruleFlow!: MessageType;
     htmlValidator: Result[];
     description: string = 'Disallow whitespace between attribute key and value';
     ruleUrl: string = 'https://html-validate.org/attr-delimiter';
@@ -24,13 +25,6 @@ export class AttrDelimiterRule implements RuleInterface {
     }
 
     check(): Message[] {
-        const results = this.htmlValidator.reduce<Message[]>((messages, item) => {
-            const existingMiss: Message[] = item.messages
-                .filter(x => x.ruleId === this.id)
-                .map((x) => Message.create(`${x.message} at line ${x.line}`, MessageType.warning))
-            messages.push(...existingMiss)
-            return messages;
-        }, [])
-        return results;
+        return HtmlValidatorUtils.identifyRule(this.id, this.ruleFlow, this.htmlValidator);
     }
 }

@@ -82,8 +82,8 @@ Current version: ${packageJson.version}
 
 Examples:
     
-    $ ${toolName} path/to/index.html
-    $ ${toolName} https://github.com
+    $ ${toolName} path/to/index.html -c ./path/to/config.json
+    $ ${toolName} https://github.com 
 `
 };
 

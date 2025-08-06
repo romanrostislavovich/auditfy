@@ -1,6 +1,6 @@
 # website-auditfy
 
-> Tool for validate your website on SEO, Performance, Accessibility, HTML, CSS and JS
+> Tool for validate your website on SEO, HTML, CSS, JS, TS, Performance, Security and A11Y
 
 [![semantic](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![NPM](https://img.shields.io/npm/v/website-auditfy)](https://www.npmjs.com/package/website-auditfy)
@@ -24,12 +24,12 @@ This application try to merge all of them to one tool with simplify using.
 This tool included following modules: 
 
 - HTML  -  `status: 81 Rules.` [List of html rules](/docs/rules/html.rules.md)
-- CSS  -  `status: to be continue`
-- JavaScript - `status: 100+ Rules from eslint. To be continue`
+- CSS  -  `status: 40 Rules and to be continue`
+- JavaScript - `status: 100+ Rules from eslint and to be continue`
 - Security - `status: 16 Rules.` [List of security rules](/docs/rules/security.rules.md)
 - SEO  - `status: 17 Rules`[List of SEO rules](/docs/rules/seo.rules.md)
 - Performance  - `status: 5 rules and to be continue`
-- Accessibility check  -  `status: 83 Rules to be continue`
+- Accessibility check  -  `status: 83 Rules and  to be continue`
 
 | Module\Mode    | URL | Static |
 |:---------------|:----|:-------|
@@ -49,42 +49,96 @@ This tool included following modules:
 - Custom rule or module
 - mode `production` or `develop`
 - AI integration
+- plugins
 - and e.t.c
-
-### Note 
-> Because this tool have a lot of rules. All rules on `warning` by default (temporarily)
 
 ## Installation
 
 Required: 
 ```angular2html
 - Node v20+
-- `Google Chrome` or `chrome-launcher' for `puppeteer`
 ```
 
 How to set up `chrome-launher` for your CI/CD see example [here](./docs/chrome-launcher.md)
-
+#### NPM
 ```bash
 npm install website-auditfy 
 ```
-
+#### Yarn
 ```bash
 yarn add website-auditfy
 ```
-
+#### PNPM 
 ```bash
 pnpm add website-auditfy
 ```
 
+## GitHub
+The source code are available for download at [GitHub Releases](https://github.com/romanrostislavovich/auditfy/releases) 
+
 ## Usage
 
+#### CLI
+
 ```bash
-npx website-auditfy path/to/index.html
+Usage: website-auditfy [options] <-s, --source [path] (required) >
 
-or
+Simple CLI tools for check SEO, HTML, CSS, JS, TS, Performance, Security and A11Y
 
-npx website-auditfy https://github.com/
+Arguments:
+  -s, --source [path] (required)   
+          URL or Path to the HTML file to audit
+          Possible Values: <relative path|absolute path|URL>
+          
+
+Options:
+  -c, --config [path]              
+          Path to the JSON config file
+          Possible Values: <relative path|absolute path>
+
+  -v, --version
+          Print current version
+
+
+  -h, --help
+          Print help
+
+
+
+
+Current version: 0.1.3
+
+Examples:
+
+    $ website-auditfy path/to/index.html
+    $ website-auditfy https://github.com
 ```
+
+Default Config is:
+
+```json
+{
+  modules: {
+    seo: {
+      "canonical-not-localhost": "error",
+      "canonical": "error",
+      "meta-description": "error",
+      ...
+    },
+    html: {
+      "attr-delimiter": "warning",
+      "attr-spacing": "error",
+      "close-attr": "error",
+      ...
+    }
+  }
+}
+```
+
+Full default config you can see [here](./src/config/default.ts)
+
+NOTE:
+> CONFIG FILE: Right for configuration available only SEO and HTML modules. Rest modules on development.
 
 ## Output
 

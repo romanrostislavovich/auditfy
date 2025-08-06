@@ -1,38 +1,59 @@
 Конечно! Вот продвинутый чеклист для Landing Page, разбитый по категориям. Напротив каждого пункта указан инструмент/библиотека, который ты можешь использовать или интегрировать в свой тул (CLI или Web).
 
+TODO: 
+
+- [ ] the same error or passed for all modules
+- [ ] configurate Security module
+- [ ] configurate CSS module
+- [ ] configurate JS module
+- [ ] show only error - option on CLI 
+- [ ] return JSON flag with all rules and descriptions 
+- [ ] Правильная валидация при URL и пути к проекту (более детально разобраться)
+- [ ] TS Validation
+- [ ] SCSS | SASS Validation 
+- [ ] Configuration modules
+- [ ] Configuration rules
+- [ ] Custom rule or module
+- [ ] mode `production` or `develop`
+- [ ] AI integration
+- [ ] plugins
+- [x]  ~~в сравнительной таблице axe-html - в axe не все правила~~
+- [ ] сравнить есть ли все правила в сранивтельной таблице html
+- [ ] есть правила которые я уже реализовал в custom или lighthouse (header empty)
+
 ✅ Полный чеклист Landing Page с инструментами
 
 🔷 1. SEO-проверки
 
-- ✅ [x] `<title>` и его длина (до 60 симв.)	`cheerio, кастомный парсер`
-- ✅ [x] <meta name="description">	`cheerio`
-- ✅ [ ] robots.txt и sitemap.xml	`axios + парсинг`
-- ✅ [x] canonical 	`cheerio`
-- ✅ [ ] hreflang	`cheerio`
-- ✅ [x] Alt у всех <img>	`axe-core, cheerio`
-- ✅	Структурированные данные (JSON-LD)	`cheerio + jsonld-checker`
-- ✅ [x] Проверка meta og:*, twitter:*	`cheerio`
-- ✅	Кол-во заголовков H1-H6, их вложенность	`cheerio`
-- ✅	Индексация страницы (robots, noindex)	`axios + анализ DOM`
+- ✅ `<title>` и его длина (до 60 симв.)	`cheerio, кастомный парсер`
+- ✅ <meta name="description">	`cheerio`
+- [ ] robots.txt и sitemap.xml	`axios + парсинг`
+- ✅ canonical 	`cheerio`
+- ✅ hreflang	`cheerio`
+- ✅ Alt у всех <img>	`axe-core, cheerio`
+- [ ] Структурированные данные (JSON-LD)	`cheerio + jsonld-checker`
+- ✅ Проверка meta og:*, twitter:*	`cheerio`
+- ✅ Кол-во заголовков H1-H6, их вложенность	`cheerio`
+- [ ] Индексация страницы (robots, noindex)	`axios + анализ DOM`
 
 🔷 2. Акссесибилити (a11y)
 
-- ✅	Контрастность текста/фона	`axe-core`
+- ✅ 	Контрастность текста/фона	`axe-core`
 - ✅	Отсутствие дубликатов id	`axe-core, html-validate`
-- ✅	Навигация клавиатурой	`axe-core, pa11y`
-- ✅	aria-атрибуты (на кнопках, диалогах)	`axe-core, html-validate`
-- ✅	Альт для изображений	`axe-core`
-- ✅	Landmark-области: `<main>, <header>	axe-core, cheerio`
-- ✅	Размер интерактивных зон (touch targets)	`lighthouse a11y score`
+- [ ]	Навигация клавиатурой	`axe-core, pa11y`
+- ✅ ?	aria-атрибуты (на кнопках, диалогах)	`axe-core, html-validate`
+- ✅ 	Альт для изображений	`axe-core`
+- ✅ ?	Landmark-области: `<main>, <header>	axe-core, cheerio`
+- ✅ ?	Размер интерактивных зон (touch targets)	`lighthouse a11y score`
 
 🔷 3. Структура HTML и семантика
 
-- ✅	Есть один `<h1>`	`cheerio`
-- ✅	Правильный порядок заголовков (h1 → h2…)	`html-validate, cheerio`
-- ✅	Использование `<section>, <article>` и др. семантики	`html-validate`
-- ✅	Отсутствие `<div class="button">` без role	`html-validate, axe-core`
-- ✅	`<html lang="…">` задан	`cheerio`
-- ✅	favicon подключён	`cheerio, axios`
+- ✅ Есть один `<h1>`	`cheerio`
+- ✅ Правильный порядок заголовков (h1 → h2…)	`html-validate, cheerio`
+- ✅ Использование `<section>, <article>` и др. семантики	`html-validate`
+- ✅ Отсутствие `<div class="button">` без role	`html-validate, axe-core`
+- ✅ `<html lang="…">` задан	`cheerio`
+- [ ] favicon подключён	`cheerio, axios`
 
 🔷 4. Performance & Core Web Vitals
 
@@ -128,6 +149,3 @@ Axe-pupper vs html-validator
 | `meta`                | `meta-refresh`, `meta-viewport`                    | `no-auto-refresh`, `viewport-content`         |
 
 TODO: 
-~~в сравнительной таблице axe-html - в axe не все правила~~
-сравнить есть ли все правила в сранивтельной таблице html
-есть правила которые я уже реализовал в custom или lighthouse (header empty)
