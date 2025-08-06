@@ -36,7 +36,10 @@ export class CssAudit extends Audit {
                cssFiles.push(`${this.source.file.dir}/${href}`);
            }
        });
-       debugger;
+
+       if(cssFiles.length === 0) {
+           return []
+       }
        const options: stylelint.LinterOptions = {
            files: cssFiles,
            config: {

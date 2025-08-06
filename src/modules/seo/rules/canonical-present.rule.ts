@@ -19,11 +19,11 @@ export class CanonicalPresentRule implements RuleInterface{
     }
 
     check(): Message[] {
-        const canonicalPresentRule = this.lightHouse[this.id].score || 0 >= 0.9;
+        const canonicalPresentRule = this.lightHouse[this.id];
         return [
             Message.create(
-                `${this.description} is ${canonicalPresentRule ? 'present' : 'missing'}`,
-                canonicalPresentRule ? MessageType.passed : this.ruleFlow
+                `${this.description}`,
+                canonicalPresentRule.score || 0 >= 0.9 ? MessageType.passed : this.ruleFlow
             )
         ]
     }

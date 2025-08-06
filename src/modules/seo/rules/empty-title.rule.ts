@@ -6,6 +6,7 @@ import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import {CheerioAPI} from "cheerio";
 import {Result} from "html-validate";
 import {LightHouseAuditType} from "../../../types/modules.type";
+import {HtmlValidatorUtils} from "../../../linters/html-validator";
 
 export class EmptyTitleRule implements RuleInterface {
     id: string = 'empty-title';
@@ -24,13 +25,6 @@ export class EmptyTitleRule implements RuleInterface {
     }
 
     check(): Message[] {
-        const results = this.htmlValidator.reduce<Message[]>((messages, item) => {
-            const existingMiss: Message[] = item.messages
-                .filter(x => x.ruleId === this.id)
-                .map((x) => Message.create(`${x.message} at line ${x.line}`, this.ruleFlow))
-            messages.push(...existingMiss)
-            return messages;
-        }, [])
-        return results;
+        return HtmlValidatorUtils.identifyRule(this.id, this.ruleFlow, this.htmlValidator);
     }
 }

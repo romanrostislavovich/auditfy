@@ -106,11 +106,11 @@ Options:
 
 
 
-Current version: 0.1.3
+Current version: 0.1.4
 
 Examples:
 
-    $ website-auditfy path/to/index.html
+    $ website-auditfy path/to/index.html -c ./path/to/config.json
     $ website-auditfy https://github.com
 ```
 
@@ -118,14 +118,14 @@ Default Config is:
 
 ```json
 {
-  modules: {
-    seo: {
+  "modules": {
+    "seo": {
       "canonical-not-localhost": "error",
       "canonical": "error",
       "meta-description": "error",
       ...
     },
-    html: {
+    "html": {
       "attr-delimiter": "warning",
       "attr-spacing": "error",
       "close-attr": "error",
@@ -154,6 +154,12 @@ The CLI process may exit with the following codes:
 
 ## Contribute
 
+Lets fun :) 
+
+## Usage By 
+
+Here can be your application :)
+
 ## License
 
-Apache
+[Apache](./LICENSE)

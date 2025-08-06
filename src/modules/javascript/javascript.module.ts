@@ -7,6 +7,7 @@ import {SourceModel} from "../../models/source.model";
 import { Linter, ESLint, loadESLint} from 'eslint';
 import {MessageType} from "../../enum/message.enum";
 import * as pluginSecurity from 'eslint-plugin-security';
+import {globSync} from "glob";
 
 const eslintRules = {
     "no-var": "warn",
@@ -234,7 +235,12 @@ export class JsAuditModule extends Audit {
                 }
             },
         })
-        const results = await eslint.lintFiles([`${this.source.file.dir}/**/*.js`]);
+
+        const jsFile = globSync(`${this.source.file.dir}/**/*.js`)
+        if(jsFile.length === 0) {
+            return [];
+        }
+        const results = await eslint.lintFiles(jsFile);
 
         return results.reduce<Message[]>((messages, lintResult: ESLint.LintResult) => {
               messages.push(...lintResult.messages.map((error) =>

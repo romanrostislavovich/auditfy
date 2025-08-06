@@ -21,7 +21,7 @@ export class DescriptionRule implements RuleInterface{
     check(): Message[] {
         const metaDescriptionRule = this.lightHouse[this.id].score || 0 >= 0.9;
         return [Message.create(
-            `${this.description} tag is ${metaDescriptionRule ? 'present' : 'missing'}`,
+            `${this.description}`,
             metaDescriptionRule ? MessageType.passed : this.ruleFlow
         )]
     }
