@@ -226,7 +226,6 @@ export class JsAuditModule extends Audit {
             return []
         }
         const eslint = new ESLint({
-            // @ts-ignore
             overrideConfigFile: true,
             // @ts-ignore
             baseConfig: {

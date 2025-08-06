@@ -6,7 +6,11 @@ TODO:
 - [ ] configurate Security module
 - [ ] configurate CSS module
 - [ ] configurate JS module
+- [ ] error message from ligthouse 
 - [ ] show only error - option on CLI 
+- [ ] Возвращать с модулей не Message, a AuditResult какой-то или RuleResult
+- [ ] Парсинг JS кода внутри <script></script> в html
+- [ ] do not analazy CDN or Remote libraries - option on CLI
 - [ ] return JSON flag with all rules and descriptions 
 - [ ] Правильная валидация при URL и пути к проекту (более детально разобраться)
 - [ ] TS Validation

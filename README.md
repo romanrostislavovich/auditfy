@@ -130,6 +130,13 @@ Default Config is:
       "attr-spacing": "error",
       "close-attr": "error",
       ...
+    },
+    "security": {
+      "require-csp-nonce":  "warning",
+      "detect-eval-with-expression":  "warning",
+      "detect-possible-timing-attacks":  "warning",
+      "detect-unsafe-regex":  "warning",
+      ...
     }
   }
 }
@@ -138,7 +145,7 @@ Default Config is:
 Full default config you can see [here](./src/config/default.ts)
 
 NOTE:
-> CONFIG FILE: Right for configuration available only SEO and HTML modules. Rest modules on development.
+> CONFIG FILE: Right for configuration available only SEO, HTML and Security modules. Rest modules on development.
 
 ## Output
 

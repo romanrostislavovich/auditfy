@@ -18,3 +18,4 @@ const ops1 = await ops.lintFiles(['./test/javascript/app.javascript', './src/ind
 
 console.log(ops1[0].filePath)
 console.log(ops1[0].messages);
+

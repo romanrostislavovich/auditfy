@@ -114,6 +114,24 @@ const config: IConfig = {
             "no-utf8-bom": MessageType.error,
             "no-unknown-elements": MessageType.warning,
             "no-unused-disable": MessageType.warning,
+        },
+        security: {
+            "require-csp-nonce": MessageType.warning,
+            "require-sri": MessageType.warning,
+            "detect-bidi-characters": MessageType.warning,
+            "detect-buffer-noassert": MessageType.warning,
+            "detect-child-process": MessageType.warning,
+            "detect-disable-mustache-escape": MessageType.warning,
+            "detect-eval-with-expression": MessageType.warning,
+            "detect-new-buffer": MessageType.warning,
+            "detect-no-csrf-before-method-override": MessageType.warning,
+            "detect-non-literal-fs-filename": MessageType.warning,
+            "detect-non-literal-regexp": MessageType.warning,
+            "detect-non-literal-require": MessageType.warning,
+            "detect-object-injection": MessageType.warning,
+            "detect-possible-timing-attacks": MessageType.warning,
+            "detect-pseudoRandomBytes": MessageType.warning,
+            "detect-unsafe-regex": MessageType.warning
         }
     }
 };

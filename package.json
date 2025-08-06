@@ -1,18 +1,19 @@
 {
   "author": "Raman Lauryniuk <romanrostislavovich@gmail.com>",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "name": "website-auditfy",
   "description": "",
   "main": "dist/src/index.js",
   "bin": {
     "website-auditfy": "dist/bin.js"
   },
+  "license": "MIT",
   "scripts": {
     "tsc": "./node_modules/.bin/tsc",
     "tslint": "./node_modules/.bin/tslint",
     "build": "tsc -p . && gulp -f ./config/gulp.js",
     "test": "npm run test:static",
-    "test:static": "npm run build && node dist/bin.js test/success/index.html",
+    "test:static": "npm run build && node dist/bin.js ./test/success/index.html",
     "test:url": "npm run build && node dist/bin.js https://github.com/",
     "check-last": "npx website-auditfy test/index.html"
   },

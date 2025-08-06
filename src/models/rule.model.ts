@@ -4,6 +4,7 @@ import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import {CheerioAPI} from "cheerio";
 import {Result} from "html-validate";
 import {LightHouseAuditType} from "../types/modules.type";
+import {ESLint} from "eslint";
 
 
 export interface RuleInterface {
@@ -15,6 +16,7 @@ export interface RuleInterface {
     lightHouse: LightHouseAuditType;
     description: string;
     htmlValidator?: Result[];
+    eslint?: ESLint.LintResult[];
 
     check(): Message[];
 }

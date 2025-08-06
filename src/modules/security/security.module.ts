@@ -12,21 +12,94 @@ import * as pluginSecurity from "eslint-plugin-security";
 import {MessageType} from "../../enum/message.enum";
 import {URLUtils} from "../../utils/url.utils";
 import path from "node:path";
+import {glob, globSync} from "glob";
+import {RuleInterface} from "../../models/rule.model";
+import chalk from "chalk";
+import {IConfig} from "../../config/default";
 
 export class SecurityModule extends Audit {
-    constructor(source: SourceModel, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
+    constructor(
+        source: SourceModel,
+        dom: CheerioAPI,
+        lightHouse: RunnerResult,
+        htmlValidator: Result[],
+        config: IConfig
+    ) {
         super();
         this.dom = dom;
         this.source = source;
+        this.config = config;
         this.lighthouse = lightHouse;
         this.htmlValidator = htmlValidator;
         this.name = 'Security';
     }
 
-    async check(): Promise<Message[]> {
-        // TODO: check security by url
 
+    async check(): Promise<Message[]> {
+        const results = [];
+        const eslintResult = await this.getEsLintResults();
+        const ruleImportList = await this.getRuleImportList(__dirname);
+        const securityConfigRules = this.getConfigRules();
+
+
+        const ruleInstanceList = ruleImportList.reduce<{[key: string]: RuleInterface }>((list, rule: any) => {
+            const instance = new rule(this.dom, this.lighthouse.lhr.audits, this.htmlValidator, eslintResult);
+            list[instance.id] = instance;
+            return list;
+        }, {})
+
+        for(const [rule, flow] of Object.entries(securityConfigRules)) {
+            try {
+                const instance = ruleInstanceList[rule];
+                instance.ruleFlow = flow;
+                results.push(...instance.check())
+            } catch (e) {
+                console.log( `\n${chalk.red('✘')} can't find rule  ${rule} on ${this.name} module`)
+            }
+        }
+
+        return results;
+    }
+
+
+    private async getEsLintResults():  Promise<ESLint.LintResult[]> {
+        const eslint = new ESLint({
+            overrideConfigFile: true,
+            overrideConfig: {
+                ...pluginSecurity.configs.recommended
+            }
+        });
+
+        const jsFiles = this.prepareFiles();
+        if (jsFiles.length === 0) {
+            return [];
+        }
+        const eslintResult: ESLint.LintResult[] = [];
+        const urlFileList = jsFiles.filter(x => (x.includes('http') || x.includes('https')));
+        const staticFileList = jsFiles.filter(x => !(x.includes('http') && x.includes('https')))
+        const urlFilesContent = urlFileList.map(async (x) => await URLUtils.download(x))
+
+        for (const urlFile of urlFilesContent) {
+            const index = urlFilesContent.indexOf(urlFile);
+            const lintFileResult = await eslint.lintText(await urlFile, {
+                filePath: path.basename(urlFileList[index])
+            });
+            eslintResult.push(...lintFileResult);
+        }
+
+
+        eslintResult.push(...await eslint.lintFiles(staticFileList));
+        return eslintResult;
+    }
+
+    private prepareFiles(): string[] {
         const jsFiles: string[] = [];
+
+        debugger;
+        if(!this.source.isURL) {
+            jsFiles.push(...globSync(`${this.source.file.dir}/**/*.js`))
+        }
+
         this.dom('script').each((i, elem) => {
             const src = this.dom(elem).attr('src');
             if (src) {
@@ -39,45 +112,6 @@ export class SecurityModule extends Audit {
             }
         });
 
-        const eslint = new ESLint({
-            overrideConfigFile: true,
-            overrideConfig: {
-                ...pluginSecurity.configs.recommended
-            }
-        });
-
-        const eslintResult: ESLint.LintResult[] = [];
-        const urlFilesList = jsFiles.filter(x => (x.includes('http') || x.includes('https')));
-        const urlFilesContent = urlFilesList.map(async (x) => await URLUtils.download(x))
-        for (const urlFile of urlFilesContent) {
-            const index = urlFilesContent.indexOf(urlFile);
-            eslintResult.push(...await eslint.lintText(await urlFile, {
-                filePath: path.basename(urlFilesList[index])
-            }));
-        }
-
-        const staticFiles = jsFiles.filter(x => !(x.includes('http') && x.includes('https')))
-        eslintResult.push(...await eslint.lintFiles([...staticFiles]));
-
-
-        const jsResults = eslintResult.reduce<Message[]>((messages, lintResult: ESLint.LintResult) => {
-            messages.push(...lintResult.messages.map((error) =>
-                Message.create(`${error.message}. Rule: ${error.ruleId}. Line ${error.line}. File ${lintResult.filePath}`, MessageType.warning)))
-            return messages;
-        },[])
-
-        // HTML
-        const rules = [
-            RequireSriRule,
-            RequireCspNonceRule,
-        ]
-
-        const htmlResults = rules.reduce<Message[]>((messages, rule, i) => {
-            const instance = new rule(this.dom, this.lighthouse.lhr.audits, this.htmlValidator);
-            messages.push(...instance.check());
-            return messages;
-        }, [])
-
-        return [...jsResults, ...htmlResults]
+        return [...new Set(jsFiles)];
     }
 }

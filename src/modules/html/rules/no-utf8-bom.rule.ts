@@ -5,7 +5,7 @@ import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import {CheerioAPI} from "cheerio";
 import {Result} from "html-validate";
 import {LightHouseAuditType} from "../../../types/modules.type";
-import {HtmlValidatorUtils} from "../../../linters/html-validator";
+import {HtmlValidatorUtils} from "../../../linters/html-validator.helper";
 
 export class NoUtf8BomRule implements RuleInterface {
     id: string = 'no-utf8-bom';
