@@ -4,13 +4,14 @@ import {MessageType} from "../../../enum/message.enum";
 import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import {CheerioAPI} from "cheerio";
 import {LightHouseAuditType} from "../../../types/modules.type";
+import {LighthouseHelper} from "../../../linters/lighthouse.helper";
 
 export class TotalBlockingTimeRule  implements RuleInterface {
     dom: CheerioAPI;
     id: string = 'total-blocking-time'
     tags: string[] = ['performance'];
     lightHouse:  LightHouseAuditType;
-    ruleFlow: MessageType = MessageType.warning;
+    ruleFlow!: MessageType;
     description: string = 'Total blocking time';
     ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/performance/lighthouse-total-blocking-time/';
 
@@ -20,12 +21,6 @@ export class TotalBlockingTimeRule  implements RuleInterface {
     }
 
     check(): Message[] {
-        const score = this.lightHouse[this.id].score || 0;
-        return [
-            Message.create(
-                `${this.description} score is ${score}`,
-                score >= 0.9 ? MessageType.passed : MessageType.warning
-            )
-        ];
+        return LighthouseHelper.identifyRule(this.id, this.ruleFlow, this.lightHouse);
     }
 }

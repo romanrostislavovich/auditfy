@@ -2,28 +2,32 @@
 
 TODO: 
 
-- [ ] the same error or passed for all modules
-- [ ] configurate Security module
+- [ ] the same error or passed messages for all modules
+- [x] configurate Security module
 - [ ] configurate CSS module
 - [ ] configurate JS module
 - [ ] error message from ligthouse 
 - [ ] show only error - option on CLI 
+- [ ] Правило могут принимать разные настройки посмотреть как сделано в eslint
 - [ ] Возвращать с модулей не Message, a AuditResult какой-то или RuleResult
 - [ ] Парсинг JS кода внутри <script></script> в html
 - [ ] do not analazy CDN or Remote libraries - option on CLI
 - [ ] return JSON flag with all rules and descriptions 
 - [ ] Правильная валидация при URL и пути к проекту (более детально разобраться)
+- [ ] Если URL парсить xml sitemap и все страницы
+- [ ] Добавить вес правила и общий score как в lighthouse
 - [ ] TS Validation
 - [ ] SCSS | SASS Validation 
-- [ ] Configuration modules
-- [ ] Configuration rules
+- [ ] Configuration custom modules
+- [ ] Configuration custom rules
 - [ ] Custom rule or module
 - [ ] mode `production` or `develop`
 - [ ] AI integration
-- [ ] plugins
+- [ ] custom plugins
 - [x]  ~~в сравнительной таблице axe-html - в axe не все правила~~
 - [ ] сравнить есть ли все правила в сранивтельной таблице html
 - [ ] есть правила которые я уже реализовал в custom или lighthouse (header empty)
+- [ ] implement each function for all linters (for example lint fragment code)
 
 ✅ Полный чеклист Landing Page с инструментами
 

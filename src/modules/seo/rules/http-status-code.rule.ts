@@ -8,12 +8,12 @@ import {LighthouseHelper} from "../../../linters/lighthouse.helper";
 
 export class ImageAltRule implements RuleInterface {
     dom: CheerioAPI;
-    id: string = 'image-alt';
+    id: string = 'http-status-code';
     tags: string[] = ['html', 'seo'];
     ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
-    description: string = 'Image elements have `[alt]` attributes';
-    ruleUrl: string = 'https://dequeuniversity.com/rules/axe/4.10/image-alt';
+    description: string = 'Page has successful HTTP status code';
+    ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/seo/http-status-code/';
 
     constructor(dom: CheerioAPI, lightHouse: Record<string, AuditResult>) {
         this.dom = dom;

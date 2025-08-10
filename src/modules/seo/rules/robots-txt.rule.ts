@@ -6,14 +6,14 @@ import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import {LightHouseAuditType} from "../../../types/modules.type";
 import {LighthouseHelper} from "../../../linters/lighthouse.helper";
 
-export class ImageAltRule implements RuleInterface {
+export class RobotsTxtRule implements RuleInterface {
     dom: CheerioAPI;
-    id: string = 'image-alt';
+    id: string = 'robots-txt';
     tags: string[] = ['html', 'seo'];
     ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
-    description: string = 'Image elements have `[alt]` attributes';
-    ruleUrl: string = 'https://dequeuniversity.com/rules/axe/4.10/image-alt';
+    description: string = 'robots.txt is valid';
+    ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/seo/invalid-robots-txt/';
 
     constructor(dom: CheerioAPI, lightHouse: Record<string, AuditResult>) {
         this.dom = dom;

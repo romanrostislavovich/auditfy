@@ -1,6 +1,6 @@
 # website-auditfy
 
-> Tool for validate your website on SEO, HTML, CSS, JS, TS, Performance, Security and A11Y
+> Tool for validate your project on SEO, HTML, CSS, JS, TS, Performance, Security and A11Y
 
 [![semantic](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![NPM](https://img.shields.io/npm/v/website-auditfy)](https://www.npmjs.com/package/website-auditfy)
@@ -23,34 +23,27 @@ This application try to merge all of them to one tool with simplify using.
 
 This tool included following modules: 
 
-- HTML  -  `status: 81 Rules.` [List of html rules](/docs/rules/html.rules.md)
-- CSS  -  `status: 40 Rules and to be continue`
-- JavaScript - `status: 100+ Rules from eslint and to be continue`
-- Security - `status: 16 Rules.` [List of security rules](/docs/rules/security.rules.md)
-- SEO  - `status: 17 Rules`[List of SEO rules](/docs/rules/seo.rules.md)
-- Performance  - `status: 5 rules and to be continue`
-- Accessibility check  -  `status: 83 Rules and  to be continue`
+- HTML  -  `status: 81 rules.` [List of html rules](/docs/rules/html.rules.md)
+- CSS  -  `status: 40 rules and to be continue`
+- JavaScript - `status: 100+ rules from eslint and to be continue`
+- Security - `status: 16 rules.` [List of security rules](/docs/rules/security.rules.md)
+- SEO  - `status: 20 rules`[List of SEO rules](/docs/rules/seo.rules.md)
+- Performance  - `status: 50 rules.` [List of Performance rules](/docs/rules/performance.rules.md)
+- Accessibility  -  `status: 83 Rules and  to be continue`
 
-| Module\Mode    | URL | Static |
-|:---------------|:----|:-------|
-| SEO            | ☑   | ☑      |
-| Performance    | ☑   | ☑      |
-| Accessibility  | ☑   | ☑      |
-| HTML           | ☑   | ☑      |
-| CSS            | ☓   | ☑      |
-| Security       | ☑   | ☑      |
-| JavaScript     | ☓   | ☑      |
+| Module\Mode   | URL | Static |
+|:--------------|:----|:-------|
+| SEO           | ☑   | ☑      |
+| Performance   | ☑   | ☑      |
+| Accessibility | ☑   | ☑      |
+| HTML          | ☑   | ☑      |
+| CSS           | ☓   | ☑      |
+| Security      | ☑   | ☑      |
+| JavaScript    | ☓   | ☑      |
+| Security      | ☑   | ☑      |
+| TypeScript    | -   | -      | 
+| SASS/SCSS     | -   | -      |
 
-
-### Future:
-- TS Validation
-- Configuration modules
-- Configuration rules
-- Custom rule or module
-- mode `production` or `develop`
-- AI integration
-- plugins
-- and e.t.c
 
 ## Installation
 
@@ -137,6 +130,12 @@ Default Config is:
       "detect-possible-timing-attacks":  "warning",
       "detect-unsafe-regex":  "warning",
       ...
+    },
+    performance: {
+      "viewport-insight": "warning",
+      "uses-passive-event-listeners": "warning",
+      "uses-long-cache-ttl": "error",
+      .... 
     }
   }
 }
@@ -158,6 +157,13 @@ The CLI process may exit with the following codes:
 - 0: Audit succeeded without errors (warnings may have occurred)
 - 1: Audit failed with one or more rule violations with severity error
 - 2: An invalid command line argument or combination thereof was used
+
+## Future
+
+- mode `production` or `develop`
+- configuration custom modules
+- configuration custom rules
+- plugins 
 
 ## Contribute
 

@@ -336,6 +336,7 @@ async function getLightHouseResult(source: SourceModel): Promise<RunnerResult> {
     killAll();
     server.close();
 
+    debugger;
 
     return result || {} as RunnerResult;
 }

@@ -70,7 +70,7 @@ export class SecurityModule extends Audit {
             }
         });
 
-        const jsFiles = this.prepareFiles();
+        const jsFiles = this.getJavaScriptFiles();
         if (jsFiles.length === 0) {
             return [];
         }
@@ -92,7 +92,7 @@ export class SecurityModule extends Audit {
         return eslintResult;
     }
 
-    private prepareFiles(): string[] {
+    private getJavaScriptFiles(): string[] {
         const jsFiles: string[] = [];
 
         debugger;

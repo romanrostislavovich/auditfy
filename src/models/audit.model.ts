@@ -21,6 +21,7 @@ export abstract class Audit {
     abstract  check(): Promise<Message[]>;
 
     getConfigRules(): RuleTypes {
+        debugger;
         const seoConfigModule = Object.entries(this.config.modules).find((item) => item[0].toUpperCase() === this.name.toUpperCase());
         return !!seoConfigModule ? seoConfigModule[1] : {};
     }

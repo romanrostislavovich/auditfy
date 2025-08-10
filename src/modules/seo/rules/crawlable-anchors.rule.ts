@@ -6,14 +6,14 @@ import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import {LightHouseAuditType} from "../../../types/modules.type";
 import {LighthouseHelper} from "../../../linters/lighthouse.helper";
 
-export class ImageAltRule implements RuleInterface {
+export class CrawlableAnchorsRule implements RuleInterface {
     dom: CheerioAPI;
-    id: string = 'image-alt';
+    id: string = 'crawlable-anchors';
     tags: string[] = ['html', 'seo'];
     ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
-    description: string = 'Image elements have `[alt]` attributes';
-    ruleUrl: string = 'https://dequeuniversity.com/rules/axe/4.10/image-alt';
+    description: string = 'Links are crawlable';
+    ruleUrl: string = 'https://support.google.com/webmasters/answer/9112205';
 
     constructor(dom: CheerioAPI, lightHouse: Record<string, AuditResult>) {
         this.dom = dom;

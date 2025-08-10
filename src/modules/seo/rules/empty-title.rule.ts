@@ -16,7 +16,7 @@ export class EmptyTitleRule implements RuleInterface {
     ruleFlow!: MessageType;
     htmlValidator: Result[];
     description: string = 'Require title to have textual content';
-    ruleUrl: string = 'https://html-validate.org//rules/empty-title.html';
+    ruleUrl: string = 'https://html-validate.org/rules/empty-title.html';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[]) {
         this.dom = dom;

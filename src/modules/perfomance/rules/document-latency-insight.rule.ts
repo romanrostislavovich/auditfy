@@ -6,14 +6,14 @@ import {CheerioAPI} from "cheerio";
 import {LightHouseAuditType} from "../../../types/modules.type";
 import {LighthouseHelper} from "../../../linters/lighthouse.helper";
 
-export class SpeedIndexRule  implements RuleInterface {
+export class DocumentLatencyInsightRule  implements RuleInterface {
     dom: CheerioAPI;
-    id: string = 'speed-index';
+    id: string = 'document-latency-insight'
     tags: string[] = ['performance'];
-    lightHouse: LightHouseAuditType;
     ruleFlow!: MessageType;
-    description: string = 'Speed index';
-    ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/performance/speed-index/';
+    lightHouse: LightHouseAuditType;
+    description: string = 'Your first network request is the most important.  Reduce its latency by avoiding redirects, ensuring a fast server response, and enabling text compression.';
+    ruleUrl: string = 'https://developer.chrome.com/docs/performance/insights/document-latency';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType) {
         this.dom = dom;

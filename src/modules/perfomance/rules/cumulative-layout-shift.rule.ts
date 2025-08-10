@@ -4,12 +4,13 @@ import {MessageType} from "../../../enum/message.enum";
 import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import {CheerioAPI} from "cheerio";
 import {LightHouseAuditType} from "../../../types/modules.type";
+import {LighthouseHelper} from "../../../linters/lighthouse.helper";
 
 export class CumulativeLayoutShiftRule  implements RuleInterface {
     dom: CheerioAPI;
     id: string = 'cumulative-layout-shift'
     tags: string[] = ['performance'];
-    ruleFlow: MessageType = MessageType.warning;
+    ruleFlow!: MessageType;
     lightHouse: LightHouseAuditType;
     description: string = 'Cumulative layout shift';
     ruleUrl: string = 'https://web.dev/articles/cls';
@@ -20,12 +21,6 @@ export class CumulativeLayoutShiftRule  implements RuleInterface {
     }
 
     check(): Message[] {
-        const score = this.lightHouse[this.id].score || 0;
-        return [
-            Message.create(
-                `${this.description} score is ${score}`,
-                score >= 0.9 ? MessageType.passed : MessageType.warning
-            )
-        ];
+        return LighthouseHelper.identifyRule(this.id, this.ruleFlow, this.lightHouse);
     }
 }

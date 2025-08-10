@@ -1,21 +1,21 @@
+import { RuleInterface} from "../../../models/rule.model";
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {RuleInterface} from "../../../models/rule.model";
-import {CheerioAPI} from "cheerio";
 import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
+import {CheerioAPI} from "cheerio";
 import {LightHouseAuditType} from "../../../types/modules.type";
 import {LighthouseHelper} from "../../../linters/lighthouse.helper";
 
-export class ImageAltRule implements RuleInterface {
+export class ImageDeliveryInsightRule  implements RuleInterface {
     dom: CheerioAPI;
-    id: string = 'image-alt';
-    tags: string[] = ['html', 'seo'];
-    ruleFlow!: MessageType;
+    id: string = 'image-delivery-insight'
+    tags: string[] = ['performance'];
     lightHouse: LightHouseAuditType;
-    description: string = 'Image elements have `[alt]` attributes';
-    ruleUrl: string = 'https://dequeuniversity.com/rules/axe/4.10/image-alt';
+    ruleFlow!: MessageType;
+    description: string = 'Improve image delivery';
+    ruleUrl: string = 'https://developer.chrome.com/docs/lighthouse/performance/uses-optimized-images/';
 
-    constructor(dom: CheerioAPI, lightHouse: Record<string, AuditResult>) {
+    constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType) {
         this.dom = dom;
         this.lightHouse = lightHouse;
     }
@@ -24,7 +24,3 @@ export class ImageAltRule implements RuleInterface {
         return LighthouseHelper.identifyRule(this.id, this.ruleFlow, this.lightHouse);
     }
 }
-
-
-
-
