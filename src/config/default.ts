@@ -26,7 +26,6 @@ const config: IConfig = {
             "structured-data-present": MessageType.warning,
             "structured-data-valid": MessageType.warning,
             "document-title-length": MessageType.error,
-            "document-title": MessageType.error,
             "meta-twitter-rule": MessageType.warning
         },
         html: {
