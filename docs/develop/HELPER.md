@@ -7,6 +7,7 @@ TODO:
 - [ ] configurate CSS module
 - [ ] configurate JS module
 - [ ] error message from ligthouse 
+- [ ] конфигурировать правила, например lighthouse score, html validator, eslint and e.t.c
 - [ ] show only error - option on CLI 
 - [ ] Правило могут принимать разные настройки посмотреть как сделано в eslint
 - [ ] Возвращать с модулей не Message, a AuditResult какой-то или RuleResult
@@ -21,7 +22,7 @@ TODO:
 - [ ] Configuration custom modules
 - [ ] Configuration custom rules
 - [ ] Custom rule or module
-- [ ] mode `production` or `develop`
+- [ ] mode `production` or `develop` or `release`
 - [ ] AI integration
 - [ ] custom plugins
 - [x]  ~~в сравнительной таблице axe-html - в axe не все правила~~
