@@ -15,11 +15,19 @@ import {ESLint} from "eslint";
 import {URLUtils} from "../../utils/url.utils";
 import path from "node:path";
 import {LinterResult} from "stylelint";
+import {IConfig} from "../../config/default";
 
 export class CssAudit extends Audit {
-    constructor(source: SourceModel, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
+    constructor(
+        source: SourceModel,
+        dom: CheerioAPI,
+        lightHouse: RunnerResult,
+        htmlValidator: Result[],
+        config: IConfig
+    ) {
         super();
         this.dom = dom;
+        this.config = config;
         this.source = source;
         this.lighthouse = lightHouse;
         this.htmlValidator = htmlValidator;
@@ -37,6 +45,7 @@ export class CssAudit extends Audit {
                 extends: "stylelint-config-standard",
             },
         }
+
 
        const styleLintResult: stylelint.LinterResult[] = [];
        const urlFileList = cssFiles.filter(x => (x.includes('http') || x.includes('https')));

@@ -39,5 +39,5 @@ function getRulesList  (path) {
     return listOfRules;
 }
 
-const a11yRules = getRulesList('./src/modules/a11y/rules/**/*.ts');
-createRuleListMD(a11yRules, 'docs/rules', 'a11y')
+// const a11yRules = getRulesList('./src/modules/css/rules/**/*.ts');
+// createRuleListMD(a11yRules, 'docs/rules', 'css')

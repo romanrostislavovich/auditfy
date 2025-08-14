@@ -9088,5 +9088,4 @@ export class ${className}Rule implements RuleInterface {
 
 }
 
-createHtmlValidatorRuleMD(ruleList);
 createTypeScriptRules(ruleList);

@@ -30,7 +30,7 @@ export class SeoAudit extends Audit {
     async check(): Promise<Message[]> {
         const result: Message[] = [];
 
-        const seoConfigRules = this.getConfigRules();
+        const configRules = this.getConfigRules();
         const ruleImportList = await this.getRuleImportList(__dirname);
 
         const ruleInstanceList = ruleImportList.reduce<{[key: string]: RuleInterface }>((list, rule: any) => {
@@ -39,7 +39,7 @@ export class SeoAudit extends Audit {
             return list;
         }, {})
 
-        for(const [rule, flow] of Object.entries(seoConfigRules)) {
+        for(const [rule, flow] of Object.entries(configRules)) {
             try {
                 const instance = ruleInstanceList[rule];
                 instance.ruleFlow = flow;

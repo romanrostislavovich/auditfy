@@ -24,7 +24,7 @@ This application try to merge all of them to one tool with simplify using.
 This tool included following modules: 
 
 - HTML  -  `status: 81 rules.` [List of html rules](/docs/rules/html.rules.md)
-- CSS  -  `status: 40 rules and to be continue`
+- CSS  -  `status: 148 rules.` [List of css rules](./docs/rules/css.rules.md);
 - JavaScript - `status: 100+ rules from eslint and to be continue`
 - Security - `status: 16 rules.` [List of security rules](/docs/rules/security.rules.md)
 - SEO  - `status: 20 rules`[List of SEO rules](/docs/rules/seo.rules.md)
@@ -34,7 +34,7 @@ This tool included following modules:
 | Module\Mode   | URL | Static  | Rule Count |
 |:--------------|:----|:--------|:-----------|
 | HTML          | ☑   | ☑       | 81         |
-| CSS           | ☑   | ☑       | 40+        |
+| CSS           | ☑   | ☑       | 148        |
 | JavaScript    | ☑   | ☑       | 100+       |
 | SEO           | ☑   | ☑       | 20         |
 | Performance   | ☑   | ☑       | 50         |
