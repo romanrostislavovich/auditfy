@@ -21,7 +21,7 @@ export class TotalBlockingTimeRule  implements RuleInterface {
     }
 
     check(): Message[] {
-        const minScore = 0.7;
+        const minScore = 0.5;
         return LighthouseHelper.identifyRule(this.id, this.ruleFlow, this.lightHouse, minScore);
     }
 }

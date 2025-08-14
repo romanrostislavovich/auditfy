@@ -23,6 +23,7 @@ TODO:
 - [ ] Configuration custom rules
 - [ ] Custom rule or module
 - [ ] mode `production` or `develop` or `release`
+- [ ] Не проходили тесты из-за Lighthouse хотя на компе все ок. Пришлось уменьшить score у правил
 - [ ] AI integration
 - [ ] custom plugins
 - [x]  ~~в сравнительной таблице axe-html - в axe не все правила~~
