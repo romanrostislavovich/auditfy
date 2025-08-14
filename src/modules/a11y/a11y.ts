@@ -8,121 +8,85 @@ import {CheerioAPI} from "cheerio";
 import {RunnerResult} from "lighthouse";
 import {Result} from "html-validate";
 import {SourceModel} from "../../models/source.model";
+import {RuleInterface} from "../../models/rule.model";
+import chalk from "chalk";
+import {IConfig} from "../../config/default";
 
 export class A11yAudit extends Audit {
-    constructor(source: SourceModel, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
+    constructor(
+        source: SourceModel,
+        dom: CheerioAPI,
+        lightHouse: RunnerResult,
+        htmlValidator: Result[],
+        config: IConfig
+    ) {
         super();
         this.dom = dom;
+        this.name = 'A11Y';
+        this.config = config;
         this.source = source;
         this.lighthouse = lightHouse;
         this.htmlValidator = htmlValidator;
-        this.name = 'A11Y';
     }
 
     async check(): Promise<Message[]> {
-       const browser = await puppeteer.launch({
-           headless: true,
-           args: ['--no-sandbox', '--disable-setuid-sandbox']
-       });
-       const page = await browser.newPage();
-       const path = this.source.isURL ? this.source.url : this.source.file.pathWithExtension;
-       await page.goto(path);
-       const results = await new AxePuppeteer(page).withRules([
-           'td-has-header',
-           'table-fake-caption',
-           'p-as-heading',
-           'label-content-name-mismatch',
-           'hidden-content',
-           'focus-order-semantics',
-           'meta-refresh-no-exceptions',
-           'identical-links-same-purpose',
-           'table-duplicate-name',
-           'skip-link',
-           'tabindex',
-           'scope-attr-valid',
-           'region',
-           'presentation-role-conflict',
-           'meta-viewport-large',
-           'landmark-unique',
-           'landmark-one-main',
-           'landmark-no-duplicate-main',
-           'landmark-no-duplicate-contentinfo',
-           'landmark-no-duplicate-banner',
-           'landmark-main-is-top-level',
-           'landmark-contentinfo-is-top-level',
-           'landmark-complementary-is-top-level',
-           'landmark-banner-is-top-level',
-           'target-size',
-           'link-in-text-block',
-           'duplicate-id-aria',
-           'aria-allowed-attr',
-           'aria-braille-equivalent',
-           'aria-command-name',
-           'aria-conditional-attr',
-           'aria-deprecated-role',
-           'aria-hidden-focus',
-           'aria-input-field-name',
-           'aria-meter-name',
-           'aria-progressbar-name',
-           'aria-prohibited-attr',
-           'aria-required-attr',
-           'aria-required-children',
-           'aria-required-parent',
-           'aria-roles',
-           'aria-toggle-field-name',
-           'aria-tooltip-name',
-           'aria-valid-attr-value',
-           'aria-valid-attr',
-           'button-name',
-           'bypass',
-           'color-contrast',
-           'color-contrast-enhanced',
-           'definition-list',
-           'dlitem',
-           'frame-focusable-content',
-           'frame-title-unique',
-           'frame-title',
-           'html-has-lang',
-           'html-xml-lang-mismatch',
-           'input-button-name',
-           'input-image-alt',
-           'list',
-           'listitem',
-           'marquee',
-           'meta-viewport',
-           'nested-interactive',
-           'object-alt',
-           'role-img-alt',
-           'scrollable-region-focusable',
-           'select-name',
-           'server-side-image-map',
-           'summary-name',
-           'svg-img-alt',
-           'td-headers-attr',
-           'th-has-data-cells',
-           'valid-lang',
-           'video-caption',
-           'avoid-inline-spacing',
-           // Best Practices Rules
-           'accesskeys',
-           'aria-allowed-role',
-           'aria-dialog-name',
-           'aria-text',
-           'aria-treeitem-name',
-           'empty-table-header',
-           'frame-tested',
-           'image-redundant-alt',
-           'label-title-only',
-           'css-orientation-lock'
-       ]).analyze();
-       await page.close();
-       await browser.close();
+        const result: Message[] = [];
 
-       const messages: Message[] = [];
+        const configRules = this.getConfigRules();
+        const ruleImportList = await this.getRuleImportList(__dirname);
+        const axeCoreResults = await this.getAxeCoreResult();
 
-       messages.push(...results.violations.map(v => {
-           return Message.create(v.help, MessageType.warning )
-       }))
-       return messages;
+        const ruleInstanceList = ruleImportList.reduce<{[key: string]: RuleInterface }>((list, rule: any) => {
+            const instance = new rule(this.dom, this.lighthouse.lhr.audits, this.htmlValidator, axeCoreResults);
+            list[instance.id] = instance;
+            return list;
+        }, {})
+
+        for(const [rule, flow] of Object.entries(configRules)) {
+            try {
+                const instance = ruleInstanceList[rule];
+                instance.ruleFlow = flow;
+                result.push(...instance.check())
+            } catch (e) {
+                console.log( `\n${chalk.red('✘')} can't find rule  ${rule} on ${this.name} module`)
+            }
+
+        }
+        return result;
+    }
+
+    private async getAxeCoreResult() {
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
+        const page = await browser.newPage();
+        const path = this.source.isURL ? this.source.url : this.source.file.pathWithExtension;
+        await page.goto(path);
+        const axeCoreResults = await new AxePuppeteer(page).withRules([
+            'p-as-heading',
+            'meta-refresh-no-exceptions',
+            'scope-attr-valid',
+            'presentation-role-conflict',
+            'meta-viewport-large',
+            'aria-braille-equivalent',
+            'color-contrast-enhanced',
+            'frame-focusable-content',
+            'frame-title-unique',
+            'marquee',
+            'role-img-alt',
+            'server-side-image-map',
+            'summary-name',
+            'svg-img-alt',
+            'avoid-inline-spacing',
+            'empty-table-header',
+            'frame-tested',
+            'label-title-only',
+            'css-orientation-lock'
+        ]).analyze();
+        await page.close();
+        await browser.close();
+
+        return axeCoreResults;
     }
 }

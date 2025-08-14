@@ -1,17 +1,15 @@
 import {Message} from "../../models/message.model";
-import {Cheerio, CheerioAPI} from "cheerio";
+import {CheerioAPI} from "cheerio";
 import {Audit} from "../../models/audit.model";
 import {RunnerResult} from "lighthouse";
 import {Result} from "html-validate";
 import {SourceModel} from "../../models/source.model";
-import { Linter, ESLint, loadESLint} from 'eslint';
+import { ESLint} from 'eslint';
 import {MessageType} from "../../enum/message.enum";
-import * as pluginSecurity from 'eslint-plugin-security';
 import {globSync} from "glob";
 import {URLUtils} from "../../utils/url.utils";
 import path from "node:path";
-import {RuleInterface} from "../../models/rule.model";
-import chalk from "chalk";
+
 
 const eslintRules = {
     "no-var": "warn",
@@ -226,7 +224,6 @@ export class JsAuditModule extends Audit {
     async check(): Promise<Message[]> {
         const eslintResult = await this.getEsLintResults();
 
-
         return eslintResult.reduce<Message[]>((messages, lintResult: ESLint.LintResult) => {
             messages.push(...lintResult.messages.map((error) =>
                 Message.create(`${error.message}. Rule: ${error.ruleId}. Line ${error.line}. File ${lintResult.filePath}`, MessageType.warning)))
@@ -256,23 +253,25 @@ export class JsAuditModule extends Audit {
         const staticFileList = jsFiles.filter(x => !(x.includes('http') && x.includes('https')))
         const urlFilesContent = urlFileList.map(async (x) => await URLUtils.download(x))
 
-        for (const urlFile of urlFilesContent) {
-            const index = urlFilesContent.indexOf(urlFile);
-            const lintFileResult = await eslint.lintText(await urlFile, {
-                filePath: path.basename(urlFileList[index])
-            });
-            eslintResult.push(...lintFileResult);
+        if (urlFilesContent.length !== 0) {
+            for (const urlFile of urlFilesContent) {
+                const index = urlFilesContent.indexOf(urlFile);
+                const lintFileResult = await eslint.lintText(await urlFile, {
+                    filePath: path.basename(urlFileList[index])
+                });
+                eslintResult.push(...lintFileResult);
+            }
         }
 
-
-        eslintResult.push(...await eslint.lintFiles(staticFileList));
+        if (staticFileList.length !== 0) {
+            eslintResult.push(...await eslint.lintFiles(staticFileList));
+        }
         return eslintResult;
     }
 
     private getJavaScriptFiles(): string[] {
         const jsFiles: string[] = [];
 
-        debugger;
         if(!this.source.isURL) {
             jsFiles.push(...globSync(`${this.source.file.dir}/**/*.js`))
         }

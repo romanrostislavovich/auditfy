@@ -1,9 +1,6 @@
 import * as stylelint from 'stylelint';
 import {Message} from "../../models/message.model";
 import {MessageType} from "../../enum/message.enum";
-import {readFile} from "fs/promises";
-import * as cheerio from "cheerio";
-import { File } from '../../models/file.model';
 import {CheerioAPI} from "cheerio";
 import {Audit} from "../../models/audit.model";
 import {RunnerResult} from "lighthouse";
@@ -13,6 +10,11 @@ import {IdPatternRule} from "./rules/id-pattern.rule";
 import {NoInlineStyleRule} from "./rules/no-inline-style.rule";
 import {NoStyleTagRule} from "./rules/no-style-tag.rule";
 import {SourceModel} from "../../models/source.model";
+import {globSync} from "glob";
+import {ESLint} from "eslint";
+import {URLUtils} from "../../utils/url.utils";
+import path from "node:path";
+import {LinterResult} from "stylelint";
 
 export class CssAudit extends Audit {
     constructor(source: SourceModel, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
@@ -25,34 +27,52 @@ export class CssAudit extends Audit {
     }
 
    async check(): Promise<Message[]> {
-        if(this.source.isURL) {
+        const cssFiles: string[] = this.getCSSFiles();
+        if (cssFiles.length === 0) {
             return []
         }
 
-       const cssFiles: string[] = [];
-       this.dom('link[rel="stylesheet"]').each((i, elem) => {
-           const href = this.dom(elem).attr('href');
-           if (href) {
-               cssFiles.push(`${this.source.file.dir}/${href}`);
+        const stylelintConfig = {
+            config: {
+                extends: "stylelint-config-standard",
+            },
+        }
+
+       const styleLintResult: stylelint.LinterResult[] = [];
+       const urlFileList = cssFiles.filter(x => (x.includes('http') || x.includes('https')));
+       const staticFileList = cssFiles.filter(x => !(x.includes('http') && x.includes('https')))
+       const urlFilesContent = urlFileList.map(async (x) => await URLUtils.download(x))
+
+       if(urlFilesContent.length !== 0) {
+           for (const urlFile of urlFilesContent) {
+               const index = urlFilesContent.indexOf(urlFile);
+               const lintFileResult = await stylelint.lint({
+                   code: await urlFile,
+                   codeFilename:  path.basename(urlFileList[index]),
+                   ...stylelintConfig,
+               })
+               styleLintResult.push(lintFileResult);
            }
-       });
-
-       if(cssFiles.length === 0) {
-           return []
-       }
-       const options: stylelint.LinterOptions = {
-           files: cssFiles,
-           config: {
-               extends: "stylelint-config-standard",
-           },
        }
 
-       const linterResult = await  stylelint.lint(options);
-       const messages = linterResult.results.reduce<Message[]>((m, item, index) => {
-           m.push(...item.parseErrors.map(x => Message.create(`${x.text} at line ${x.line}`, MessageType.warning)))
+
+       if (staticFileList.length !== 0) {
+           styleLintResult.push(await stylelint.lint({
+               files: staticFileList,
+               ...stylelintConfig,
+           }));
+       }
+
+       const result: Message[] = [];
+       const messages = styleLintResult.map((x) => x.results.reduce<Message[]>((m, item, index) => {
+           m.push(...item.parseErrors.map(x => Message.create(`${x.text} at line ${x.line}.`, MessageType.warning)))
            m.push(...item.warnings.map(x => Message.create(`${x.text} at line ${x.line}. Rule ${x.rule}`, MessageType.warning)))
            return m;
-       },[])
+       },[]))
+       result.push(...messages.reduce((a, item) => {
+           a.push(...item)
+           return a;
+       }, []))
 
        const rules = [
            IdPatternRule,
@@ -66,7 +86,29 @@ export class CssAudit extends Audit {
            messages.push(...instance.check());
            return messages;
        }, []);
-       messages.push(...htmlStyles);
-       return messages;
+       result.push(...htmlStyles);
+       return result;
+    }
+
+    private getCSSFiles(): string[] {
+        const cssFiles: string[] = [];
+
+        if(!this.source.isURL) {
+            cssFiles.push(...globSync(`${this.source.file.dir}/**/*.css`))
+        }
+
+        this.dom('link[rel="stylesheet"]').each((i, elem) => {
+            const href = this.dom(elem).attr('href');
+            if (href) {
+                if (href?.startsWith("http") || href?.startsWith("https")) {
+                    cssFiles.push(href);
+                } else {
+                    const prefixPath = this.source.isURL ? this.source.url : this.source.file.dir;
+                    cssFiles.push(`${prefixPath}/${href}`);
+                }
+            }
+        });
+
+        return [...new Set(cssFiles)];
     }
 }

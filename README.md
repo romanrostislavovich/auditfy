@@ -16,7 +16,7 @@
 
 ## Background 
 
-Current each developer using a lot of tools for checking accessibility, SEO, performance and html validation. (like lighthouse, page speed, wave and e.t.c)
+Current each developer using a lot of tools for checking accessibility, SEO, performance and e.t.c. (like lighthouse, wave and, eslint and e.t.c)
 This application try to merge all of them to one tool with simplify using. 
 
 ### Included
@@ -28,21 +28,20 @@ This tool included following modules:
 - JavaScript - `status: 100+ rules from eslint and to be continue`
 - Security - `status: 16 rules.` [List of security rules](/docs/rules/security.rules.md)
 - SEO  - `status: 20 rules`[List of SEO rules](/docs/rules/seo.rules.md)
-- Performance  - `status: 50 rules.` [List of Performance rules](/docs/rules/performance.rules.md)
-- Accessibility  -  `status: 83 Rules and  to be continue`
+- Performance  - `status: 50 rules.` [List of performance rules](/docs/rules/performance.rules.md)
+- Accessibility  -  `status: 92 rules.`[List of A11Y rules](/docs/rules/a11y.rules.md)
 
-| Module\Mode   | URL | Static |
-|:--------------|:----|:-------|
-| SEO           | ☑   | ☑      |
-| Performance   | ☑   | ☑      |
-| Accessibility | ☑   | ☑      |
-| HTML          | ☑   | ☑      |
-| CSS           | ☓   | ☑      |
-| Security      | ☑   | ☑      |
-| JavaScript    | ☓   | ☑      |
-| Security      | ☑   | ☑      |
-| TypeScript    | -   | -      | 
-| SASS/SCSS     | -   | -      |
+| Module\Mode   | URL | Static  | Rule Count |
+|:--------------|:----|:--------|:-----------|
+| HTML          | ☑   | ☑       | 81         |
+| CSS           | ☑   | ☑       | 40+        |
+| JavaScript    | ☑   | ☑       | 100+       |
+| SEO           | ☑   | ☑       | 20         |
+| Performance   | ☑   | ☑       | 50         |
+| Accessibility | ☑   | ☑       | 92         |
+| Security      | ☑   | ☑       | 16         |
+| TypeScript    | -   | -       | -          |
+| SASS/SCSS     | -   | -       | -          |
 
 
 ## Installation
@@ -109,6 +108,8 @@ Examples:
 
 Default Config is:
 
+> Full default config you can see [here](./src/config/default.ts)
+
 ```json
 {
   "modules": {
@@ -131,20 +132,25 @@ Default Config is:
       "detect-unsafe-regex":  "warning",
       ...
     },
-    performance: {
+    "performance": {
       "viewport-insight": "warning",
       "uses-passive-event-listeners": "warning",
       "uses-long-cache-ttl": "error",
       .... 
-    }
+    },
+    "a11y": {
+      "visual-order-follows-dom": "warning",
+      "video-caption": "error",
+      "valid-lang": "error",
+      ...
   }
 }
 ```
 
-Full default config you can see [here](./src/config/default.ts)
+
 
 NOTE:
-> CONFIG FILE: Right for configuration available only SEO, HTML and Security modules. Rest modules on development.
+> CONFIG FILE: Right for configuration available only SEO, HTML, Performance, Accessibility and Security modules. Rest modules on development.
 
 ## Output
 
@@ -160,10 +166,11 @@ The CLI process may exit with the following codes:
 
 ## Future
 
+- rules properties
 - mode `production` or `develop`
 - configuration custom modules
 - configuration custom rules
-- plugins 
+- support plugins 
 
 ## Contribute
 

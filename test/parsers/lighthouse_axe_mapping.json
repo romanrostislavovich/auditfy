@@ -1,0 +1,409 @@
+{
+  "direct_matches": [
+    {
+      "lighthouse_id": "accesskeys",
+      "axe_core_id": "accesskeys",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-allowed-attr",
+      "axe_core_id": "aria-allowed-attr",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-allowed-role",
+      "axe_core_id": "aria-allowed-role",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-command-name",
+      "axe_core_id": "aria-command-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-conditional-attr",
+      "axe_core_id": "aria-conditional-attr",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-deprecated-role",
+      "axe_core_id": "aria-deprecated-role",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-dialog-name",
+      "axe_core_id": "aria-dialog-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-hidden-body",
+      "axe_core_id": "aria-hidden-body",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-hidden-focus",
+      "axe_core_id": "aria-hidden-focus",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-input-field-name",
+      "axe_core_id": "aria-input-field-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-meter-name",
+      "axe_core_id": "aria-meter-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-progressbar-name",
+      "axe_core_id": "aria-progressbar-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-prohibited-attr",
+      "axe_core_id": "aria-prohibited-attr",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-required-attr",
+      "axe_core_id": "aria-required-attr",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-required-children",
+      "axe_core_id": "aria-required-children",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-required-parent",
+      "axe_core_id": "aria-required-parent",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-roles",
+      "axe_core_id": "aria-roles",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-text",
+      "axe_core_id": "aria-text",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-toggle-field-name",
+      "axe_core_id": "aria-toggle-field-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-tooltip-name",
+      "axe_core_id": "aria-tooltip-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-treeitem-name",
+      "axe_core_id": "aria-treeitem-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-valid-attr-value",
+      "axe_core_id": "aria-valid-attr-value",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "aria-valid-attr",
+      "axe_core_id": "aria-valid-attr",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "button-name",
+      "axe_core_id": "button-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "bypass",
+      "axe_core_id": "bypass",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "color-contrast",
+      "axe_core_id": "color-contrast",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "definition-list",
+      "axe_core_id": "definition-list",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "dlitem",
+      "axe_core_id": "dlitem",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "document-title",
+      "axe_core_id": "document-title",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "duplicate-id-aria",
+      "axe_core_id": "duplicate-id-aria",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "form-field-multiple-labels",
+      "axe_core_id": "form-field-multiple-labels",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "frame-title",
+      "axe_core_id": "frame-title",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "heading-order",
+      "axe_core_id": "heading-order",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "html-has-lang",
+      "axe_core_id": "html-has-lang",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "html-lang-valid",
+      "axe_core_id": "html-lang-valid",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "html-xml-lang-mismatch",
+      "axe_core_id": "html-xml-lang-mismatch",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "image-alt",
+      "axe_core_id": "image-alt",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "image-redundant-alt",
+      "axe_core_id": "image-redundant-alt",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "input-button-name",
+      "axe_core_id": "input-button-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "input-image-alt",
+      "axe_core_id": "input-image-alt",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "label",
+      "axe_core_id": "label",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "link-in-text-block",
+      "axe_core_id": "link-in-text-block",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "link-name",
+      "axe_core_id": "link-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "list",
+      "axe_core_id": "list",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "listitem",
+      "axe_core_id": "listitem",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "meta-refresh",
+      "axe_core_id": "meta-refresh",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "meta-viewport",
+      "axe_core_id": "meta-viewport",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "object-alt",
+      "axe_core_id": "object-alt",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "select-name",
+      "axe_core_id": "select-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "skip-link",
+      "axe_core_id": "skip-link",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "tabindex",
+      "axe_core_id": "tabindex",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "table-duplicate-name",
+      "axe_core_id": "table-duplicate-name",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "target-size",
+      "axe_core_id": "target-size",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "td-headers-attr",
+      "axe_core_id": "td-headers-attr",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "th-has-data-cells",
+      "axe_core_id": "th-has-data-cells",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "valid-lang",
+      "axe_core_id": "valid-lang",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "video-caption",
+      "axe_core_id": "video-caption",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "empty-heading",
+      "axe_core_id": "empty-heading",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "identical-links-same-purpose",
+      "axe_core_id": "identical-links-same-purpose",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "landmark-one-main",
+      "axe_core_id": "landmark-one-main",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "label-content-name-mismatch",
+      "axe_core_id": "label-content-name-mismatch",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "table-fake-caption",
+      "axe_core_id": "table-fake-caption",
+      "type": "direct"
+    },
+    {
+      "lighthouse_id": "td-has-header",
+      "axe_core_id": "td-has-header",
+      "type": "direct"
+    }
+  ],
+  "semantic_matches": [
+    {
+      "lighthouse_id": "focusable-controls",
+      "axe_core_ids": [
+        "scrollable-region-focusable",
+        "nested-interactive"
+      ],
+      "type": "semantic"
+    },
+    {
+      "lighthouse_id": "interactive-element-affordance",
+      "axe_core_ids": [
+        "aria-command-name",
+        "link-name",
+        "button-name"
+      ],
+      "type": "semantic"
+    },
+    {
+      "lighthouse_id": "logical-tab-order",
+      "axe_core_ids": [
+        "tabindex",
+        "bypass",
+        "skip-link"
+      ],
+      "type": "semantic"
+    },
+    {
+      "lighthouse_id": "visual-order-follows-dom",
+      "axe_core_ids": [
+        "focus-order-semantics"
+      ],
+      "type": "semantic"
+    },
+    {
+      "lighthouse_id": "focus-traps",
+      "axe_core_ids": [
+        "scrollable-region-focusable",
+        "nested-interactive"
+      ],
+      "type": "semantic"
+    },
+    {
+      "lighthouse_id": "managed-focus",
+      "axe_core_ids": [
+        "aria-hidden-focus"
+      ],
+      "type": "semantic"
+    },
+    {
+      "lighthouse_id": "use-landmarks",
+      "axe_core_ids": [
+        "region",
+        "landmark-banner-is-top-level",
+        "landmark-complementary-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique"
+      ],
+      "type": "semantic"
+    },
+    {
+      "lighthouse_id": "offscreen-content-hidden",
+      "axe_core_ids": [
+        "hidden-content"
+      ],
+      "type": "semantic"
+    },
+    {
+      "lighthouse_id": "custom-controls-labels",
+      "axe_core_ids": [
+        "label",
+        "aria-label",
+        "aria-labelledby"
+      ],
+      "type": "semantic"
+    },
+    {
+      "lighthouse_id": "custom-controls-roles",
+      "axe_core_ids": [
+        "aria-roles",
+        "aria-allowed-role"
+      ],
+      "type": "semantic"
+    }
+  ]
+}

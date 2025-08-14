@@ -9023,3 +9023,4 @@ const ligthhouserResult = {
         }
     }
 }
+export { ligthhouserResult };

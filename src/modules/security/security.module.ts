@@ -95,7 +95,6 @@ export class SecurityModule extends Audit {
     private getJavaScriptFiles(): string[] {
         const jsFiles: string[] = [];
 
-        debugger;
         if(!this.source.isURL) {
             jsFiles.push(...globSync(`${this.source.file.dir}/**/*.js`))
         }

@@ -125,9 +125,12 @@ async function run(path: any, options: any) {
         const urlModules = [
             SeoAudit,
             A11yAudit,
+            CssAudit,
             HtmlAudit,
+            JsAuditModule,
             SecurityModule,
-            PerformanceAudit
+            PerformanceAudit,
+            //  TypescriptAuditModule,
         ]
         const modules = source.isURL ? urlModules : staticModules;
         const config: IConfig = options.config ? JsonFileUtils.parseFile<IConfig>(options.config) : defaultConfig;
@@ -335,8 +338,6 @@ async function getLightHouseResult(source: SourceModel): Promise<RunnerResult> {
     });
     killAll();
     server.close();
-
-    debugger;
 
     return result || {} as RunnerResult;
 }
