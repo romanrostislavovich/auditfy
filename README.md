@@ -9,12 +9,21 @@
 ## Table of Contents
 
 - [Background](#background)
+  - [Included](#included)
+  - [Packages inside](#Packages-inside)
 - [Installation](#installation)
+  - [npm](#npm)
+  - [yarn](#yarn)
+  - [pnpm](#PNPM)
 - [Usage](#usage)
+  - [CLI](#cli)
+  - [Config](#config)
+- [Output](#Output)
+- [Future](#future)
 - [Contribute](#contribute)
 - [License](#license)
 
-## Background 
+## Background
 
 Current each developer using a lot of tools for checking accessibility, SEO, performance and e.t.c. (like lighthouse, wave and, eslint and e.t.c)
 This application try to merge all of them to one tool with simplify using. 
@@ -43,6 +52,13 @@ This tool included following modules:
 | TypeScript    | -   | -       | -          |
 | SASS/SCSS     | -   | -       | -          |
 
+#### Packages inside
+
+- EsLint
+- Lighthouse
+- StyleLint
+- html-validator
+- @axe-core
 
 ## Installation
 
@@ -54,15 +70,18 @@ Required:
 How to set up `chrome-launher` for your CI/CD see example [here](./docs/chrome-launcher.md)
 #### NPM
 ```bash
-npm install website-auditfy 
+npm install website-auditfy --save-dev // devDependencies
+npm install website-auditfy -g // global
 ```
 #### Yarn
 ```bash
-yarn add website-auditfy
+yarn  add website-auditfy -D // devDependencies
+yarn global add website-auditfy // global
 ```
-#### PNPM 
+#### PNPM
 ```bash
-pnpm add website-auditfy
+pnpm add -D website-auditfy // devDependencies
+pnpm add -g website-auditfy // global
 ```
 
 ## GitHub
@@ -106,6 +125,8 @@ Examples:
     $ website-auditfy https://github.com
 ```
 
+#### Config
+
 Default Config is:
 
 > Full default config you can see [here](./src/config/default.ts)
@@ -143,14 +164,16 @@ Default Config is:
       "video-caption": "error",
       "valid-lang": "error",
       ...
+    },
+    "css": {
+      "class-pattern": "warning",
+      "id-pattern": "warning",
+      "no-style-tag": "error",
+      ...
+    }
   }
 }
 ```
-
-
-
-NOTE:
-> CONFIG FILE: Right for configuration available only SEO, HTML, Performance, Accessibility and Security modules. Rest modules on development.
 
 ## Output
 
@@ -167,7 +190,7 @@ The CLI process may exit with the following codes:
 ## Future
 
 - rules properties
-- mode `production` or `develop`
+- mode `production`, `develop` or `release`
 - configuration custom modules
 - configuration custom rules
 - support plugins 

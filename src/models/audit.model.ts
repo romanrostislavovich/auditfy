@@ -7,6 +7,8 @@ import {SourceModel} from "./source.model";
 import {IConfig, RuleTypes} from "../config/default";
 import fs from "node:fs";
 import {RuleInterface} from "./rule.model";
+import chalk from "chalk";
+import { RuleInstanceListType} from "../types/rule.type";
 
 
 export abstract class Audit {
@@ -36,5 +38,19 @@ export abstract class Audit {
             ruleImportList.push(fileJS[firstExportName])
         }
         return ruleImportList;
+    }
+
+    runRules(ruleInstanceList: RuleInstanceListType): Message[] {
+        const result: Message[] = [];
+        for(const [rule, flow] of Object.entries(this.getConfigRules())) {
+            try {
+                const instance = ruleInstanceList[rule];
+                instance.ruleFlow = flow;
+                result.push(...instance.check())
+            } catch (e) {
+                console.log( `\n${chalk.red('✘')} can't find rule  ${rule} on ${this.name} module`)
+            }
+        }
+        return result;
     }
 }

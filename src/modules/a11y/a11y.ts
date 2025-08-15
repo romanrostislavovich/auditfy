@@ -30,9 +30,6 @@ export class A11yAudit extends Audit {
     }
 
     async check(): Promise<Message[]> {
-        const result: Message[] = [];
-
-        const configRules = this.getConfigRules();
         const ruleImportList = await this.getRuleImportList(__dirname);
         const axeCoreResults = await this.getAxeCoreResult();
 
@@ -42,17 +39,7 @@ export class A11yAudit extends Audit {
             return list;
         }, {})
 
-        for(const [rule, flow] of Object.entries(configRules)) {
-            try {
-                const instance = ruleInstanceList[rule];
-                instance.ruleFlow = flow;
-                result.push(...instance.check())
-            } catch (e) {
-                console.log( `\n${chalk.red('✘')} can't find rule  ${rule} on ${this.name} module`)
-            }
-
-        }
-        return result;
+        return this.runRules(ruleInstanceList)
     }
 
     private async getAxeCoreResult() {

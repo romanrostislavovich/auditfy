@@ -3,6 +3,7 @@ import {MessageType} from "../enum/message.enum";
 import {ESLint} from "eslint";
 
 export class EslintHelper {
+    // TODO: performance issue: Run identifyRule loop outside of each rule
     static identifyRuleSecurity(ruleId: string, ruleFlow: MessageType, eslint: ESLint.LintResult[]) {
         const ruleMessages: Message[] = [];
         const errorMessages = eslint.reduce<Message[]>((messages, item) =>  {

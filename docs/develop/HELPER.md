@@ -6,6 +6,8 @@ TODO:
 - [x] configurate Security module
 - [ ] configurate CSS module
 - [ ] configurate JS module
+  - [ ] eslint sonarjs - google - prettier 
+- [ ] Готовые файлы конфигурации, рекомендет, стандарт, аккксебилити и т.д.
 - [ ] error message from ligthouse 
 - [ ] конфигурировать правила, например lighthouse score, html validator, eslint and e.t.c
 - [ ] show only error - option on CLI 

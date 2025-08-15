@@ -36,8 +36,6 @@ export class SecurityModule extends Audit {
 
 
     async check(): Promise<Message[]> {
-        const results = [];
-        const configRules = this.getConfigRules();
         const eslintResult = await this.getEsLintResults();
         const ruleImportList = await this.getRuleImportList(__dirname);
 
@@ -48,17 +46,7 @@ export class SecurityModule extends Audit {
             return list;
         }, {})
 
-        for(const [rule, flow] of Object.entries(configRules)) {
-            try {
-                const instance = ruleInstanceList[rule];
-                instance.ruleFlow = flow;
-                results.push(...instance.check())
-            } catch (e) {
-                console.log( `\n${chalk.red('✘')} can't find rule  ${rule} on ${this.name} module`)
-            }
-        }
-
-        return results;
+        return this.runRules(ruleInstanceList)
     }
 
 

@@ -3,6 +3,7 @@ import {Result} from "html-validate";
 import {MessageType} from "../enum/message.enum";
 
 export class HtmlValidatorUtils {
+    // TODO: performance issue: Run identifyRule loop outside of each rule
     static identifyRule(ruleId: string, ruleFlow: MessageType, htmlValidator: Result[]) {
         const results = htmlValidator.reduce<Message[]>((messages, item) => {
             const existingMiss = item.messages.filter(x => x.ruleId === ruleId)

@@ -26,10 +26,6 @@ export class HtmlAudit extends Audit {
     }
 
     async check(): Promise<Message[]> {
-
-        const result: Message[] = [];
-
-        const seoConfigRules = this.getConfigRules();
         const ruleImportList = await this.getRuleImportList(__dirname);
 
         const ruleInstanceList = ruleImportList.reduce<{[key: string]: RuleInterface }>((list, rule: any) => {
@@ -38,17 +34,7 @@ export class HtmlAudit extends Audit {
             return list;
         }, {})
 
-        for(const [rule, flow] of Object.entries(seoConfigRules)) {
-            try {
-                const instance = ruleInstanceList[rule];
-                instance.ruleFlow = flow;
-                result.push(...instance.check())
-            } catch (e) {
-                console.log( `\n${chalk.red('✘')} can't find rule  ${rule} on ${this.name} module`)
-            }
-
-        }
-        return result;
+        return this.runRules(ruleInstanceList)
     }
 }
 

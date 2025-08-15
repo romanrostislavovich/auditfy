@@ -242,7 +242,7 @@ input {
  * Fonts
 */
 @font-face {
-  font-family: Mont;
+   font-family: Mont;
   src: url("../fonts/Mont-Bold.c94d1e.eot");
   src: local("Mont Bold"), local("Mont-Bold"), url("../fonts/Mont-Bold.c94d1e.eot?#iefix") format("embedded-opentype"), url("../fonts/Mont-Bold.8b7a4e.woff2") format("woff2"), url("../fonts/Mont-Bold.bbedfa.woff") format("woff"), url("../fonts/Mont-Bold.3675b5.ttf") format("truetype");
   font-weight: bold;
@@ -250,7 +250,7 @@ input {
 }
 
 @font-face {
-  font-family: Mont;
+   font-family: Mont;
   src: url("../fonts/Mont-BoldItalic.cbfd64.eot");
   src: local("Mont Bold Italic"), local("Mont-BoldItalic"), url("../fonts/Mont-BoldItalic.cbfd64.eot?#iefix") format("embedded-opentype"), url("../fonts/Mont-BoldItalic.b57f4a.woff2") format("woff2"), url("../fonts/Mont-BoldItalic.ef9125.woff") format("woff"), url("../fonts/Mont-BoldItalic.4d0511.ttf") format("truetype");
   font-weight: bold;
@@ -258,7 +258,7 @@ input {
 }
 
 @font-face {
-  font-family: Mont;
+   font-family: Mont;
   src: url("../fonts/Mont-HeavyItalic.a55bb7.eot");
   src: local("Mont Heavy Italic"), local("Mont-HeavyItalic"), url("../fonts/Mont-HeavyItalic.a55bb7.eot?#iefix") format("embedded-opentype"), url("../fonts/Mont-HeavyItalic.1e097b.woff2") format("woff2"), url("../fonts/Mont-HeavyItalic.a5818d.woff") format("woff"), url("../fonts/Mont-HeavyItalic.0c7daf.ttf") format("truetype");
   font-weight: 800;
@@ -266,7 +266,7 @@ input {
 }
 
 @font-face {
-  font-family: Mont;
+   font-family: Mont;
   src: url("../fonts/Mont-Heavy.f4ede2.eot");
   src: local("Mont Heavy"), local("Mont-Heavy"), url("../fonts/Mont-Heavy.f4ede2.eot?#iefix") format("embedded-opentype"), url("../fonts/Mont-Heavy.1a5d40.woff2") format("woff2"), url("../fonts/Mont-Heavy.235606.woff") format("woff"), url("../fonts/Mont-Heavy.f370bc.ttf") format("truetype");
   font-weight: 800;
@@ -274,7 +274,7 @@ input {
 }
 
 @font-face {
-  font-family: Mont;
+   font-family: Mont;
   src: url("../fonts/Mont-SemiBold.2dc79e.eot");
   src: local("Mont SemiBold"), local("Mont-SemiBold"), url("../fonts/Mont-SemiBold.2dc79e.eot?#iefix") format("embedded-opentype"), url("../fonts/Mont-SemiBold.95ab47.woff2") format("woff2"), url("../fonts/Mont-SemiBold.5d4afc.woff") format("woff"), url("../fonts/Mont-SemiBold.0b5e68.ttf") format("truetype");
   font-weight: 600;
@@ -282,7 +282,7 @@ input {
 }
 
 @font-face {
-  font-family: Mont;
+   font-family: Mont;
   src: url("../fonts/Mont-SemiBoldItalic.6992db.eot");
   src: local("Mont SemiBold Italic"), local("Mont-SemiBoldItalic"), url("../fonts/Mont-SemiBoldItalic.6992db.eot?#iefix") format("embedded-opentype"), url("../fonts/Mont-SemiBoldItalic.d4aaf4.woff2") format("woff2"), url("../fonts/Mont-SemiBoldItalic.20f89c.woff") format("woff"), url("../fonts/Mont-SemiBoldItalic.f8ec92.ttf") format("truetype");
   font-weight: 600;
@@ -290,7 +290,7 @@ input {
 }
 
 @font-face {
-  font-family: Mont;
+   font-family: Mont;
   src: url("../fonts/Mont-Regular.d26dbe.eot");
   src: local("Mont Regular"), local("Mont-Regular"), url("../fonts/Mont-Regular.d26dbe.eot?#iefix") format("embedded-opentype"), url("../fonts/Mont-Regular.efd082.woff2") format("woff2"), url("../fonts/Mont-Regular.5f2dd0.woff") format("woff"), url("../fonts/Mont-Regular.e79716.ttf") format("truetype");
   font-weight: normal;
@@ -298,7 +298,7 @@ input {
 }
 
 @font-face {
-  font-family: Mont;
+   font-family: Mont;
   src: url("../fonts/Mont-RegularItalic.9da739.eot");
   src: local("Mont Regular Italic"), local("Mont-RegularItalic"), url("../fonts/Mont-RegularItalic.9da739.eot?#iefix") format("embedded-opentype"), url("../fonts/Mont-RegularItalic.d230f5.woff2") format("woff2"), url("../fonts/Mont-RegularItalic.a4bfbf.woff") format("woff"), url("../fonts/Mont-RegularItalic.e623f2.ttf") format("truetype");
   font-weight: normal;
@@ -324,9 +324,7 @@ html {
 body {
   font-family: Mont, sans-serif;
   font-size: 16px;
-  display: -webkit-box;
-  display: flexbox;
-  display: flex;
+  display: -webkit-box; display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
@@ -435,7 +433,7 @@ body.loading {
     max-width: 300px;
     line-height: normal;
     display: -webkit-box;
-    display: flexbox;
+     
     display: flex;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
@@ -457,7 +455,7 @@ body.loading {
     max-height: 50px;
     max-width: 300px;
     display: -webkit-box;
-    display: flexbox;
+     
     display: flex;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
@@ -600,9 +598,7 @@ main {
 main .container {
   padding-top: 56px;
   padding-bottom: 50px;
-  display: -webkit-box;
-  display: flexbox;
-  display: flex;
+  display: -webkit-box; display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
           flex-direction: row;
@@ -631,7 +627,7 @@ main .logo {
 
 main .title {
   color: #fff;
-  font-family: Mont;
+   font-family: Mont, sans-serif;
   font-size: 36px;
   font-style: normal;
   font-weight: 700;
@@ -641,7 +637,7 @@ main .title {
 
 main .description {
   color: #fff;
-  font-family: Mont;
+   font-family: Mont, sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
@@ -673,16 +669,14 @@ main .right img {
   width: 100%;
   color: #FFF;
   text-align: center;
-  font-family: Mont;
+   font-family: Mont, sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
   line-height: 24px; /* 120% */
   letter-spacing: 0.4px;
   text-transform: uppercase;
-  display: -webkit-box;
-  display: flexbox;
-  display: flex;
+  display: -webkit-box; display: flex;
   padding: 20px 0 18px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -711,7 +705,7 @@ main .right img {
   font-size: 20px;
   text-transform: uppercase;
   color: #fff;
-  font-family: montbold;
+   font-family: Mont, sans-serif;
   background: #f63;
   border-radius: 100px;
   padding: 20.31px 60.5px;
@@ -735,14 +729,12 @@ main .right img {
   margin: 0 auto;
   letter-spacing: 0.01em;
   color: #727272;
-  font-family: montbold;
+   font-family: Mont, sans-serif;
   font-style: italic;
 }
 
 .page-view__logo {
-  display: -webkit-box;
-  display: flexbox;
-  display: flex;
+  display: -webkit-box; display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -763,22 +755,20 @@ main .right img {
 
 .horizontalfield {
   width: 100%;
-  display: -webkit-box;
-  display: flexbox;
-  display: flex;
+  display: -webkit-box; display: flex;
   height: 48px;
   padding: 15px 33px 15px 27px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   color: #888;
-  font-family: Mont;
+   font-family: Mont, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 18px; /* 112.5% */
   border-radius: 100px;
-  background: var(--gray-10, #E6E6E6);
+  background: #E6E6E6;
   border: 0;
   outline: 0;
 }
@@ -821,9 +811,7 @@ main .right img {
 }
 
 .fxc-captcha-container [data-ll-pending-for] {
-  display: -webkit-box;
-  display: flexbox;
-  display: flex;
+  display: -webkit-box; display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -831,7 +819,7 @@ main .right img {
 }
 
 .fxc-captcha-refresh {
-  display: -webkit-inline-box;
+ 
   display: -ms-inline-flexbox;
   display: inline-flex;
   -webkit-box-align: center;
@@ -882,9 +870,7 @@ main .right img {
 .form-agree-input {
   font-size: 14px;
   line-height: 18px;
-  display: -webkit-box;
-  display: flexbox;
-  display: flex;
+  display: -webkit-box; display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
@@ -1039,7 +1025,7 @@ main .right img {
 }
 
 .copiryght {
-  font-family: montbold;
+   font-family: Mont, sans-serif;
 }
 
 @media screen and (width <= 1200px) {
@@ -1069,9 +1055,7 @@ main .right img {
 
 .tab {
   position: relative;
-  display: -webkit-box;
-  display: flexbox;
-  display: flex;
+  display: -webkit-box; display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -1110,7 +1094,7 @@ main .right img {
   border: 0 none;
   transition: all 0.3s ease-in-out;
   text-align: center;
-  font-family: Mont;
+   font-family: Mont, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -1333,9 +1317,7 @@ main .right img {
 }
 
 main .qr-block {
-  display: -webkit-box;
-  display: flexbox;
-  display: flex;
+  display: -webkit-box; display: flex;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -1365,8 +1347,8 @@ main .qr-block .text img {
 }
 
 main .qr-block p {
-  color: var(--Black, #fff);
-  font-family: Mont;
+  color: #fff;
+   font-family: Mont, sans-serif;
   font-size: 19.101px;
   font-style: normal;
   font-weight: 400;
@@ -1394,7 +1376,6 @@ body.loading {
 .store-wrapper a {
   -webkit-box-flex: 1;
           flex: 1 0 calc(50% - 5px);
-  display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   -webkit-box-align: center;
@@ -1470,7 +1451,7 @@ footer {
 
   .store-wrapper {
     display: -webkit-box;
-    display: flexbox;
+     
     display: flex;
   }
 
@@ -1505,7 +1486,7 @@ footer {
     max-width: 100% !important;
     color: #FFF;
     text-align: center;
-    font-family: Mont;
+     font-family: Mont, sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
@@ -1513,7 +1494,7 @@ footer {
     letter-spacing: 0.36px;
     text-transform: uppercase;
     display: -webkit-box;
-    display: flexbox;
+     
     display: flex;
     padding: 20px 0 18px;
     -webkit-box-pack: center;
@@ -1537,8 +1518,8 @@ footer {
   }
 
   main .qr-block p {
-    color: var(--Black, #fff);
-    font-family: Mont;
+    color: #fff;
+     font-family: Mont, sans-serif;
     font-size: 15.023px;
     font-style: normal;
     font-weight: 600;
@@ -1546,8 +1527,8 @@ footer {
   }
 
   main .description {
-    color: var(--Black, #fff);
-    font-family: Mont;
+    color: #fff;
+     font-family: Mont, sans-serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 700;
@@ -1556,7 +1537,7 @@ footer {
 
   main .title {
     color: #fff;
-    font-family: Mont;
+     font-family: Mont, sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 800;
@@ -1592,7 +1573,7 @@ footer .container {
 footer .container p {
   color: #727272;
   text-align: center;
-  font-family: Mont;
+   font-family: Mont, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;

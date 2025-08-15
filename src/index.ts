@@ -23,7 +23,6 @@ import {JsAuditModule} from "./modules/javascript/javascript.module";
 import {OptionModel} from "./models/option.model";
 import {JsonFileUtils} from "./utils/json-file.utils";
 import {config as defaultConfig, IConfig} from './config/default'
-import {ModuleFlowEnum} from "./enum/module.enum";
 
 const toolName: string = 'website-auditfy';
 const packageJson: any = JsonFileUtils.parseFile(JsonFileUtils.getPackageJsonPath());
@@ -153,9 +152,12 @@ async function run(path: any, options: any) {
                 )
             } else {
                 result.forEach((r: Message) => {
-                    console.log(`- ${r.type === MessageType.passed ?
-                        chalk.green('✔') :  r.type === MessageType.warning ?
-                            chalk.yellow('⚠') : chalk.red('✘')} ${r.message}`)
+                    if (r.type !== MessageType.disable) {
+                        console.log(`- ${r.type === MessageType.passed ?
+                            chalk.green('✔') :  r.type === MessageType.warning ?
+                                chalk.yellow('⚠') : chalk.red('✘')} ${r.message}`)
+                    }
+
                 });
             }
 
