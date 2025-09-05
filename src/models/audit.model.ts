@@ -9,6 +9,7 @@ import fs from "node:fs";
 import {RuleInterface} from "./rule.model";
 import chalk from "chalk";
 import { RuleInstanceListType} from "../types/rule.type";
+import {ESLint} from "eslint";
 
 
 export abstract class Audit {
@@ -16,8 +17,9 @@ export abstract class Audit {
     name!: string;
     config!: IConfig;
     source!: SourceModel;
-    description!: string;
+    eslint!: ESLint.LintResult[];
     lighthouse!: RunnerResult;
+    description!: string;
     htmlValidator!: Result[];
 
     abstract  check(): Promise<Message[]>;

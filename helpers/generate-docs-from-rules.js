@@ -3,7 +3,7 @@ import {globSync} from "glob";
 
 function createRuleListMD(rules, docsPath, moduleName) {
     let template = `
-# HTML
+# ${moduleName.toUpperCase()}
 
 | Name                                                                | Description                                                                                          |
 |:--------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------|

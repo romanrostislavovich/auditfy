@@ -11,20 +11,23 @@ import {SourceModel} from "../../models/source.model";
 import {RuleInterface} from "../../models/rule.model";
 import chalk from "chalk";
 import {IConfig} from "../../config/default";
+import {ESLint} from "eslint";
 
 export class A11yAudit extends Audit {
     constructor(
         source: SourceModel,
+        config: IConfig,
         dom: CheerioAPI,
         lightHouse: RunnerResult,
         htmlValidator: Result[],
-        config: IConfig
+        eslint: ESLint.LintResult[],
     ) {
         super();
         this.dom = dom;
         this.name = 'A11Y';
         this.config = config;
         this.source = source;
+        this.eslint = eslint;
         this.lighthouse = lightHouse;
         this.htmlValidator = htmlValidator;
     }

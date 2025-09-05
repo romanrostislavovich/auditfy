@@ -1,5 +1,6 @@
   import * as cheerio from "cheerio";
   import * as fs from "node:fs";
+  import path from "node:path";
  
   const savePath = './src/modules/css/rules';
   const baseURL = 'https://stylelint.io/user-guide/rules/'
@@ -8,7 +9,8 @@
           format: 'html',
       }
   });
- 
+
+  path.join()
   const rules = [];
   const allRulesTr = dom('tr');
   allRulesTr.each((i, rule) => {

@@ -4,11 +4,12 @@ TODO:
 
 - [ ] the same error or passed messages for all modules
 - [x] configurate Security module
-- [ ] configurate CSS module
+- [x] configurate CSS module
 - [ ] configurate JS module
   - [ ] eslint sonarjs - google - prettier 
 - [ ] Готовые файлы конфигурации, рекомендет, стандарт, аккксебилити и т.д.
 - [ ] error message from ligthouse 
+- [ ] переделать документацию по принципу: текущий id правила, описание, откуда взять правило, другие алисасы которые делают тоже самое
 - [ ] конфигурировать правила, например lighthouse score, html validator, eslint and e.t.c
 - [ ] show only error - option on CLI 
 - [ ] Правило могут принимать разные настройки посмотреть как сделано в eslint
@@ -117,6 +118,8 @@ TODO:
 > https://docs.deque.com/devtools-for-web/4/en/node-pu-ref-overview#rule-configuration
 > Pupper Axe
 
+> https://standardjs.com/rules
+> 
 ✅ Что точно можно выполнить локально (без внешних API):
 
 | Категория           | Можно локально? | Замечания                                                                  |

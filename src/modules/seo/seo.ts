@@ -8,21 +8,24 @@ import {SourceModel} from "../../models/source.model";
 import {IConfig} from "../../config/default";
 import {RuleInterface} from "../../models/rule.model";
 import chalk from "chalk";
+import {ESLint} from "eslint";
 
 
 export class SeoAudit extends Audit {
     constructor(
         source: SourceModel,
+        config: IConfig,
         dom: CheerioAPI,
         lightHouse: RunnerResult,
         htmlValidator: Result[],
-        config: IConfig
+        eslint: ESLint.LintResult[],
     ) {
         super();
         this.dom = dom;
-        this.name = "SEO";
+        this.name = 'SEO';
         this.config = config;
         this.source = source;
+        this.eslint = eslint;
         this.lighthouse = lightHouse;
         this.htmlValidator = htmlValidator;
     }

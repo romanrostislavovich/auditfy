@@ -33,6 +33,6 @@ export class DetectPseudoRandomBytesRule  implements RuleInterface {
     }
 
     check(): Message[] {
-        return EslintHelper.identifyRuleSecurity(this.id, this.ruleFlow, this.eslint);
+        return EslintHelper.identifyRule(this.id, this.ruleFlow, this.eslint, 'security');
     }
 }

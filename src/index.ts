@@ -23,6 +23,8 @@ import {JsAuditModule} from "./modules/javascript/javascript.module";
 import {OptionModel} from "./models/option.model";
 import {JsonFileUtils} from "./utils/json-file.utils";
 import {config as defaultConfig, IConfig} from './config/default'
+import {EslintHelper} from "./linters/eslint.helper";
+import {ESLint} from "eslint";
 
 const toolName: string = 'website-auditfy';
 const packageJson: any = JsonFileUtils.parseFile(JsonFileUtils.getPackageJsonPath());
@@ -107,8 +109,10 @@ async function run(path: any, options: any) {
     try {
         const source = SourceModel.create(path);
         const dom = await getCheerioDOM(source);
+        const eslint = await getEsLintResult(source, dom);
         const lighthouse = await getLightHouseResult(source);
         const htmlValidator = await getHtmlValidatorResult(source);
+
 
         const staticModules = [
             SeoAudit,
@@ -136,7 +140,7 @@ async function run(path: any, options: any) {
 
         const results = await modules.reduce<Promise<{ [k: string]: Message[] }>>(async (result, module) => {
             const res = await result;
-            const instance = new module(source, dom, lighthouse, htmlValidator, config);
+            const instance = new module(source, config, dom, lighthouse, htmlValidator, eslint);
             res[instance.name] = await instance.check();
             return result;
         }, Promise.resolve({}))
@@ -342,4 +346,9 @@ async function getLightHouseResult(source: SourceModel): Promise<RunnerResult> {
     server.close();
 
     return result || {} as RunnerResult;
+}
+
+async function getEsLintResult(source: SourceModel, dom: CheerioAPI): Promise<ESLint.LintResult[]>  {
+    const jsFiles = EslintHelper.getJavaScriptFiles(source, dom)
+    return await EslintHelper.getEslintResult(jsFiles);
 }

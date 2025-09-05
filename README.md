@@ -34,7 +34,7 @@ This tool included following modules:
 
 - HTML  -  `status: 81 rules.` [List of html rules](/docs/rules/html.rules.md)
 - CSS  -  `status: 148 rules.` [List of css rules](./docs/rules/css.rules.md);
-- JavaScript - `status: 100+ rules from eslint and to be continue`
+- JavaScript - `status: 100+ rules from eslint.` [List of JavaScript rules](/docs/rules/JavaScript.rules.md)
 - Security - `status: 16 rules.` [List of security rules](/docs/rules/security.rules.md)
 - SEO  - `status: 20 rules`[List of SEO rules](/docs/rules/seo.rules.md)
 - Performance  - `status: 50 rules.` [List of performance rules](/docs/rules/performance.rules.md)
@@ -55,8 +55,12 @@ This tool included following modules:
 #### Packages inside
 
 - EsLint
+  - security
+  - standard
+  - sonarjs
 - Lighthouse
 - StyleLint
+  - standard
 - html-validator
 - @axe-core
 
@@ -170,7 +174,12 @@ Default Config is:
       "id-pattern": "warning",
       "no-style-tag": "error",
       ...
-    }
+    },
+    "javascript": {
+      "no-var": "warning",
+      "object-shorthand":  "warning",
+      "accessor-pairs": "error",
+      ...
   }
 }
 ```

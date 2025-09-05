@@ -4,18 +4,28 @@ import {Audit} from "../../models/audit.model";
 import {RunnerResult} from "lighthouse";
 import {Result} from "html-validate";
 import {SourceModel} from "../../models/source.model";
-import { Linter, ESLint, loadESLint} from 'eslint';
+import { Linter, ESLint} from 'eslint';
 import {MessageType} from "../../enum/message.enum";
 import * as pluginTypescript from 'typescript-eslint';
+import {IConfig} from "../../config/default";
 
 export class TypescriptAuditModule extends Audit {
-    constructor(source: SourceModel, dom: CheerioAPI, lightHouse: RunnerResult, htmlValidator: Result[]) {
+    constructor(
+        source: SourceModel,
+        config: IConfig,
+        dom: CheerioAPI,
+        lightHouse: RunnerResult,
+        htmlValidator: Result[],
+        eslint: ESLint.LintResult[],
+    ) {
         super();
         this.dom = dom;
+        this.name = 'TypeScript';
+        this.config = config;
         this.source = source;
+        this.eslint = eslint;
         this.lighthouse = lightHouse;
         this.htmlValidator = htmlValidator;
-        this.name = "JavaScript"
     }
 
     async check(): Promise<Message[]> {
