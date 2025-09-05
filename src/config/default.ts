@@ -135,7 +135,7 @@ const config: IConfig = {
         performance: {
             "viewport-insight":MessageType.warning,
             "uses-passive-event-listeners":MessageType.warning,
-            "uses-long-cache-ttl": MessageType.error,
+            "uses-long-cache-ttl": MessageType.warning,
             "user-timings": MessageType.disable,
             "unused-javascript": MessageType.error,
             "unused-css-rules":MessageType.warning,
@@ -179,7 +179,7 @@ const config: IConfig = {
             "diagnostics": MessageType.disable,
             "cumulative-layout-shift": MessageType.error,
             "cls-culprits-insight": MessageType.error,
-            "cache-insight": MessageType.error,
+            "cache-insight": MessageType.warning,
             "bootup-time": MessageType.error,
             "bf-cache": MessageType.warning,
         },
