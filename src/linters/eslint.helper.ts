@@ -230,14 +230,14 @@ export class EslintHelper {
 
         const conf = defineConfig({
             plugins: {
-            //    'sonarjs': sonarjs,
+                'sonarjs': sonarjs,
                 'security': security
             },
             // @ts-ignore
             rules: {
                 ...eslintRules,
                 ...security.configs.recommended.rules,
-              //  ...sonarjs.configs.recommended.rules,
+                ...sonarjs.configs.recommended.rules,
             }
         })
         const eslint = new ESLint({

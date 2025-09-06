@@ -111,15 +111,16 @@ Options:
           Path to the JSON config file
           Possible Values: <relative path|absolute path>
 
+  -q, --quite [boolean]            
+          Print only errors
+          Possible Values: <boolean>
+           (default: "true")
+           
   -v, --version
           Print current version
 
-
   -h, --help
           Print help
-
-
-
 
 Current version: 0.1.4
 
@@ -186,8 +187,7 @@ Default Config is:
 
 ## Output
 
-#### Example output 
-![img.png](docs/img/img.png)
+#### Example output
 
 The CLI process may exit with the following codes:
 
@@ -200,6 +200,7 @@ The CLI process may exit with the following codes:
 
 - rules properties
 - mode `production`, `develop` or `release`
+- source `url` or `static`
 - configuration custom modules
 - configuration custom rules
 - support plugins 

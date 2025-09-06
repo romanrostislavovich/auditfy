@@ -5,7 +5,7 @@ import {SeoAudit} from './modules/seo/seo';
 import {A11yAudit} from './modules/a11y/a11y';
 import {PerformanceAudit} from './modules/perfomance/performance';
 import {Message} from "./models/message.model";
-import {MessageType} from "./enum/message.enum";
+import {consoleMessageMap, MessageType} from "./enum/message.enum";
 import {HtmlAudit} from "./modules/html/html";
 import {CssAudit} from "./modules/css/css";
 import * as cheerio from "cheerio";
@@ -29,6 +29,18 @@ import {ESLint} from "eslint";
 const toolName: string = 'website-auditfy';
 const packageJson: any = JsonFileUtils.parseFile(JsonFileUtils.getPackageJsonPath());
 
+const quiteOption = new OptionModel({
+    required: false,
+    longName: 'quite',
+    shortName: 'q',
+    beta: false,
+    type: ArgumentTypes.boolean,
+    description: "Print only errors",
+    values: [
+        "boolean"
+    ],
+    default: 'true',
+})
 const versionOption = new OptionModel({
     required: false,
     longName: 'version',
@@ -96,6 +108,7 @@ program
     .description(docs.description)
     .argument(sourceOption.getFlag(), sourceOption.getDescription())
     .option(configOption.getFlag(), configOption.getDescription(), configOption.default)
+    .option(quiteOption.getFlag(), quiteOption.getDescription(), true)
     .helpOption(helpOption.getFlag(), helpOption.getDescription())
     .version(packageJson.version, versionOption.getFlag(), versionOption.getDescription())
     .addHelpText(`afterAll`, docs.examples)
@@ -103,7 +116,7 @@ program
 
 program.parse(process.argv);
 
-async function run(path: any, options: any) {
+async function run(path: any, options: any, ...args: any[]) {
     const spinner = ora('Running audits...').start();
     const currentDataLogger = Date.now();
     try {
@@ -149,30 +162,15 @@ async function run(path: any, options: any) {
 
         console.log(chalk.green.bold('\nAudit Report'));
         for (const [section, result] of Object.entries(results)) {
+            let clearMessageList = lintResultQuite(options.quite, result);
             console.log(`\n${chalk.cyan(section.toUpperCase())}`);
-            if(result.length === 0 || result.every(x => x.type === MessageType.passed)) {
-                console.log(
-                    `- ${chalk.green('✔') } all tests are  passed`
-                )
+            if(clearMessageList.length === 0 || result.every(x => x.type === MessageType.passed)) {
+                console.log(`- ${chalk.green('✔') } all tests are  passed`)
             } else {
-                result.forEach((r: Message) => {
-                    if (r.type !== MessageType.disable) {
-                        console.log(`- ${r.type === MessageType.passed ?
-                            chalk.green('✔') :  r.type === MessageType.warning ?
-                                chalk.yellow('⚠') : chalk.red('✘')} ${r.message}`)
-                    }
-
-                });
+                clearMessageList.filter((message) => console.log(`- ${consoleMessageMap.get(message.type)} ${message.message}`))
             }
-
         }
 
-
-        if (options.output) {
-            const fs = await import('fs/promises');
-            await fs.writeFile(options.output, JSON.stringify(results, null, 2));
-            console.log(`\nResults saved to ${options.output}`);
-        }
 
         console.log(`\n Total working time: ${(Date.now() - currentDataLogger) / 1000}s`);
         const auditHasError = Object.values(results)
@@ -351,4 +349,14 @@ async function getLightHouseResult(source: SourceModel): Promise<RunnerResult> {
 async function getEsLintResult(source: SourceModel, dom: CheerioAPI): Promise<ESLint.LintResult[]>  {
     const jsFiles = EslintHelper.getJavaScriptFiles(source, dom)
     return await EslintHelper.getEslintResult(jsFiles);
+}
+
+function lintResultQuite(quietOption: boolean, result:  Message[]) {
+    let clearMessageList;
+    if (quietOption) {
+        clearMessageList = result.filter(x => x.type === MessageType.error);
+    } else {
+        clearMessageList = result.filter(x => x.type !== MessageType.disable);
+    }
+    return clearMessageList;
 }
