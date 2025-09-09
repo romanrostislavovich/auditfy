@@ -32,8 +32,8 @@ This application try to merge all of them to one tool with simplify using.
 
 This tool included following modules: 
 
-- HTML  -  `status: 81 rules.` [List of html rules](/docs/rules/html.rules.md)
-- CSS  -  `status: 148 rules.` [List of css rules](./docs/rules/css.rules.md);
+- HTML  -  `status: 81 rules.` [List of HTML rules](/docs/rules/html.rules.md)
+- CSS  -  `status: 148 rules.` [List of CSS rules](./docs/rules/css.rules.md);
 - JavaScript - `status: 100+ rules from eslint.` [List of JavaScript rules](/docs/rules/JavaScript.rules.md)
 - Security - `status: 16 rules.` [List of security rules](/docs/rules/security.rules.md)
 - SEO  - `status: 20 rules`[List of SEO rules](/docs/rules/seo.rules.md)
@@ -110,12 +110,14 @@ Options:
   -c, --config [path]              
           Path to the JSON config file
           Possible Values: <relative path|absolute path>
-
   -q, --quite [boolean]            
-          Print only errors
+          Print only errors and warnings
           Possible Values: <boolean>
            (default: "true")
-           
+  -w, --max-warning [number]
+          Number of warnings to trigger -1 exit code
+          Possible Values: <number>
+                   
   -v, --version
           Print current version
 
