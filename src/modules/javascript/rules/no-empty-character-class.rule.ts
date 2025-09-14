@@ -18,8 +18,8 @@ export class NoEmptyCharacterClassRule implements RuleInterface {
     ruleFlow!: MessageType;
     htmlValidator: Result[];
     eslint: ESLint.LintResult[];
-    description: string = "No empty character classes in regular expressions.";
-    ruleUrl: string = 'http://eslint.org/docs/rules/no-empty-character-class';
+    description: string = `Empty character classes should not be used`;
+    ruleUrl: string = 'https://sonarsource.github.io/rspec/#/rspec/S2639/javascript';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[], eslint: ESLint.LintResult[]) {
         this.dom = dom;

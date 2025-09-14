@@ -18,8 +18,8 @@ export class NoControlRegexRule implements RuleInterface {
     ruleFlow!: MessageType;
     htmlValidator: Result[];
     eslint: ESLint.LintResult[];
-    description: string = "No control characters in regular expressions.";
-    ruleUrl: string = 'http://eslint.org/docs/rules/no-control-regex';
+    description: string = `Regular expressions should not contain control characters`;
+    ruleUrl: string = 'https://sonarsource.github.io/rspec/#/rspec/S6324/javascript';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[], eslint: ESLint.LintResult[]) {
         this.dom = dom;

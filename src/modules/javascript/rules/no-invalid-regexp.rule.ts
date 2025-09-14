@@ -18,8 +18,8 @@ export class NoInvalidRegexpRule implements RuleInterface {
     ruleFlow!: MessageType;
     htmlValidator: Result[];
     eslint: ESLint.LintResult[];
-    description: string = "No invalid regular expression strings in  RegExp constructors.";
-    ruleUrl: string = 'http://eslint.org/docs/rules/no-invalid-regexp';
+    description: string = `Regular expressions should be syntactically valid`;
+    ruleUrl: string = 'https://sonarsource.github.io/rspec/#/rspec/S5856/javascript';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[], eslint: ESLint.LintResult[]) {
         this.dom = dom;

@@ -120,7 +120,7 @@
 | [yoda](http://eslint.org/docs/rules/yoda) | Avoid Yoda conditions.
 
 
-## Rules
+## SonarJS
 
 <!-- begin auto-generated rules list -->
 

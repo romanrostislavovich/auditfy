@@ -18,8 +18,8 @@ export class NoFallthroughRule implements RuleInterface {
     ruleFlow!: MessageType;
     htmlValidator: Result[];
     eslint: ESLint.LintResult[];
-    description: string = "Use break to prevent fallthrough in switch cases.";
-    ruleUrl: string = 'http://eslint.org/docs/rules/no-fallthrough';
+    description: string = `Switch cases should end with an unconditional "break" statement`;
+    ruleUrl: string = 'https://sonarsource.github.io/rspec/#/rspec/S128/javascript';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[], eslint: ESLint.LintResult[]) {
         this.dom = dom;

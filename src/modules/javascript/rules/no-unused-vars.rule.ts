@@ -18,8 +18,8 @@ export class NoUnusedVarsRule implements RuleInterface {
     ruleFlow!: MessageType;
     htmlValidator: Result[];
     eslint: ESLint.LintResult[];
-    description: string = "No unused variables.";
-    ruleUrl: string = 'http://eslint.org/docs/rules/no-unused-vars';
+    description: string = `Unused local variables and functions should be removed`;
+    ruleUrl: string = 'https://sonarsource.github.io/rspec/#/rspec/S1481/javascript';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[], eslint: ESLint.LintResult[]) {
         this.dom = dom;

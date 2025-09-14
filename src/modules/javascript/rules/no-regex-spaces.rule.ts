@@ -18,8 +18,8 @@ export class NoRegexSpacesRule implements RuleInterface {
     ruleFlow!: MessageType;
     htmlValidator: Result[];
     eslint: ESLint.LintResult[];
-    description: string = "Avoid multiple spaces in regular expression literals.";
-    ruleUrl: string = 'http://eslint.org/docs/rules/no-regex-spaces';
+    description: string = `Regular expressions should not contain multiple spaces`;
+    ruleUrl: string = 'https://sonarsource.github.io/rspec/#/rspec/S6326/javascript';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[], eslint: ESLint.LintResult[]) {
         this.dom = dom;

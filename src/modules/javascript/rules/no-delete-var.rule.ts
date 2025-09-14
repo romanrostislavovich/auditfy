@@ -18,8 +18,8 @@ export class NoDeleteVarRule implements RuleInterface {
     ruleFlow!: MessageType;
     htmlValidator: Result[];
     eslint: ESLint.LintResult[];
-    description: string = "No delete operator on variables.";
-    ruleUrl: string = 'http://eslint.org/docs/rules/no-delete-var';
+    description: string = `"delete" should be used only with object properties`;
+    ruleUrl: string = 'https://sonarsource.github.io/rspec/#/rspec/S3001/javascript';
 
     constructor(dom: CheerioAPI, lightHouse: LightHouseAuditType, htmlValidator: Result[], eslint: ESLint.LintResult[]) {
         this.dom = dom;
