@@ -26,6 +26,8 @@ export enum RuleLanguage {
 export enum RuleMode {
     PRODUCTION = 'production',
     DEVELOPMENT = 'development',
+    RELEASE = 'release',
+    TESTING = 'testing'
 }
 
 export interface RuleInterface {
@@ -40,9 +42,9 @@ export interface RuleInterface {
     eslint?: ESLint.LintResult[];
     configurable?: boolean;
     recommended?: boolean;
-    mode?: RuleMode;
-    module?: RuleModule;
-    language?:RuleLanguage;
+    mode?: RuleMode[];
+    module?: RuleModule[];
+    language?:RuleLanguage[];
 
     check(): Message[];
 }
