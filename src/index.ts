@@ -25,6 +25,8 @@ import {JsonFileUtils} from "./utils/json-file.utils";
 import {config as defaultConfig, IConfig} from './config/default'
 import {EslintHelper} from "./linters/eslint.helper";
 import {ESLint} from "eslint";
+import {HtmlValidatorUtils} from "./linters/html-validator.helper";
+import {StylelintHelper} from "./linters/stylelint.helper";
 
 const toolName: string = 'website-auditfy';
 const packageJson: any = JsonFileUtils.parseFile(JsonFileUtils.getPackageJsonPath());
@@ -128,17 +130,16 @@ program
 
 program.parse(process.argv);
 
-async function run(path: any, options: any, ...args: any[]) {
+async function run(path: any, options: any) {
     const spinner = ora('Running audits...').start();
     const currentDataLogger = Date.now();
     try {
         const source = SourceModel.create(path);
         const dom = await getCheerioDOM(source);
-        const eslint = await getEsLintResult(source, dom);
+        const eslint = await getEsLintResult(source);
+        const stylelint = await getStyleLintResult(source);
         const lighthouse = await getLightHouseResult(source);
-        const htmlValidator = await getHtmlValidatorResult(source);
-
-        debugger;
+        const htmlValidator = await getHTMLValidatorResult(source);
 
         const staticModules = [
             SeoAudit,
@@ -212,136 +213,6 @@ async function getCheerioDOM(source: SourceModel): Promise<CheerioAPI> {
         cheerio.load(await readFile(source.file.relativePath, 'utf-8'));
 }
 
-async function getHtmlValidatorResult(source: SourceModel): Promise<Result[]> {
-    const htmlValidate = new HtmlValidate({
-        rules: {
-            // Security
-            'require-csp-nonce': "warn",
-            'require-sri': "warn",
-            // End Security
-
-            // Style Block
-            'attr-case': "warn",
-            'attr-pattern': "warn",
-            'attr-quotes': "warn",
-            'attribute-boolean-style': "warn",
-            'attribute-empty-style': "warn",
-            'class-pattern': "warn",
-            'doctype-style': "warn",
-            'element-case': "warn",
-            'id-pattern': "warn",
-            'name-pattern': "warn",
-            'no-implicit-close': "warn",
-            'no-implicit-input-type': "warn",
-            'no-inline-style': "warn",
-            'no-self-closing': "warn",
-            'no-style-tag': "warn",
-            'no-trailing-whitespace': "warn",
-            'prefer-button': "warn",
-            'prefer-tbody': "warn",
-            'void-style': "warn",
-            // End Style Block
-
-            // Accessibility
-            'area-alt': "warn",
-            'aria-hidden-body': "warn",
-            'aria-label-misuse': "warn",
-            'empty-heading': "warn",
-            'empty-title': "warn",
-            'hidden-focusable': "warn",
-            'input-missing-label': "warn",
-            'meta-refresh': "warn",
-            'multiple-labeled-controls': "warn",
-            'no-abstract-role': "warn",
-            'no-autoplay': "warn",
-            'no-implicit-button-type': "warn",
-            'no-redundant-aria-label': "warn",
-            'no-redundant-role': "warn",
-            'prefer-native-element': "warn",
-            'svg-focusable': "warn",
-            'tel-non-breaking': "warn",
-            'text-content': "warn",
-            'unique-landmark': "warn",
-            'wcag/h30': "warn",
-            'wcag/h36': "warn",
-            'wcag/h37': "warn",
-            'wcag/h63': "warn",
-            'wcag/h67': "warn",
-            'wcag/h71': "warn",
-            // End Accessibility
-
-            // Deprecated
-            'deprecated': "warn",
-            'deprecated-rule': "warn",
-            'no-conditional-comment': "warn",
-            'no-deprecated-attr': "warn",
-            // End Deprecated
-
-            // Document
-            'allowed-links': "warn",
-            'doctype-html': "warn",
-            'heading-level': "warn", // - ??
-            'missing-doctype': "warn",
-            'no-dup-id': "warn",
-            'no-missing-references': "warn",
-            'no-utf8-bom': "warn",
-            // End Document
-
-            // Uncategorized
-            'no-unknown-elements': "warn",
-            'no-unused-disable': "warn",
-            // End Uncategorized
-
-
-            // Content model
-            'attribute-allowed-values': "warn",
-            'attribute-misuse': "warn",
-            'element-permitted-content': "warn",
-            'element-permitted-occurrences': "warn",
-            'element-permitted-order': "warn",
-            'element-permitted-parent': "warn",
-            'element-required-ancestor': "warn",
-            'element-required-attributes': "warn",
-            'element-required-content': "warn",
-            'input-attributes': "warn",
-            'no-multiple-main': "warn",
-            'script-element': "warn",
-            'void-content': "warn",
-            // End Content model
-
-            // HTML Syntax and concepts
-            'attr-delimiter': "warn",
-            'attr-spacing': "warn",
-            'close-attr': "warn",
-            'close-order': "warn",
-            'element-name': "warn",
-            'form-dup-name': "warn",
-            'map-dup-name': "warn",
-            'map-id-name': "warn",
-            'no-dup-attr': "warn",
-            'no-dup-class': "warn",
-            'no-raw-characters': "warn",
-            'no-redundant-for': "warn",
-            'script-type': "warn",
-            'unrecognized-char-ref': "warn",
-            'valid-autocomplete': "warn",
-            'valid-id': "warn",
-            // End HTML Syntax and concepts
-        },
-    });
-
-    let result;
-    if (source.isURL) {
-        const website = await fetch(source.url);
-        const data = await website.text()
-        result = await htmlValidate.validateString(data);
-    } else {
-        result = await htmlValidate.validateFile(source.file.relativePath);
-    }
-
-    return result.results;
-}
-
 async function getLightHouseResult(source: SourceModel): Promise<RunnerResult> {
     const PORT: number = 9900;
     const path = source.isURL ? source.url : `http://localhost:${PORT}/${source.file.filename}`;
@@ -366,9 +237,19 @@ async function getLightHouseResult(source: SourceModel): Promise<RunnerResult> {
     return result || {} as RunnerResult;
 }
 
-async function getEsLintResult(source: SourceModel, dom: CheerioAPI): Promise<ESLint.LintResult[]>  {
-    const jsFiles = EslintHelper.getJavaScriptFiles(source, dom)
+async function getHTMLValidatorResult(source: SourceModel) {
+    const htmlFiles = await HtmlValidatorUtils.getHTMLFiles(source);
+    return await HtmlValidatorUtils.getHTMLValidatorResult(htmlFiles);
+}
+
+async function getEsLintResult(source: SourceModel): Promise<ESLint.LintResult[]>  {
+    const jsFiles = await EslintHelper.getJavaScriptFiles(source)
     return await EslintHelper.getEslintResult(jsFiles);
+}
+
+async function getStyleLintResult(source: SourceModel) {
+    const cssFiles = await StylelintHelper.getCSSFiles(source);
+    return await StylelintHelper.getStyleLintResult(cssFiles);
 }
 
 function lintResultQuite(quietOption: boolean, result:  Message[]) {

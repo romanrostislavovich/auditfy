@@ -9,6 +9,8 @@ import path from "node:path";
 import security from "eslint-plugin-security";
 import sonarjs from 'eslint-plugin-sonarjs';
 import { defineConfig } from "eslint/config";
+import {CheerioUtils} from "../utils/cheerio.utils";
+import {HtmlValidatorUtils} from "./html-validator.helper";
 
 export const eslintRules = {
 
@@ -179,8 +181,10 @@ export class EslintHelper {
         return ruleMessages;
     }
 
-    static async getEslintResult(jsFiles: string[]): Promise<ESLint.LintResult[]> {
-
+    static async getEslintResult(sources: SourceModel[]): Promise<ESLint.LintResult[]> {
+        if (sources.length === 0) {
+            return Promise.resolve([]);
+        }
         const conf = defineConfig({
             plugins: {
                 'sonarjs': sonarjs,
@@ -198,50 +202,51 @@ export class EslintHelper {
             baseConfig: conf,
         });
 
-         if (jsFiles.length === 0) {
-            return Promise.resolve([]);
-        }
+
         const eslintResult: ESLint.LintResult[] = [];
-        const urlFileList = jsFiles.filter(x => (x.includes('http') || x.includes('https')));
-        const staticFileList = jsFiles.filter(x => !(x.includes('http') && x.includes('https')))
-        const urlFilesContent = urlFileList.map(async (x) => await URLUtils.download(x))
+        const urlFileList = sources.filter(x => x.isURL);
+        const staticFileList = sources.filter(x => !x.isURL)
+        const urlFilesContent = urlFileList.map(async (x) => await URLUtils.download(x.url))
 
         if (urlFilesContent.length !== 0) {
             for (const urlFile of urlFilesContent) {
                 const index = urlFilesContent.indexOf(urlFile);
                 const lintFileResult = await eslint.lintText(await urlFile, {
-                    filePath: path.basename(urlFileList[index])
+                    filePath: urlFileList[index].file.filename
                 });
                 eslintResult.push(...lintFileResult);
             }
         }
 
         if (staticFileList.length !== 0) {
-            eslintResult.push(...await eslint.lintFiles(staticFileList));
+            eslintResult.push(...await eslint.lintFiles(staticFileList.map(x=> x.file.absolutePath)));
         }
         return eslintResult;
 
     }
-    static getJavaScriptFiles(source: SourceModel, dom: CheerioAPI): string[] {
-        const jsFiles: string[] = [];
+    static async getJavaScriptFiles(source: SourceModel): Promise<SourceModel[]> {
+        const jsFiles: SourceModel[] = [];
 
         if(!source.isURL) {
-            jsFiles.push(...globSync(`${source.file.dir}/**/*.js`))
+            const files = globSync(`${source.file.dir}/**/*.js`);
+            jsFiles.push(...files.map((file) => SourceModel.create(file)))
         }
 
-        dom('script').each((i, elem) => {
-            const src = dom(elem).attr('src');
-            if (src) {
-                if (src?.startsWith("http") || src?.startsWith("https")) {
-                    jsFiles.push(src);
-                } else {
-                    const prefixPath = source.isURL ? source.url : source.file.dir;
-                    jsFiles.push(`${prefixPath}/${src}`);
+        if (source.isURL) {
+            const dom = await CheerioUtils.getDOM(source);
+            dom('script').each((i, elem) => {
+                const src = dom(elem).attr('src');
+                if (src) {
+                    if (src?.startsWith("http") || src?.startsWith("https")) {
+                        jsFiles.push(SourceModel.create(src));
+                    } else {
+                        const prefixPath = source.isURL ? source.url : source.file.dir;
+                        jsFiles.push(SourceModel.create(`${prefixPath}/${src}`));
+                    }
                 }
-            }
-        });
-
-        return [...new Set(jsFiles)];
+            });
+        }
+        return jsFiles;
     }
 
 }

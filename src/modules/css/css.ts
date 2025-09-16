@@ -32,9 +32,9 @@ export class CssAudit extends Audit {
     }
 
    async check(): Promise<Message[]> {
-       const cssFiles = StylelintHelper.getCSSFiles(this.source, this.dom);
-       const ruleImportList = await this.getRuleImportList(__dirname);
+       const cssFiles = await StylelintHelper.getCSSFiles(this.source);
        const styleLintResult = await StylelintHelper.getStyleLintResult(cssFiles);
+       const ruleImportList = await this.getRuleImportList(__dirname);
 
        const ruleInstanceList = ruleImportList.reduce<RuleInstanceListType>((list, rule: any) => {
            const instance = new rule(this.dom, this.lighthouse.lhr.audits, this.htmlValidator, styleLintResult);

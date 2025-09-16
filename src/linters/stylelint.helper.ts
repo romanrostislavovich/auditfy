@@ -8,6 +8,8 @@ import path from "node:path";
 import {SourceModel} from "../models/source.model";
 import {CheerioAPI} from "cheerio";
 import {globSync} from "glob";
+import {CheerioUtils} from "../utils/cheerio.utils";
+import {HtmlValidatorUtils} from "./html-validator.helper";
 
 export class StylelintHelper {
     // TODO: performance issue: Run identifyRule loop outside of each rule
@@ -31,8 +33,8 @@ export class StylelintHelper {
         return messages;
     }
 
-    static async getStyleLintResult(cssFiles: string[]): Promise<stylelint.LinterResult[]> {
-        if (cssFiles.length === 0) {
+    static async getStyleLintResult(sources: SourceModel[]): Promise<stylelint.LinterResult[]> {
+        if (sources.length === 0) {
             return []
         }
 
@@ -43,16 +45,16 @@ export class StylelintHelper {
         }
 
         const styleLintResult: stylelint.LinterResult[] = [];
-        const urlFileList = cssFiles.filter(x => (x.includes('http') || x.includes('https')));
-        const staticFileList = cssFiles.filter(x => !(x.includes('http') && x.includes('https')))
-        const urlFilesContent = urlFileList.map(async (x) => await URLUtils.download(x))
+        const urlFileList = sources.filter(x => x.isURL);
+        const staticFileList = sources.filter(x => !x.isURL)
+        const urlFilesContent = urlFileList.map(async (x) => await URLUtils.download(x.url))
 
         if(urlFilesContent.length !== 0) {
             for (const urlFile of urlFilesContent) {
                 const index = urlFilesContent.indexOf(urlFile);
                 const lintFileResult = await stylelint.lint({
                     code: await urlFile,
-                    codeFilename:  path.basename(urlFileList[index]),
+                    codeFilename: urlFileList[index].file.filename,
                     ...stylelintConfig,
                 })
                 styleLintResult.push(lintFileResult);
@@ -62,31 +64,37 @@ export class StylelintHelper {
 
         if (staticFileList.length !== 0) {
             styleLintResult.push(await stylelint.lint({
-                files: staticFileList,
+                files: staticFileList.map(x => x.file.absolutePath),
                 ...stylelintConfig,
             }));
         }
         return styleLintResult;
     }
-    static getCSSFiles(source: SourceModel, dom: CheerioAPI): string[] {
-        const cssFiles: string[] = [];
+
+
+    static async getCSSFiles(source: SourceModel): Promise<SourceModel[]> {
+        const cssFiles: SourceModel[] = [];
 
         if(!source.isURL) {
-            cssFiles.push(...globSync(`${source.file.dir}/**/*.css`))
+            const files = globSync(`${source.file.dir}/**/*.css`);
+            cssFiles.push(...files.map((file) => SourceModel.create(file)))
         }
 
-        dom('link[rel="stylesheet"]').each((i, elem) => {
-            const href = dom(elem).attr('href');
-            if (href) {
-                if (href?.startsWith("http") || href?.startsWith("https")) {
-                    cssFiles.push(href);
-                } else {
-                    const prefixPath = source.isURL ? source.url : source.file.dir;
-                    cssFiles.push(`${prefixPath}/${href}`);
+        if (source.isURL) {
+            const dom = await CheerioUtils.getDOM(source);
+            dom('link[rel="stylesheet"]').each((i, elem) => {
+                const href = dom(elem).attr('href');
+                if (href) {
+                    if (href?.startsWith("http") || href?.startsWith("https")) {
+                        cssFiles.push(SourceModel.create(href));
+                    } else {
+                        const prefixPath = source.isURL ? source.url : source.file.dir;
+                        cssFiles.push(SourceModel.create(`${prefixPath}/${href}`));
+                    }
                 }
-            }
-        });
+            });
+        }
 
-        return [...new Set(cssFiles)];
+        return cssFiles;
     }
 }
