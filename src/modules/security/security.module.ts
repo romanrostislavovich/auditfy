@@ -1,7 +1,7 @@
 import {Audit} from "../../models/audit.model";
 import {File} from "../../models/file.model";
 import {CheerioAPI} from "cheerio";
-import {RunnerResult} from "lighthouse";
+// import {RunnerResult} from "lighthouse";
 import {Message} from "../../models/message.model";
 import { Result} from "html-validate";
 import {RequireCspNonceRule} from "./rules/require-csp-nonce.rule";
@@ -23,7 +23,7 @@ export class SecurityModule extends Audit {
         source: SourceModel,
         config: IConfig,
         dom: CheerioAPI,
-        lightHouse: RunnerResult,
+        lightHouse: any,
         htmlValidator: Result[],
         eslint: ESLint.LintResult[],
     ) {

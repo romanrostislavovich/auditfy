@@ -1,5 +1,5 @@
-import lighthouse, { Gatherer, RunnerResult} from 'lighthouse';
-import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
+// import lighthouse, { Gatherer, RunnerResult} from 'lighthouse';
+// import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import {Message} from "../../models/message.model";
 import {TotalBlockingTimeRule} from "./rules/total-blocking-time.rule";
 import {CumulativeLayoutShiftRule} from "./rules/cumulative-layout-shift.rule";
@@ -21,7 +21,7 @@ export class PerformanceAudit extends Audit {
         source: SourceModel,
         config: IConfig,
         dom: CheerioAPI,
-        lightHouse: RunnerResult,
+        lightHouse: any,
         htmlValidator: Result[],
         eslint: ESLint.LintResult[],
     ) {

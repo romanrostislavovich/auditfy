@@ -2,7 +2,7 @@ import * as stylelint from 'stylelint';
 import {Message} from "../../models/message.model";
 import {CheerioAPI} from "cheerio";
 import {Audit} from "../../models/audit.model";
-import {RunnerResult} from "lighthouse";
+// import {RunnerResult} from "lighthouse";
 import {Result} from "html-validate";
 import {SourceModel} from "../../models/source.model";
 import {IConfig} from "../../config/default";
@@ -17,7 +17,7 @@ export class CssAudit extends Audit {
         source: SourceModel,
         config: IConfig,
         dom: CheerioAPI,
-        lightHouse: RunnerResult,
+        lightHouse: any,
         htmlValidator: Result[],
         eslint: ESLint.LintResult[],
     ) {

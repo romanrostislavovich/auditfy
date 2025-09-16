@@ -5,7 +5,7 @@ import {MessageType} from "../../enum/message.enum";
 import {File} from '../../models/file.model'
 import {Audit} from "../../models/audit.model";
 import {CheerioAPI} from "cheerio";
-import {RunnerResult} from "lighthouse";
+// import {RunnerResult} from "lighthouse";
 import {Result} from "html-validate";
 import {SourceModel} from "../../models/source.model";
 import {RuleInterface} from "../../models/rule.model";
@@ -18,7 +18,7 @@ export class A11yAudit extends Audit {
         source: SourceModel,
         config: IConfig,
         dom: CheerioAPI,
-        lightHouse: RunnerResult,
+        lightHouse: any,
         htmlValidator: Result[],
         eslint: ESLint.LintResult[],
     ) {

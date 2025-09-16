@@ -36,7 +36,7 @@ export interface RuleInterface {
     tags?: string[];
     ruleFlow: MessageType;
     ruleUrl?: string;
-    lightHouse: LightHouseAuditType;
+     lightHouse: LightHouseAuditType;
     description: string;
     htmlValidator?: Result[];
     eslint?: ESLint.LintResult[];

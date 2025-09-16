@@ -1,7 +1,7 @@
 import {CheerioAPI} from "cheerio";
 import { File } from './file.model';
 import {Message} from "./message.model";
-import {RunnerResult} from "lighthouse";
+// import {RunnerResult} from "lighthouse";
 import {Result} from "html-validate";
 import {SourceModel} from "./source.model";
 import {IConfig, RuleTypes} from "../config/default";
@@ -18,7 +18,7 @@ export abstract class Audit {
     config!: IConfig;
     source!: SourceModel;
     eslint!: ESLint.LintResult[];
-    lighthouse!: RunnerResult;
+    lighthouse!: any;
     description!: string;
     htmlValidator!: Result[];
 

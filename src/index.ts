@@ -15,7 +15,7 @@ import {readFile} from "fs/promises";
 import http from "node:http";
 import handler from "serve-handler";
 import {killAll, launch} from "chrome-launcher";
-import lighthouse, {RunnerResult} from "lighthouse";
+// import lighthouse, {RunnerResult} from "lighthouse";
 import {SecurityModule} from "./modules/security/security.module";
 import {HtmlValidate, Result} from "html-validate";
 import {SourceModel} from "./models/source.model";
@@ -167,7 +167,7 @@ async function run(path: any, options: any) {
 
         const results = await modules.reduce<Promise<{ [k: string]: Message[] }>>(async (result, module) => {
             const res = await result;
-            const instance = new module(source, config, dom, lighthouse, htmlValidator, eslint);
+             const instance = new module(source, config, dom, lighthouse, htmlValidator, eslint);
             res[instance.name] = await instance.check();
             return result;
         }, Promise.resolve({}))
@@ -213,7 +213,7 @@ async function getCheerioDOM(source: SourceModel): Promise<CheerioAPI> {
         cheerio.load(await readFile(source.file.relativePath, 'utf-8'));
 }
 
-async function getLightHouseResult(source: SourceModel): Promise<RunnerResult> {
+async function getLightHouseResult(source: SourceModel): Promise<any> {
     const PORT: number = 9900;
     const path = source.isURL ? source.url : `http://localhost:${PORT}/${source.file.filename}`;
     const dir = source.isURL ? process.cwd() : source.file.dir;
@@ -225,7 +225,7 @@ async function getLightHouseResult(source: SourceModel): Promise<RunnerResult> {
     await new Promise(resolve => server.listen(PORT, resolve));
 
     const chrome = await launch({ chromeFlags: ['--headless'] });
-
+/*
     const result = await lighthouse(path, {
         port: chrome.port,
         output: 'json',
@@ -233,8 +233,13 @@ async function getLightHouseResult(source: SourceModel): Promise<RunnerResult> {
     });
     killAll();
     server.close();
-
-    return result || {} as RunnerResult;
+*/
+    return {
+        lhr: {
+            audits: []
+        }
+    };
+    // return result || {} as RunnerResult;
 }
 
 async function getHTMLValidatorResult(source: SourceModel) {

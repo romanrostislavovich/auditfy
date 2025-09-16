@@ -1,7 +1,7 @@
 import {Message} from "../../models/message.model";
 import {Cheerio, CheerioAPI} from "cheerio";
 import {Audit} from "../../models/audit.model";
-import {RunnerResult} from "lighthouse";
+// import {RunnerResult} from "lighthouse";
 
 import {Result} from "html-validate";
 import {SourceModel} from "../../models/source.model";
@@ -16,7 +16,7 @@ export class SeoAudit extends Audit {
         source: SourceModel,
         config: IConfig,
         dom: CheerioAPI,
-        lightHouse: RunnerResult,
+        lightHouse: any,
         htmlValidator: Result[],
         eslint: ESLint.LintResult[],
     ) {

@@ -1,6 +1,6 @@
 {
   "author": "Raman Lauryniuk <romanrostislavovich@gmail.com>",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "name": "website-auditfy",
   "description": "",
   "main": "dist/src/index.js",
@@ -61,7 +61,6 @@
     "eslint-plugin-sonarjs": "^3.0.4",
     "glob": "^11.0.3",
     "html-validate": "^9.7.1",
-    "lighthouse": "^12.7.0",
     "ora": "^8.2.0",
     "puppeteer": "^24.11.1",
     "serve-handler": "^6.1.6",

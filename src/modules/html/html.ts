@@ -2,7 +2,7 @@ import {CLI, Message as MessageHtml, Result} from "html-validate";
 import {Message} from "../../models/message.model";
 import {Audit} from "../../models/audit.model";
 import {CheerioAPI} from "cheerio";
-import {RunnerResult} from "lighthouse";
+// import {RunnerResult} from "lighthouse";
 import {SourceModel} from "../../models/source.model";
 import {RuleInterface} from "../../models/rule.model";
 import {IConfig} from "../../config/default";
@@ -14,7 +14,7 @@ export class HtmlAudit extends Audit {
         source: SourceModel,
         config: IConfig,
         dom: CheerioAPI,
-        lightHouse: RunnerResult,
+        lightHouse: any,
         htmlValidator: Result[],
         eslint: ESLint.LintResult[],
     ) {

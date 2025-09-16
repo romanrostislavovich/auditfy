@@ -2,7 +2,6 @@
 import { RuleInterface} from "../../../models/rule.model";
 import {Message} from "../../../models/message.model";
 import {MessageType} from "../../../enum/message.enum";
-import {Result as AuditResult} from "lighthouse/types/lhr/audit-result";
 import {CheerioAPI} from "cheerio";
 import {Result} from "html-validate";
 import {LightHouseAuditType} from "../../../types/modules.type";

@@ -5,6 +5,7 @@ import {LightHouseAuditType} from "../types/modules.type";
 
 export class LighthouseHelper {
     static identifyRule(ruleId: string, ruleFlow: MessageType, lighthouse: LightHouseAuditType, minScore = 0.9) {
+        return [];
         const ruleResult = lighthouse[ruleId];
         const ruleScore = ruleResult.score || 0;
         return [
