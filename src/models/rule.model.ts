@@ -5,6 +5,7 @@ import {CheerioAPI} from "cheerio";
 import {Result} from "html-validate";
 import {LightHouseAuditType} from "../types/modules.type";
 import {ESLint} from "eslint";
+import { AxeResults} from 'axe-core';
 
 export enum RuleModule {
     SEO = 'SEO',
@@ -30,22 +31,40 @@ export enum RuleMode {
     TESTING = 'testing'
 }
 
-export interface RuleInterface {
-    id: string;
-    dom: CheerioAPI;
-    tags?: string[];
-    ruleFlow: MessageType;
-    ruleUrl?: string;
-     lightHouse: LightHouseAuditType;
-    description: string;
-    htmlValidator?: Result[];
-    eslint?: ESLint.LintResult[];
+export enum RuleSource {
+    EsLint = 'EsLint',
+    AxeCore = 'AxeCore',
+    HtmlValidator = 'HTMLValidator',
+    StyleLint = 'StyleLint'
+}
+
+export type lintersResults = {
+    EsLint?: ESLint.LintResult[];
+    StyleLint?: ESLint.LintResult[];
+    HTMLValidator?: Result[];
+    cheerioDOM?: CheerioAPI;
+    AxeCore?: AxeResults;
+}
+
+export type RuleInformation = {
     configurable?: boolean;
-    recommended?: boolean;
+    defaultBehavior?: MessageType;
     mode?: RuleMode[];
     module?: RuleModule[];
     language?:RuleLanguage[];
+    tags?: string[];
+    ruleUrl?: string;
+    description?: string;
+    deprecated?: boolean;
+}
 
+export interface RuleInterface {
+    id: string;
+    ruleFlow: MessageType;
+    ruleSource: RuleSource;
+    ruleSourceId?: string;
+    lintersResults: lintersResults;
+    ruleInformation?: RuleInformation;
     check(): Message[];
 }
 
